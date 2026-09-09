@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1f5f8b">
+  <meta name="description" content="THT Customer Experience Survey">
+  <title>THT Customer Experience Survey</title>
+
+  <link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="assets/logo.jpg" alt="THT logo" class="brand-logo" width="64" height="64">
+        <div>
+          <strong id="brandName"></strong>
+          <span id="brandSubtitle"></span>
+        </div>
+      </div>
+      <div class="lang-switch" aria-label="Language">
+        <button class="lang-btn active" data-lang="vi" type="button">VI</button>
+        <button class="lang-btn" data-lang="en" type="button">EN</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow" id="heroEyebrow"></span>
+        <h1 id="heroTitle"></h1>
+        <p id="heroBody"></p>
+        <div class="values">
+          <span id="heroPoint1"></span>
+          <span id="heroPoint2"></span>
+          <span id="heroPoint3"></span>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="assets/hero.jpg" alt="" class="hero-image" fetchpriority="high" decoding="async">
+      </div>
+    </section>
+
+    <section class="survey-shell">
+      <div class="survey-head">
+        <div>
+          <span class="section-kicker" id="stepKicker"></span>
+          <h2 id="sectionTitle"></h2>
+        </div>
+        <div class="progress-copy" id="progressCopy">1 / 5</div>
+      </div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+
+      <div id="statusBox" class="status-box hidden"></div>
+
+      <section class="step active" data-step="1">
+        <div class="card">
+          <label class="label" id="companyLabel"></label>
+          <div class="search-wrap">
+            <input id="companySearch" autocomplete="off" type="text">
+            <div id="companyResults" class="search-results hidden"></div>
+          </div>
+          <div id="companyConfirm" class="company-confirm hidden">
+            <span id="confirmCompany"></span>
+            <strong id="selectedCompanyName"></strong>
+            <button type="button" id="changeCompany" class="text-btn"></button>
+          </div>
+
+          <div class="field-block">
+            <label class="label" id="roleLabel"></label>
+            <div id="roleGrid" class="option-grid"></div>
+          </div>
+        </div>
+
+        <div class="nav-row end">
+          <button type="button" class="btn primary" data-next="2" id="startQuestions">Tiếp tục</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="2">
+        <div id="questionsContainer"></div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="1">Quay lại</button>
+          <button type="button" class="btn primary" data-next="3">Tiếp tục</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="3">
+        <div class="card">
+          <span class="section-chip" id="overallChip"></span>
+          <h3 id="overallQuestion"></h3>
+          <div id="overallScale" class="rating-grid"></div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="2">Quay lại</button>
+          <button type="button" class="btn primary" data-next="4">Tiếp tục</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="4">
+        <div class="card">
+          <span class="section-chip" id="priorityChip"></span>
+          <h3 id="priorityQuestion"></h3>
+          <div id="priorityGrid" class="priority-grid"></div>
+          <p class="selection-count" id="priorityCount">0 / 3</p>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="3">Quay lại</button>
+          <button type="button" class="btn primary" data-next="5">Tiếp tục</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="5">
+        <div class="card">
+          <span class="section-chip" id="finalChip"></span>
+          <h3 id="finalQuestion"></h3>
+          <textarea id="finalComment" rows="6"></textarea>
+          <span class="optional" id="optional"></span>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="4">Quay lại</button>
+          <button type="button" class="btn primary" id="submitBtn">Gửi phản hồi</button>
+        </div>
+      </section>
+
+      <section class="thank-you hidden" id="thankYou">
+        <span class="section-kicker" id="thanksEyebrow"></span>
+        <h2 id="thanksTitle"></h2>
+        <p id="thanksBody"></p>
+      </section>
+    </section>
+
+    <footer>
+      <span>© Tran Hiep Thanh Textile Corporation</span>
+      <span id="footerNote"></span>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
