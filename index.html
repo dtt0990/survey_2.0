@@ -8,7 +8,7 @@
   <title>THT Customer Experience Survey</title>
 
   <link rel="preload" as="image" href="assets/logo.jpg">
-  <link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/hero.jpg" media="(min-width: 701px)" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -93,6 +93,70 @@
     .legacy-feedback-row{border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:10px}
     .legacy-feedback-row strong{font-size:12px;color:var(--blue)}
     .legacy-feedback-row p{font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin:7px 0 0}
+
+    /* Mobile-first survey upgrade: CSS only affects the customer survey area. */
+    .survey-progress-sticky{background:#fff}
+    .group-label{font-size:16px;font-weight:700;margin:0 0 6px;color:var(--blue)}
+    .group-subtitle{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:17px}
+    .scale-legend{font-size:11px;color:var(--muted);line-height:1.4;margin:10px 0 0;text-align:center}
+    .question-card{scroll-margin-top:122px;transition:border-color .15s ease}
+    .question-card.needs-answer{border-color:#d19a59;box-shadow:0 0 0 2px #f9e7d2}
+    .question-card .rating-btn{touch-action:manipulation}
+    .question-card h3{font-weight:500}
+    .draft-notice{margin-bottom:18px;padding:12px 14px;border:1px solid #d8e8dc;border-radius:13px;background:#f3faf4;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#3c6951;font-size:12px}
+    .draft-notice .text-btn{white-space:nowrap;font-size:12px}
+    .mobile-actions{display:none}
+    #surveyView .search-item{display:block;width:100%;border:0;border-bottom:1px solid #edf1ef;text-align:left;background:#fff}
+    #surveyView .search-item:hover,#surveyView .search-item:focus-visible{background:var(--soft)}
+    .option-btn:focus-visible,.priority-btn:focus-visible,.rating-btn:focus-visible,.btn:focus-visible,.mobile-actions button:focus-visible{outline:3px solid #97caad;outline-offset:2px}
+    @media(max-width:700px){
+      #surveyView .hero{display:block;min-height:0;background:linear-gradient(135deg,#f5faf6,#edf7f0)}
+      #surveyView .hero-copy{padding:16px 20px 16px}
+      #surveyView .hero-image-wrap{display:none}
+      #surveyView .back-home{margin-bottom:10px;font-size:12px;align-self:flex-start}
+      #surveyView .hero .eyebrow{font-size:10px;letter-spacing:.04em}
+      #surveyView .hero h1{font-size:21px;line-height:1.28;margin:6px 0 6px;font-weight:700}
+      #surveyView .hero p{font-size:12px;line-height:1.48}
+      #surveyView .hero .values{display:none}
+      #surveyView .survey-shell{padding:0 14px 100px}
+      #surveyView .survey-progress-sticky{position:sticky;top:0;z-index:22;background:#fff;padding:15px 0 10px;box-shadow:0 5px 12px rgba(22,74,109,.035)}
+      #surveyView .survey-head{align-items:center;gap:6px}
+      #surveyView .survey-head h2{font-size:17px;line-height:1.25;margin:4px 0 0}
+      #surveyView .section-kicker{font-size:10px}
+      #surveyView .progress-copy{font-size:12px;font-weight:700;white-space:nowrap}
+      #surveyView .progress-track{margin:10px 0 0;height:5px}
+      #surveyView .card,#surveyView .question-card{padding:16px;border-radius:15px;margin-bottom:12px}
+      #surveyView .question-card h3,#surveyView .card h3{font-size:15px;line-height:1.48;margin:8px 0 14px}
+      #surveyView .question-meta{font-size:10px}
+      #surveyView .rating-grid{gap:7px}
+      #surveyView .rating-btn{min-height:56px;border-radius:11px;padding:6px 1px;gap:1px;touch-action:manipulation}
+      #surveyView .rating-btn strong{font-size:20px}
+      #surveyView .rating-btn small{display:none}
+      #surveyView .option-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      #surveyView .option-btn{font-size:12px;min-height:49px;padding:10px;text-align:center}
+      #surveyView .priority-grid{grid-template-columns:1fr 1fr;gap:8px}
+      #surveyView .priority-btn{font-size:12px;min-height:54px;padding:10px}
+      #surveyView #companySearch{height:52px;font-size:16px}
+      #surveyView .search-results{max-height:min(48vh,320px);overscroll-behavior:contain}
+      #surveyView .search-item{padding:13px 14px;min-height:48px}
+      #surveyView .group-label{font-size:14px;margin-top:15px}
+      #surveyView .group-subtitle{font-size:12px;margin-bottom:12px}
+      #surveyView .nav-row{display:none}
+      #surveyView .mobile-actions:not(.hidden){display:flex;position:fixed;bottom:0;left:0;right:0;z-index:55;background:rgba(255,255,255,.97);box-shadow:0 -6px 25px rgba(20,59,77,.11);border-top:1px solid var(--line);padding:11px 14px calc(11px + env(safe-area-inset-bottom,0px));gap:10px;align-items:center;justify-content:space-between}
+      #surveyView .mobile-actions button{height:48px;border-radius:12px;font-size:14px;font-weight:700;touch-action:manipulation}
+      #surveyView .mobile-prev{flex:0 0 34%;background:#f1f5f3;border:1px solid #dce7e1;color:var(--ink)}
+      #surveyView .mobile-next{flex:1;border:0;background:var(--blue);color:#fff}
+      #surveyView .mobile-next:disabled{opacity:.55}
+      #surveyView .thank-you{margin:18px 0;padding:30px 18px}
+      #surveyView .thank-you h2{font-size:22px}
+      #surveyView .status-box{margin-top:12px}
+    }
+    @media(max-width:360px){
+      #surveyView .option-grid,#surveyView .priority-grid{grid-template-columns:1fr}
+      #surveyView .rating-grid{gap:4px}
+      #surveyView .rating-btn{min-height:54px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#surveyView *{scroll-behavior:auto;transition:none!important}}
   </style>
 </head>
 <body>
@@ -154,23 +218,26 @@
           <p id="heroBody"></p>
           <div class="values"><span id="heroPoint1"></span><span id="heroPoint2"></span><span id="heroPoint3"></span></div>
         </div>
-        <div class="hero-image-wrap"><img src="assets/hero.jpg" alt="" class="hero-image" fetchpriority="high" decoding="async"></div>
+        <div class="hero-image-wrap"><img data-src="assets/hero.jpg" alt="" class="hero-image" decoding="async"></div>
       </section>
 
       <section class="survey-shell">
-        <div class="survey-head">
-          <div><span class="section-kicker" id="stepKicker"></span><h2 id="sectionTitle"></h2></div>
-          <div class="progress-copy" id="progressCopy">1 / 5</div>
+        <div class="survey-progress-sticky">
+          <div class="survey-head">
+            <div><span class="section-kicker" id="stepKicker"></span><h2 id="sectionTitle"></h2></div>
+            <div class="progress-copy" id="progressCopy">1 / 7</div>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Survey progress" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1"><div class="progress-bar" id="progressBar"></div></div>
         </div>
-        <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
-        <div id="statusBox" class="status-box hidden"></div>
+        <div id="draftNotice" class="draft-notice hidden" role="status"><span id="draftText"></span><button id="clearDraftBtn" class="text-btn" type="button"></button></div>
+        <div id="statusBox" class="status-box hidden" role="alert" aria-live="assertive"></div>
 
         <section class="step active" data-step="1">
           <div class="card">
             <label class="label" id="companyLabel"></label>
             <div class="search-wrap">
-              <input id="companySearch" autocomplete="off" type="text">
-              <div id="companyResults" class="search-results hidden"></div>
+              <input id="companySearch" autocomplete="off" type="search" enterkeyhint="search" aria-label="Company search" aria-controls="companyResults" aria-expanded="false">
+              <div id="companyResults" class="search-results hidden" role="listbox"></div>
             </div>
             <div id="companyConfirm" class="company-confirm hidden">
               <span id="confirmCompany"></span><strong id="selectedCompanyName"></strong>
@@ -181,30 +248,50 @@
           <div class="nav-row end"><button type="button" class="btn primary" data-next="2">Tiếp tục</button></div>
         </section>
 
-        <section class="step" data-step="2">
-          <div id="questionsContainer"></div>
+        <section class="step" data-step="2" aria-label="Survey questions: group 1">
+          <div class="group-label" id="groupTitle2"></div>
+          <div class="group-subtitle" id="groupHelp2"></div>
+          <div id="questionsGroup2"></div>
           <div class="nav-row"><button type="button" class="btn secondary" data-prev="1">Quay lại</button><button type="button" class="btn primary" data-next="3">Tiếp tục</button></div>
         </section>
 
-        <section class="step" data-step="3">
-          <div class="card"><span class="section-chip" id="overallChip"></span><h3 id="overallQuestion"></h3><div id="overallScale" class="rating-grid"></div></div>
+        <section class="step" data-step="3" aria-label="Survey questions: group 2">
+          <div class="group-label" id="groupTitle3"></div>
+          <div class="group-subtitle" id="groupHelp3"></div>
+          <div id="questionsGroup3"></div>
           <div class="nav-row"><button type="button" class="btn secondary" data-prev="2">Quay lại</button><button type="button" class="btn primary" data-next="4">Tiếp tục</button></div>
         </section>
 
-        <section class="step" data-step="4">
-          <div class="card"><span class="section-chip" id="priorityChip"></span><h3 id="priorityQuestion"></h3><div id="priorityGrid" class="priority-grid"></div><p class="selection-count" id="priorityCount">0 / 3</p></div>
+        <section class="step" data-step="4" aria-label="Survey questions: group 3">
+          <div class="group-label" id="groupTitle4"></div>
+          <div class="group-subtitle" id="groupHelp4"></div>
+          <div id="questionsGroup4"></div>
           <div class="nav-row"><button type="button" class="btn secondary" data-prev="3">Quay lại</button><button type="button" class="btn primary" data-next="5">Tiếp tục</button></div>
         </section>
 
         <section class="step" data-step="5">
-          <div class="card"><span class="section-chip" id="finalChip"></span><h3 id="finalQuestion"></h3><textarea id="finalComment" rows="6"></textarea><span class="optional" id="optional"></span></div>
-          <div class="nav-row"><button type="button" class="btn secondary" data-prev="4">Quay lại</button><button type="button" class="btn primary" id="submitBtn">Gửi phản hồi</button></div>
+          <div class="card"><span class="section-chip" id="overallChip"></span><h3 id="overallQuestion"></h3><div id="overallScale" class="rating-grid" role="group" aria-label="Overall rating"></div><p class="scale-legend" id="overallLegend"></p></div>
+          <div class="nav-row"><button type="button" class="btn secondary" data-prev="4">Quay lại</button><button type="button" class="btn primary" data-next="6">Tiếp tục</button></div>
+        </section>
+
+        <section class="step" data-step="6">
+          <div class="card"><span class="section-chip" id="priorityChip"></span><h3 id="priorityQuestion"></h3><div id="priorityGrid" class="priority-grid" role="group" aria-label="Choose priorities"></div><p class="selection-count" id="priorityCount">0 / 3</p></div>
+          <div class="nav-row"><button type="button" class="btn secondary" data-prev="5">Quay lại</button><button type="button" class="btn primary" data-next="7">Tiếp tục</button></div>
+        </section>
+
+        <section class="step" data-step="7">
+          <div class="card"><span class="section-chip" id="finalChip"></span><h3 id="finalQuestion"></h3><textarea id="finalComment" rows="5" maxlength="5000" aria-label="Final feedback"></textarea><span class="optional" id="optional"></span></div>
+          <div class="nav-row"><button type="button" class="btn secondary" data-prev="6">Quay lại</button><button type="button" class="btn primary" id="submitBtn">Gửi phản hồi</button></div>
         </section>
 
         <section class="thank-you hidden" id="thankYou">
           <span class="section-kicker" id="thanksEyebrow"></span><h2 id="thanksTitle"></h2><p id="thanksBody"></p>
         </section>
       </section>
+      <div class="mobile-actions hidden" id="mobileActions" aria-label="Survey navigation">
+        <button type="button" class="mobile-prev" id="mobilePrevBtn"></button>
+        <button type="button" class="mobile-next" id="mobileNextBtn"></button>
+      </div>
     </section>
 
     <!-- ADMIN -->
@@ -296,10 +383,18 @@
     const QUESTION_CODES = ["DEV","RESP","DEL","QUAL","CLAIM","COMM","VALUE"];
     const ROLE_CODES = ["MANAGEMENT","SOURCING","MERCHANDISING","DEVELOPMENT","QUALITY","PRODUCTION","OTHER"];
     const PRIORITY_CODES = ["QUALITY","PRICE","DEVELOPMENT","DELIVERY","RESPONSIVENESS","TECHNICAL","INNOVATION","SUSTAINABILITY","CLAIM","COMMUNICATION"];
+    const QUESTION_GROUPS = {2:QUESTION_CODES.slice(0,3),3:QUESTION_CODES.slice(3,5),4:QUESTION_CODES.slice(5,7)};
+    const DRAFT_KEY="tht_survey_mobile_draft_v1", DRAFT_DAYS=7;
+    const SURVEY_STEPS=7;
+    function loadDesktopHero(){
+      const img=document.querySelector("#surveyView .hero-image");
+      if(img&&!img.src&&window.matchMedia("(min-width:701px)").matches)img.src=img.dataset.src;
+    }
+
 
     const state = {
       lang:"vi",step:1,customers:[],selectedCustomer:null,role:null,scores:{},lowScoreComments:{},overall:null,priorities:[],
-      adminPin:sessionStorage.getItem("tht_admin_pin") || "",dashboard:null
+      adminPin:sessionStorage.getItem("tht_admin_pin") || "",dashboard:null, draftRestored:false, surveySent:false, submitting:false
     };
 
     const $ = s => document.querySelector(s);
@@ -354,24 +449,86 @@
 
     function renderRoles(){
       $("#roleGrid").innerHTML=ROLE_CODES.map(code=>`<button type="button" class="option-btn ${state.role===code?"selected":""}" data-role="${code}">${escapeHtml(t("role_"+code))}</button>`).join("");
-      $$("#roleGrid [data-role]").forEach(btn=>btn.addEventListener("click",()=>{state.role=btn.dataset.role;renderRoles()}));
+      $$("#roleGrid [data-role]").forEach(btn=>btn.addEventListener("click",()=>{state.role=btn.dataset.role;renderRoles();saveDraft();clearStatus()}));
+    }
+    function saveDraft(){
+      if(state.surveySent || state.submitting) return;
+      try{
+        localStorage.setItem(DRAFT_KEY,JSON.stringify({savedAt:Date.now(),data:{
+          lang:state.lang,step:state.step,selectedCustomer:state.selectedCustomer,role:state.role,
+          scores:state.scores,lowScoreComments:state.lowScoreComments,overall:state.overall,
+          priorities:state.priorities,finalComment:$("#finalComment").value
+        }}));
+      }catch(err){console.warn("Draft storage unavailable",err)}
+    }
+    function restoreDraft(){
+      try{
+        const raw=localStorage.getItem(DRAFT_KEY);
+        if(!raw) return;
+        const draft=JSON.parse(raw);
+        if(!draft.savedAt || Date.now()-draft.savedAt>DRAFT_DAYS*86400000){localStorage.removeItem(DRAFT_KEY);return}
+        const d=draft.data||{};
+        state.lang=d.lang==="en"?"en":"vi";
+        state.step=Number.isInteger(d.step)&&d.step>=1&&d.step<=SURVEY_STEPS?d.step:1;
+        state.selectedCustomer=d.selectedCustomer||null;
+        state.role=ROLE_CODES.includes(d.role)?d.role:null;
+        state.scores=Object.fromEntries(Object.entries(d.scores||{}).filter(([k,v])=>QUESTION_CODES.includes(k)&&Number(v)>=1&&Number(v)<=5));
+        state.lowScoreComments=d.lowScoreComments||{};
+        state.overall=d.overall>=1&&d.overall<=5?Number(d.overall):null;
+        state.priorities=(d.priorities||[]).filter(p=>PRIORITY_CODES.includes(p)).slice(0,3);
+        state.draftRestored=true;
+        $("#finalComment").value=String(d.finalComment||"");
+      }catch(err){console.warn("Could not restore survey draft",err);localStorage.removeItem(DRAFT_KEY)}
+    }
+    function updateDraftBanner(){
+      const el=$("#draftNotice");
+      el.classList.toggle("hidden",!state.draftRestored||state.surveySent);
+      $("#draftText").textContent=state.lang==="vi"?"Đã khôi phục câu trả lời đang làm dở trên thiết bị này.":"Your unfinished answers were restored on this device.";
+      $("#clearDraftBtn").textContent=state.lang==="vi"?"Làm lại":"Start over";
+    }
+    function resetSurvey(){
+      state.step=1;state.selectedCustomer=null;state.role=null;state.scores={};state.lowScoreComments={};
+      state.overall=null;state.priorities=[];state.draftRestored=false;state.surveySent=false;state.submitting=false;
+      $("#companySearch").value="";$("#finalComment").value="";
+      $("#thankYou").classList.add("hidden");$(".survey-progress-sticky").classList.remove("hidden");
+      localStorage.removeItem(DRAFT_KEY);clearStatus();renderSurvey();updateDraftBanner();
     }
     function renderScaleButtons(container,selected,onSelect){
-      container.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="rating-btn ${Number(selected)===n?"selected":""}" data-score="${n}"><strong>${n}</strong><small>${escapeHtml(t("scale_"+n))}</small></button>`).join("");
-      $$("[data-score]",container).forEach(btn=>btn.addEventListener("click",()=>onSelect(Number(btn.dataset.score))));
+      container.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="rating-btn ${Number(selected)===n?"selected":""}" data-score="${n}" aria-pressed="${Number(selected)===n}" aria-label="${n}: ${escapeAttr(t("scale_"+n))}"><strong>${n}</strong><small>${escapeHtml(t("scale_"+n))}</small></button>`).join("");
+      $$('[data-score]',container).forEach(btn=>btn.addEventListener("click",()=>onSelect(Number(btn.dataset.score))));
     }
     function renderQuestions(){
-      $("#questionsContainer").innerHTML=QUESTION_CODES.map((code,i)=>`<article class="question-card"><div class="question-meta">${String(i+1).padStart(2,"0")} · ${code}</div><h3>${escapeHtml(t("question_"+code))}</h3><div class="rating-grid" id="scale_${code}"></div><div class="low-comment ${state.scores[code]<=2?"visible":""}" id="low_${code}"><label>${state.lang==="vi"?"Quý khách có thể chia sẻ ngắn gọn điều cần cải thiện.":"Please briefly tell us what could be improved."}</label><textarea id="comment_${code}" rows="3">${escapeHtml(state.lowScoreComments[code]||"")}</textarea></div></article>`).join("");
+      const label=state.lang==="vi"?"Chấm một mức từ 1 đến 5 cho từng tiêu chí.":"Rate each item from 1 to 5.";
+      for(const step of [2,3,4]){
+        $("#groupTitle"+step).textContent=state.lang==="vi" ? ({2:"Nhóm 1/3 · Phát triển và giao hàng",3:"Nhóm 2/3 · Chất lượng và xử lý vấn đề",4:"Nhóm 3/3 · Chủ động và giá trị"}[step]) : ({2:"Group 1/3 · Development and delivery",3:"Group 2/3 · Quality and issue resolution",4:"Group 3/3 · Communication and value"}[step]);
+        $("#groupHelp"+step).textContent=label;
+        const wrap=$("#questionsGroup"+step);
+        wrap.innerHTML=QUESTION_GROUPS[step].map(code=>{
+          const i=QUESTION_CODES.indexOf(code);
+          return `<article class="question-card" id="questionCard_${code}" tabindex="-1"><div class="question-meta">${String(i+1).padStart(2,"0")} / 07</div><h3>${escapeHtml(t("question_"+code))}</h3><div class="rating-grid" id="scale_${code}" role="group" aria-label="${escapeAttr(t("question_"+code))}"></div><p class="scale-legend">1 · ${escapeHtml(t("scale_1"))} &nbsp; | &nbsp; 5 · ${escapeHtml(t("scale_5"))}</p><div class="low-comment ${state.scores[code]<=2?"visible":""}" id="low_${code}"><label for="comment_${code}">${state.lang==="vi"?"Quý khách có thể chia sẻ ngắn gọn điều cần cải thiện.":"Please briefly tell us what could be improved."}</label><textarea id="comment_${code}" rows="3">${escapeHtml(state.lowScoreComments[code]||"")}</textarea></div></article>`;
+        }).join("");
+      }
       QUESTION_CODES.forEach(code=>{
-        renderScaleButtons($("#scale_"+code),state.scores[code],s=>{state.scores[code]=s;if(s>2)state.lowScoreComments[code]="";renderQuestions()});
-        const ta=$("#comment_"+code);if(ta)ta.addEventListener("input",e=>state.lowScoreComments[code]=e.target.value);
+        const repaint=()=>renderScaleButtons($("#scale_"+code),state.scores[code],score=>{
+          state.scores[code]=score;
+          if(score>2)state.lowScoreComments[code]="";
+          $("#questionCard_"+code).classList.remove("needs-answer");
+          $("#low_"+code).classList.toggle("visible",score<=2);
+          if(score>2)$("#comment_"+code).value="";
+          repaint();saveDraft();clearStatus();
+        });
+        repaint();
+        $("#comment_"+code).addEventListener("input",e=>{state.lowScoreComments[code]=e.target.value;saveDraft()});
       });
     }
-    function renderOverall(){renderScaleButtons($("#overallScale"),state.overall,s=>{state.overall=s;renderOverall()})}
+    function renderOverall(){
+      renderScaleButtons($("#overallScale"),state.overall,s=>{state.overall=s;renderOverall();saveDraft();clearStatus()});
+      $("#overallLegend").textContent=`1 · ${t("scale_1")}   |   5 · ${t("scale_5")}`;
+    }
     function renderPriorities(){
       $("#priorityGrid").innerHTML=PRIORITY_CODES.map(code=>`<button type="button" class="priority-btn ${state.priorities.includes(code)?"selected":""}" data-priority="${code}">${escapeHtml(t("priority_"+code))}</button>`).join("");
       $("#priorityCount").textContent=`${state.priorities.length} / 3`;
-      $$("#priorityGrid [data-priority]").forEach(btn=>btn.addEventListener("click",()=>{const c=btn.dataset.priority;if(state.priorities.includes(c))state.priorities=state.priorities.filter(x=>x!==c);else if(state.priorities.length<3)state.priorities.push(c);renderPriorities()}));
+      $$("#priorityGrid [data-priority]").forEach(btn=>btn.addEventListener("click",()=>{const c=btn.dataset.priority;if(state.priorities.includes(c))state.priorities=state.priorities.filter(x=>x!==c);else if(state.priorities.length<3)state.priorities.push(c);renderPriorities();saveDraft();clearStatus()}));
     }
     function renderCompanyState(){
       if(state.selectedCustomer){$("#companySearch").classList.add("hidden");$("#companyConfirm").classList.remove("hidden");$("#selectedCompanyName").textContent=state.selectedCustomer.customerName}
@@ -380,40 +537,123 @@
     function renderSurvey(){
       renderStaticText();renderRoles();renderQuestions();renderOverall();renderPriorities();renderCompanyState();
       $$(".lang-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.lang===state.lang));
-      showStep(state.step,false);
+      updateDraftBanner();showStep(state.step,false);
+    }
+    function stepInfo(step){
+      const vi=state.lang==="vi";
+      const labels=vi ? ["Thông tin khảo sát","Đánh giá trải nghiệm","Đánh giá trải nghiệm","Đánh giá trải nghiệm","Đánh giá chung","Yếu tố ưu tiên","Góp ý cải thiện"]
+                      : ["Survey information","Your experience","Your experience","Your experience","Overall satisfaction","Your priorities","Final feedback"];
+      return {title:labels[step-1],kicker:vi?`Bước ${step} / ${SURVEY_STEPS}`:`Step ${step} of ${SURVEY_STEPS}`};
+    }
+    function syncMobileActions(){
+      const bar=$("#mobileActions");
+      bar.classList.toggle("hidden",state.surveySent);
+      const prev=$("#mobilePrevBtn"),next=$("#mobileNextBtn");
+      prev.textContent=state.step===1?(state.lang==="vi"?"Trang đầu":"Home"):(state.lang==="vi"?"← Quay lại":"← Back");
+      next.textContent=state.step===SURVEY_STEPS?(state.lang==="vi"?"Gửi phản hồi":"Submit feedback"):(state.lang==="vi"?"Tiếp tục →":"Continue →");
+      next.disabled=state.submitting;
     }
     function showStep(step,scroll=true){
       state.step=step;$$(".step").forEach(el=>el.classList.toggle("active",Number(el.dataset.step)===step));
-      $("#progressCopy").textContent=`${step} / 5`;$("#progressBar").style.width=`${step*20}%`;
-      if(scroll)$(".survey-shell").scrollIntoView({behavior:"smooth",block:"start"});
+      const info=stepInfo(step);
+      $("#sectionTitle").textContent=info.title;$("#stepKicker").textContent=info.kicker;
+      $("#progressCopy").textContent=`${step} / ${SURVEY_STEPS}`;
+      $("#progressBar").style.width=`${step/SURVEY_STEPS*100}%`;
+      $(".progress-track").setAttribute("aria-valuenow",String(step));
+      syncMobileActions();
+      if(scroll){
+        const target=window.matchMedia("(max-width:700px)").matches?$(".survey-progress-sticky"):$(".survey-shell");
+        target.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});
+      }
+      if(state.draftRestored||state.selectedCustomer||state.role||Object.keys(state.scores).length)saveDraft();
     }
-    function fail(message){const box=$("#statusBox");box.textContent=message;box.classList.remove("hidden");box.scrollIntoView({behavior:"smooth",block:"center"});return false}
+    function fail(message){
+      const box=$("#statusBox");box.textContent=message;box.classList.remove("hidden");
+      box.scrollIntoView({behavior:"smooth",block:"center"});return false;
+    }
     function clearStatus(){$("#statusBox").classList.add("hidden");$("#statusBox").textContent=""}
     function validateStep(step){
-      if(step===1){if(!state.selectedCustomer)return fail(state.lang==="vi"?"Vui lòng chọn tên công ty.":"Please select your company.");if(!state.role)return fail(state.lang==="vi"?"Vui lòng chọn bộ phận / vai trò.":"Please select your department / role.")}
-      if(step===2&&QUESTION_CODES.some(code=>!state.scores[code]))return fail(state.lang==="vi"?"Vui lòng hoàn tất các câu đánh giá.":"Please complete all rating questions.");
-      if(step===3&&!state.overall)return fail(state.lang==="vi"?"Vui lòng chọn mức đánh giá chung.":"Please select an overall rating.");
-      if(step===4&&state.priorities.length<1)return fail(state.lang==="vi"?"Vui lòng chọn ít nhất một yếu tố quan trọng.":"Please select at least one important factor.");
+      const vi=state.lang==="vi";
+      if(step===1){
+        if(!state.selectedCustomer)return fail(vi?"Vui lòng chọn tên công ty.":"Please select your company.");
+        if(!state.role)return fail(vi?"Vui lòng chọn bộ phận / vai trò.":"Please select your department / role.");
+      }
+      if(QUESTION_GROUPS[step]){
+        const missing=QUESTION_GROUPS[step].find(code=>!state.scores[code]);
+        if(missing){
+          fail(vi?"Vui lòng đánh giá đầy đủ các tiêu chí trong nhóm này.":"Please rate every item in this group.");
+          const card=$("#questionCard_"+missing);
+          card.classList.add("needs-answer");
+          setTimeout(()=>{card.scrollIntoView({behavior:"smooth",block:"center"});card.focus({preventScroll:true})},180);
+          return false;
+        }
+      }
+      if(step===5&&!state.overall)return fail(vi?"Vui lòng chọn mức đánh giá chung.":"Please select an overall rating.");
+      if(step===6&&state.priorities.length<1)return fail(vi?"Vui lòng chọn ít nhất một yếu tố quan trọng.":"Please select at least one important factor.");
       clearStatus();return true;
+    }
+    function nextStep(){
+      if(state.submitting)return;
+      if(state.step===SURVEY_STEPS){submitSurvey();return}
+      if(validateStep(state.step))showStep(state.step+1);
+    }
+    function previousStep(){
+      if(state.step===1){showView("home");return}
+      clearStatus();showStep(state.step-1);
     }
     async function loadCustomers(){
       if(state.customers.length)return;
-      try{const res=await fetch(`${API_URL}?action=getCustomers`,{cache:"no-store"});const json=await res.json();if(!json.success)throw new Error(json.message||"API error");state.customers=json.data||[]}
-      catch(err){console.error(err);fail(state.lang==="vi"?"Không tải được danh sách công ty. Vui lòng thử lại.":"Unable to load the company list. Please try again.")}
+      const search=$("#companySearch");search.disabled=true;
+      search.placeholder=state.lang==="vi"?"Đang tải danh sách công ty...":"Loading companies...";
+      try{
+        const res=await fetch(`${API_URL}?action=getCustomers`,{cache:"no-store"});
+        const json=await res.json();if(!json.success)throw new Error(json.message||"API error");
+        state.customers=json.data||[];
+        if(state.selectedCustomer){
+          const customer=state.customers.find(c=>c.customerId===state.selectedCustomer.customerId);
+          state.selectedCustomer=customer||null;
+          renderCompanyState();
+        }
+      }catch(err){console.error(err);fail(state.lang==="vi"?"Không tải được danh sách công ty. Vui lòng thử mở lại trang.":"Unable to load the company list. Please reload the page.")}
+      finally{search.disabled=false;search.placeholder=t("companyPlaceholder")}
     }
     function searchCustomers(q){
-      const value=q.trim().toLowerCase(),box=$("#companyResults");if(!value){box.classList.add("hidden");box.innerHTML="";return}
-      const matches=state.customers.filter(c=>String(c.customerName||"").toLowerCase().includes(value)||String(c.shortName||"").toLowerCase().includes(value)).slice(0,12);
-      box.innerHTML=matches.length?matches.map(c=>`<div class="search-item" data-id="${escapeAttr(c.customerId)}"><strong>${escapeHtml(c.customerName)}</strong>${c.shortName?`<span>${escapeHtml(c.shortName)}</span>`:""}</div>`).join(""):`<div class="search-item"><span>${state.lang==="vi"?"Không tìm thấy công ty phù hợp.":"No matching company found."}</span></div>`;
-      box.classList.remove("hidden");$$("[data-id]",box).forEach(item=>item.addEventListener("click",()=>{state.selectedCustomer=state.customers.find(c=>c.customerId===item.dataset.id);box.classList.add("hidden");renderCompanyState()}));
+      const value=q.trim().toLocaleLowerCase(),box=$("#companyResults");
+      const matches=state.customers.filter(c=>String(c.customerName||"").toLocaleLowerCase().includes(value)||String(c.shortName||"").toLocaleLowerCase().includes(value)).slice(0,20);
+      box.innerHTML=matches.length?matches.map(c=>`<button type="button" class="search-item" role="option" data-id="${escapeAttr(c.customerId)}"><strong>${escapeHtml(c.customerName)}</strong>${c.shortName?`<span>${escapeHtml(c.shortName)}</span>`:""}</button>`).join(""):`<div class="search-item"><span>${state.lang==="vi"?"Không tìm thấy công ty phù hợp.":"No matching company found."}</span></div>`;
+      box.classList.remove("hidden");$("#companySearch").setAttribute("aria-expanded","true");
+      $$('[data-id]',box).forEach(item=>item.addEventListener("click",()=>{
+        state.selectedCustomer=state.customers.find(c=>c.customerId===item.dataset.id);
+        box.classList.add("hidden");$("#companySearch").setAttribute("aria-expanded","false");
+        renderCompanyState();clearStatus();saveDraft();
+      }));
     }
     async function submitSurvey(){
-      const btn=$("#submitBtn");btn.disabled=true;btn.textContent=state.lang==="vi"?"Đang gửi...":"Submitting...";clearStatus();
+      if(state.submitting || state.surveySent)return;
+      for(let step=1;step<SURVEY_STEPS;step++){
+        if(!validateStep(step)){showStep(step,false);validateStep(step);return}
+      }
+      if(!state.selectedCustomer)return fail(state.lang==="vi"?"Vui lòng chọn tên công ty.":"Please select your company.");
+      state.submitting=true;
+      const btn=$("#submitBtn");
+      btn.disabled=true;btn.textContent=state.lang==="vi"?"Đang gửi...":"Submitting...";
+      $("#mobileNextBtn").disabled=true;$("#mobileNextBtn").textContent=state.lang==="vi"?"Đang gửi...":"Submitting...";
+      clearStatus();
       const payload={action:"submitSurvey",customerId:state.selectedCustomer.customerId,role:t("role_"+state.role),language:state.lang.toUpperCase(),scores:state.scores,lowScoreComments:state.lowScoreComments,overall:state.overall,priorities:state.priorities.map(code=>t("priority_"+code)),improvementComment:$("#finalComment").value.trim()};
-      try{const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});const json=await res.json();if(!json.success)throw new Error(json.message||"Submit failed");$$(".step").forEach(el=>el.classList.remove("active"));$("#thankYou").classList.remove("hidden");$(".survey-head").classList.add("hidden");$(".progress-track").classList.add("hidden");$("#thankYou").scrollIntoView({behavior:"smooth",block:"center"})}
-      catch(err){console.error(err);fail(state.lang==="vi"?"Chưa gửi được phản hồi. Vui lòng kiểm tra kết nối và thử lại.":"Your feedback could not be submitted. Please check your connection and try again.");btn.disabled=false;btn.textContent=state.lang==="vi"?"Gửi phản hồi":"Submit feedback"}
+      try{
+        const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+        const json=await res.json();if(!json.success)throw new Error(json.message||"Submit failed");
+        state.surveySent=true;localStorage.removeItem(DRAFT_KEY);
+        $$(".step").forEach(el=>el.classList.remove("active"));
+        $("#thankYou").classList.remove("hidden");$(".survey-progress-sticky").classList.add("hidden");
+        $("#mobileActions").classList.add("hidden");$("#draftNotice").classList.add("hidden");
+        $("#thankYou").scrollIntoView({behavior:"smooth",block:"center"});
+      }catch(err){
+        console.error(err);fail(state.lang==="vi"?"Chưa gửi được phản hồi. Vui lòng kiểm tra kết nối và thử lại.":"Your feedback could not be submitted. Please check your connection and try again.");
+        state.submitting=false;btn.disabled=false;btn.textContent=state.lang==="vi"?"Gửi phản hồi":"Submit feedback";
+        syncMobileActions();saveDraft();
+      }
     }
-
     async function verifyAdmin(pin){
       let info;
       try{
@@ -551,8 +791,11 @@
     }
 
     function bind(){
-      $$(".lang-btn").forEach(btn=>btn.addEventListener("click",()=>{state.lang=btn.dataset.lang;renderSurvey()}));
-      $("#startSurveyBtn").addEventListener("click",async()=>{showView("survey");await loadCustomers();renderSurvey()});
+      $$(".lang-btn").forEach(btn=>btn.addEventListener("click",()=>{state.lang=btn.dataset.lang;renderSurvey();saveDraft()}));
+      $("#startSurveyBtn").addEventListener("click",async()=>{
+        if(state.surveySent)resetSurvey();
+        showView("survey");renderSurvey();await loadCustomers();
+      });
       $("#surveyBackHome").addEventListener("click",()=>showView("home"));
       $("#adminBackHome").addEventListener("click",()=>showView("home"));
       $("#showAdminLoginBtn").addEventListener("click",()=>{$("#adminLoginBox").classList.toggle("hidden");$("#adminPin").focus()});
@@ -566,15 +809,30 @@
       $("#legacyCustomerSearch").addEventListener("input",e=>renderLegacyCustomers(e.target.value));
 
       $("#companySearch").addEventListener("input",e=>searchCustomers(e.target.value));
-      $("#changeCompany").addEventListener("click",()=>{state.selectedCustomer=null;$("#companySearch").value="";renderCompanyState();$("#companySearch").focus()});
-      $$("[data-next]").forEach(btn=>btn.addEventListener("click",()=>{const current=Number(btn.closest(".step").dataset.step);if(validateStep(current))showStep(Number(btn.dataset.next))}));
-      $$("[data-prev]").forEach(btn=>btn.addEventListener("click",()=>showStep(Number(btn.dataset.prev))));
+      $("#companySearch").addEventListener("focus",e=>{if(state.customers.length)searchCustomers(e.target.value)});
+      $("#companySearch").addEventListener("keydown",e=>{
+        if(e.key==="Escape"){$("#companyResults").classList.add("hidden");$("#companySearch").setAttribute("aria-expanded","false")}
+        if(e.key==="Enter"&&!$("#companyResults").classList.contains("hidden")){
+          e.preventDefault();const first=$("#companyResults [data-id]");if(first)first.click();
+        }
+      });
+      $("#changeCompany").addEventListener("click",()=>{state.selectedCustomer=null;$("#companySearch").value="";renderCompanyState();$("#companySearch").focus();saveDraft()});
+      $$("[data-next]").forEach(btn=>btn.addEventListener("click",nextStep));
+      $$("[data-prev]").forEach(btn=>btn.addEventListener("click",previousStep));
+      $("#mobileNextBtn").addEventListener("click",nextStep);
+      $("#mobilePrevBtn").addEventListener("click",previousStep);
       $("#submitBtn").addEventListener("click",submitSurvey);
-      document.addEventListener("click",e=>{if(!e.target.closest(".search-wrap"))$("#companyResults").classList.add("hidden")});
+      $("#finalComment").addEventListener("input",saveDraft);
+      $("#clearDraftBtn").addEventListener("click",()=>resetSurvey());
+      document.addEventListener("click",e=>{
+        if(!e.target.closest(".search-wrap")){$("#companyResults").classList.add("hidden");$("#companySearch").setAttribute("aria-expanded","false")}
+      });
+
     }
 
     (async function init(){
-      bind();renderSurvey();showView("home");
+      restoreDraft();bind();renderSurvey();showView("home");loadDesktopHero();
+      window.addEventListener("resize",loadDesktopHero,{passive:true});
       if(state.adminPin){
         try{await verifyAdmin(state.adminPin)}catch(e){sessionStorage.removeItem("tht_admin_pin");state.adminPin=""}
       }
