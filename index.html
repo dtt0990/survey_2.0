@@ -85,6 +85,14 @@
     @media(max-width:1000px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.dash-grid{grid-template-columns:1fr}}
     @media(max-width:820px){.page-shell{margin:0;border-radius:0}.choice-grid,.hero{grid-template-columns:1fr}.home,.hero-copy{padding:42px 26px}.hero h1,.home h1{font-size:34px}.hero-image-wrap{min-height:300px}.survey-shell{padding:34px 24px 40px}.dashboard{padding:26px 20px 38px}.dash-top{align-items:flex-start;flex-direction:column}}
     @media(max-width:560px){.topbar{padding:14px 18px}.brand-logo{width:52px;height:52px}.brand strong{font-size:14px}.home{padding:32px 20px}.home h1{font-size:30px}.choice-card{min-height:190px;padding:22px}.admin-pin-wrap{flex-direction:column}.hero h1{font-size:31px}.option-grid,.priority-grid{grid-template-columns:1fr}.rating-btn small{display:none}.rating-grid{gap:6px}.rating-btn{min-height:58px}.survey-shell{padding-left:18px;padding-right:18px}.card,.question-card{padding:20px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.bar-row{grid-template-columns:1fr 1.4fr 48px}footer{flex-direction:column}}
+
+    .legacy-note{border-left:3px solid var(--blue);background:#eef5f9;padding:13px 15px;border-radius:0 12px 12px 0;font-size:12px;line-height:1.65;color:#39596b;margin-bottom:18px}
+    .legacy-foot{font-size:11px;color:var(--muted);margin-top:13px;line-height:1.5}
+    .legacy-metrics{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 15px}
+    .legacy-metrics span{background:#f0f6f3;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px}
+    .legacy-feedback-row{border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:10px}
+    .legacy-feedback-row strong{font-size:12px;color:var(--blue)}
+    .legacy-feedback-row p{font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin:7px 0 0}
   </style>
 </head>
 <body>
@@ -221,6 +229,8 @@
           <button class="dash-tab" data-dash-tab="analysis" type="button">Phân tích</button>
           <button class="dash-tab" data-dash-tab="customers" type="button">Khách hàng</button>
           <button class="dash-tab" data-dash-tab="issues" type="button">Vấn đề & Hành động</button>
+          <button class="dash-tab" data-dash-tab="historical" type="button">Khảo sát 2026 · Lần 1</button>
+          <button class="dash-tab" data-dash-tab="comparison" type="button">Đối chiếu các kỳ</button>
         </nav>
 
         <section class="dash-panel active" data-dash-panel="overview">
@@ -252,6 +262,27 @@
           <div class="dash-card"><h3>Issue Log</h3><p class="sub">Chỉ xem. Việc cập nhật action vẫn thực hiện trong nguồn dữ liệu nội bộ.</p><div id="issuesTableWrap"></div></div>
           <div class="dash-card" style="margin-top:16px"><h3>Action Tracker</h3><div id="actionsTableWrap"></div></div>
         </section>
+        <section class="dash-panel" data-dash-panel="historical">
+          <div class="dash-card">
+            <h3>Khảo sát khách hàng 2026 · Lần 1</h3>
+            <p class="sub">Kết quả lịch sử từ file Excel gốc. Chỉ số 82,67% là tỷ lệ đạt điểm 3–5 trên 9 tiêu chí, trung bình theo khách hàng; không phải CSAT của Survey 2.0.</p>
+            <div class="kpi-grid" id="legacyKpis"></div>
+          </div>
+          <div class="dash-grid" style="margin-top:16px">
+            <div class="dash-card"><h3>Điểm trung bình theo 9 tiêu chí</h3><div id="legacyDimensions" class="bar-list"></div></div>
+            <div class="dash-card"><h3>Tỷ lệ đạt theo tiêu chí</h3><p class="sub">Tỷ lệ đánh giá từ 3 đến 5.</p><div id="legacyAchieved" class="bar-list"></div></div>
+          </div>
+          <div class="dash-card"><h3>Kết quả theo khách hàng</h3><input class="customer-search" id="legacyCustomerSearch" placeholder="Tìm khách hàng, nhóm khách, Sales Owner..." /><div id="legacyCustomerTable"></div></div>
+          <div class="dash-card" style="margin-top:16px"><h3>Ý kiến gốc cần lưu ý</h3><div class="feedback-list" id="legacyFeedback"></div></div>
+        </section>
+        <section class="dash-panel" data-dash-panel="comparison">
+          <div class="dash-card">
+            <h3>Đối chiếu khảo sát cũ và Survey 2.0</h3>
+            <p class="sub">Chỉ đối chiếu các tiêu chí có nội dung gần tương ứng. Hai bộ câu hỏi không hoàn toàn giống nhau; bảng không dùng để khẳng định mức cải thiện hoặc suy giảm.</p>
+            <div id="comparisonSummary"></div>
+            <div id="comparisonTable"></div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -260,7 +291,7 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbycN2gF9D4qOgtxLCf3IfJ-KWRMEEKmC1xMcRswSVwbkijZYqq01Y0QnO6D4pM-k5DS1w/exec";
-    const EXPECTED_API_VERSION = "2026-10-06-dashboard-v2";
+    const EXPECTED_API_VERSION = "2026-10-08-history-v3";
     const CONTENT = {"brandName":{"vi":"Công ty Cổ phần Dệt Trần Hiệp Thành","en":"TRAN HIEP THANH TEXTILE CORPORATION"},"brandSubtitle":{"vi":"Khảo sát trải nghiệm khách hàng","en":"Customer Experience Survey"},"heroEyebrow":{"vi":"Trải nghiệm Khách hàng 2026","en":"Customer Experience 2026"},"heroTitle":{"vi":"Phản hồi của Quý khách sẽ giúp chúng tôi cải thiện tốt hơn!","en":"Your feedback helps us serve you better!"},"heroBody":{"vi":"Khảo sát mất khoảng 3 phút. Mỗi phản hồi sẽ được dùng để xác định nội dung cần cải thiện trong sản phẩm, dịch vụ và quá trình phối hợp công việc.","en":"This survey takes about 3 minutes. Your feedback will help us identify practical improvements across our products, services and collaboration."},"heroPoint1":{"vi":"TRÁCH NHIỆM","en":"RESPONSIBILITY"},"heroPoint2":{"vi":"HỢP TÁC","en":"COOPERATION"},"heroPoint3":{"vi":"TẬN TÂM","en":"DEDICATION"},"stepKicker":{"vi":"Bắt đầu","en":"Getting started"},"sectionTitle":{"vi":"Thông tin khảo sát","en":"Survey information"},"companyLabel":{"vi":"Tên công ty","en":"Company name"},"companyPlaceholder":{"vi":"Nhập tên công ty...","en":"Search company name..."},"confirmCompany":{"vi":"Quý khách đang gửi phản hồi cho","en":"You are submitting feedback for"},"change":{"vi":"Thay đổi","en":"Change"},"roleLabel":{"vi":"Bộ phận / vai trò","en":"Department / Role"},"overallChip":{"vi":"Đánh giá chung","en":"Overall rating"},"overallQuestion":{"vi":"Nhìn chung, Quý khách hài lòng với sản phẩm, dịch vụ và quá trình hợp tác với THT ở mức nào?","en":"Overall, how satisfied are you with THT's products, services and collaboration experience?"},"priorityChip":{"vi":"Điều quan trọng với Quý khách","en":"What matters most"},"priorityQuestion":{"vi":"Chọn tối đa 3 yếu tố quan trọng nhất khi làm việc với nhà cung cấp vải.","en":"Choose up to 3 factors that matter most when working with a fabric supplier."},"finalChip":{"vi":"Một góp ý cuối","en":"One final thought"},"finalQuestion":{"vi":"Nếu THT chỉ có thể cải thiện một điều trong 6 tháng tới, Quý khách mong muốn đó là gì?","en":"If THT could improve one thing in the next six months, what should it be?"},"finalPlaceholder":{"vi":"Quý khách có thể chia sẻ ngắn gọn tại đây...","en":"Please share your feedback here..."},"optional":{"vi":"Không bắt buộc","en":"Optional"},"thanksEyebrow":{"vi":"Đã ghi nhận","en":"Received"},"thanksTitle":{"vi":"Cảm ơn Quý khách đã dành thời gian thực hiện khảo sát!","en":"Thank you for taking the time to complete the survey!"},"thanksBody":{"vi":"Khảo sát đã được thực hiện thành công. Chúng tôi sẽ sử dụng dữ liệu này để xác định các nội dung cần cải thiện trong thời gian tới với mục đích phụ vụ Khách hàng tốt hơn. Trân trọng!","en":"The survey has been successfully completed. We will use this data to identify areas for improvement and better serve our customers."},"footerNote":{"vi":"Customer Experience Survey","en":"Customer Experience Survey"},"role_MANAGEMENT":{"vi":"Quản lý","en":"Management"},"role_SOURCING":{"vi":"Thu mua","en":"Sourcing / Purchasing"},"role_MERCHANDISING":{"vi":"Merchandising","en":"Merchandising"},"role_DEVELOPMENT":{"vi":"Phát triển sản phẩm","en":"R&D / Product Development"},"role_QUALITY":{"vi":"Chất lượng / Kỹ thuật","en":"Quality / Technical"},"role_PRODUCTION":{"vi":"Sản xuất / Vận hành","en":"Production / Operations"},"role_OTHER":{"vi":"Khác","en":"Other"},"scale_1":{"vi":"Rất chưa đáp ứng","en":"Very Poor"},"scale_2":{"vi":"Chưa đáp ứng","en":"Poor"},"scale_3":{"vi":"Đáp ứng","en":"Acceptable"},"scale_4":{"vi":"Tốt","en":"Good"},"scale_5":{"vi":"Rất tốt","en":"Excellent"},"question_DEV":{"vi":"THT đáp ứng yêu cầu về tiến độ phát triển sản phẩm và mẫu ở mức nào?","en":"How well does THT meet your expectations regarding product and sample development lead time?"},"question_RESP":{"vi":"THT phản hồi các yêu cầu về báo giá, thông tin sản phẩm, kỹ thuật và đơn hàng nhanh chóng ở mức nào?","en":"How effectively does THT respond to your requests regarding quotations, product information, technical matters and orders?"},"question_DEL":{"vi":"THT đáp ứng tiến độ giao hàng đã cam kết đáng tin cậy ở mức nào?","en":"How reliably does THT meet committed delivery schedules?"},"question_QUAL":{"vi":"Chất lượng sản phẩm của THT ổn định giữa các lô hàng ở mức nào?","en":"How consistent is THT's product quality across different production lots?"},"question_CLAIM":{"vi":"Khi có vấn đề phát sinh, THT phản hồi và giải quyết vấn đề đến cùng ở mức nào?","en":"When an issue occurs, how effectively does THT respond and resolve it through to completion?"},"question_COMM":{"vi":"THT chủ động cập nhật tiến độ và thông báo sớm các thay đổi hoặc rủi ro liên quan đến sản phẩm và đơn hàng ở mức nào?","en":"How proactively does THT provide progress updates and early notice of changes or risks related to products and orders?"},"question_VALUE":{"vi":"THT hiểu nhu cầu của Quý Khách hàng và chủ động đề xuất các giải pháp phù hợp ở mức nào?","en":"How well does THT understand your needs and proactively propose relevant solutions?"},"priority_QUALITY":{"vi":"Chất lượng sản phẩm","en":"Product Quality"},"priority_PRICE":{"vi":"Giá cạnh tranh","en":"Competitive Pricing"},"priority_DEVELOPMENT":{"vi":"Tốc độ phát triển sản phẩm","en":"Development Speed"},"priority_DELIVERY":{"vi":"Độ tin cậy về giao hàng","en":"Delivery Reliability"},"priority_RESPONSIVENESS":{"vi":"Tốc độ phản hồi","en":"Responsiveness"},"priority_TECHNICAL":{"vi":"Hỗ trợ kỹ thuật","en":"Technical Support"},"priority_INNOVATION":{"vi":"Phát triển sản phẩm mới","en":"Innovation & New Development"},"priority_SUSTAINABILITY":{"vi":"Bền vững và tuân thủ","en":"Sustainability & Compliance"},"priority_CLAIM":{"vi":"Xử lý khiếu nại","en":"Complaint Resolution"},"priority_COMMUNICATION":{"vi":"Chủ động cập nhật thông tin","en":"Proactive Communication"}};
     const QUESTION_CODES = ["DEV","RESP","DEL","QUAL","CLAIM","COMM","VALUE"];
     const ROLE_CODES = ["MANAGEMENT","SOURCING","MERCHANDISING","DEVELOPMENT","QUALITY","PRODUCTION","OTHER"];
@@ -431,7 +462,7 @@
     }
     function renderRoundSelect(){
       const d=state.dashboard,sel=$("#roundSelect"),current=d.selectedRoundId||"";
-      sel.innerHTML=`<option value="__ALL__">Tất cả các kỳ</option>`+(d.rounds||[]).map(r=>`<option value="${escapeAttr(r.roundId)}">${escapeHtml(r.roundName||r.roundId)}${String(r.status).toLowerCase()==="active"?" · Active":""}</option>`).join("");
+      sel.innerHTML=`<option value="__ALL__">Tất cả kỳ Survey 2.0</option>`+(d.rounds||[]).filter(r=>r.roundId!=='2026_R1' && String(r.status).toLowerCase()!=='legacy').map(r=>`<option value="${escapeAttr(r.roundId)}">${escapeHtml(r.roundName||r.roundId)}${String(r.status).toLowerCase()==="active"?" · Active":""}</option>`).join("");
       sel.value=current||"__ALL__";
     }
     function renderKpis(){
@@ -470,7 +501,50 @@
       $("#issuesTableWrap").innerHTML=issues.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Issue</th><th>Khách hàng</th><th>Dimension</th><th>Score</th><th>Severity</th><th>Status</th><th>Feedback</th></tr></thead><tbody>${issues.map(x=>`<tr><td>${escapeHtml(x.issueId)}</td><td>${escapeHtml(x.customerName)}</td><td>${escapeHtml(x.dimension)}</td><td>${x.score??"—"}</td><td>${escapeHtml(x.severity||"—")}</td><td>${escapeHtml(x.reviewStatus||"—")}</td><td>${escapeHtml(x.feedback||"—")}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Chưa có issue.</div>`;
       $("#actionsTableWrap").innerHTML=actions.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Action</th><th>Khách hàng</th><th>Owner</th><th>Hành động</th><th>Deadline</th><th>Status</th><th>KPI</th><th>Actual</th></tr></thead><tbody>${actions.map(x=>`<tr><td>${escapeHtml(x.actionId)}</td><td>${escapeHtml(x.customerName)}</td><td>${escapeHtml(x.owner||"—")}</td><td>${escapeHtml(x.improvementAction||x.issue||"—")}</td><td>${fmtDate(x.deadline)}</td><td>${escapeHtml(x.status||"—")}</td><td>${escapeHtml(x.kpi||"—")}</td><td>${escapeHtml(x.actual||"—")}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Chưa có action.</div>`;
     }
-    function renderDashboard(){renderRoundSelect();renderOverview();renderAnalysis();renderCustomers($("#dashboardCustomerSearch").value||"");renderIssues()}
+
+    function legacyPercent(value){ return value==null || !isFinite(Number(value)) ? "—" : `${(Number(value)*100).toFixed(2)}%`; }
+    function renderHistorical(){
+      const legacy=state.dashboard?.legacy;
+      if(!legacy){$("#legacyKpis").innerHTML='<div class="empty">Chưa có dữ liệu lịch sử.</div>';return;}
+      const s=legacy.summary;
+      $("#legacyKpis").innerHTML=[
+        ['Khách hàng',s.customers],['Tiêu chí',s.criteria],['Tỷ lệ đạt theo cách tính cũ',legacyPercent(s.achievedRate)],['Ý kiến ghi nhận',s.feedbackCount]
+      ].map(([key,value])=>`<div class="kpi"><span>${escapeHtml(key)}</span><strong>${value}</strong></div>`).join('');
+      const dims=legacy.dimensions||[];
+      renderBarList($("#legacyDimensions"),dims.map(x=>({label:x.dimension,value:x.averageScore||0})),5,v=>Number(v).toFixed(2));
+      renderBarList($("#legacyAchieved"),dims.map(x=>({label:x.dimension,value:x.achievedRate||0})),1,v=>legacyPercent(v));
+      renderLegacyCustomers($("#legacyCustomerSearch").value||'');
+      const notes=legacy.customers.flatMap(c=>(c.feedback||[]).filter(item=>item.text.trim()&&item.text.trim().toLowerCase()!=='hài lòng').map(item=>({customer:c.customerName,text:item.text})));
+      $("#legacyFeedback").innerHTML=notes.length?notes.map(x=>`<div class="legacy-feedback-row"><strong>${escapeHtml(x.customer)}</strong><p>${escapeHtml(x.text)}</p></div>`).join(''):'<div class="empty">Không có ý kiến.</div>';
+    }
+    function renderLegacyCustomers(term){
+      const l=state.dashboard?.legacy;if(!l)return;
+      const query=String(term||'').toLowerCase();
+      const rows=l.customers.filter(c=>[c.customerName,c.fullName,c.parent,c.salesOwner].join(' ').toLowerCase().includes(query));
+      $("#legacyCustomerTable").innerHTML=rows.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Khách hàng</th><th>Nhóm khách</th><th>Sales</th><th>Điểm TB / 5</th><th>Tỷ lệ đạt cũ</th><th>Điểm 1–2</th><th>Góp ý</th></tr></thead><tbody>${rows.map(c=>{
+        const scores=Object.values(c.scores||{}).map(Number);const avg=scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:null;
+        const negatives=scores.filter(x=>x<=2).length;const comment=(c.feedback||[]).map(f=>f.text).filter(Boolean).join(' · ')||c.sourceComment||'';
+        return `<tr><td><strong>${escapeHtml(c.customerName)}</strong></td><td>${escapeHtml(c.parent)}</td><td>${escapeHtml(c.salesOwner)}</td><td>${avg===null?'—':avg.toFixed(2)}</td><td>${legacyPercent(c.reportedRate)}</td><td>${negatives}</td><td>${escapeHtml(comment||'—')}</td></tr>`;
+      }).join('')}</tbody></table></div>`:'<div class="empty">Không tìm thấy khách hàng.</div>';
+    }
+    function renderHistoricalComparison(){
+      const old=state.dashboard?.legacy;if(!old)return;
+      const modern=state.dashboard.dimensions||[];
+      $("#comparisonSummary").innerHTML=`<div class="legacy-note">Kỳ lịch sử có ${old.summary.customers} khách hàng và ${old.summary.criteria} tiêu chí, tính tỷ lệ đạt từ điểm 3 trở lên. Survey 2.0 dùng tỷ lệ Overall CSAT từ điểm 4–5. <strong>Không trừ trực tiếp 2 tỷ lệ này để tính tăng/giảm.</strong></div>
+        <div class="legacy-metrics"><span>Lần 1 · Tỷ lệ đạt cũ: <strong>${legacyPercent(old.summary.achievedRate)}</strong></span><span>Survey 2.0 · Overall CSAT: <strong>${pct(state.dashboard.summary.csat)}</strong></span><span>Survey 2.0 · Responses: <strong>${state.dashboard.summary.responses}</strong></span></div>`;
+      const pairs=[
+        {old:'DEV',modern:'DEV',label:'Thời gian phát triển sản phẩm',fit:'Gần tương ứng'},
+        {old:'DEL',modern:'DEL',label:'Giao hàng đúng hạn',fit:'Tương đồng'},
+        {old:'QUAL',modern:'QUAL',label:'Chất lượng sản phẩm',fit:'Tương đồng'},
+        {old:'CLAIM',modern:'CLAIM',label:'Giải quyết khiếu nại',fit:'Tương đồng'}
+      ];
+      const hist=Object.fromEntries((old.dimensions||[]).map(x=>[x.code,x]));
+      const live=Object.fromEntries(modern.filter(x=>x.code).map(x=>[x.code,x]));
+      $("#comparisonTable").innerHTML=`<div class="table-wrap"><table class="data-table"><thead><tr><th>Tiêu chí</th><th>Điểm TB 2026 R1</th><th>Điểm TB Survey 2.0</th><th>Độ tương ứng</th></tr></thead><tbody>${pairs.map(pair=>{
+        const a=hist[pair.old],b=live[pair.modern];return `<tr><td>${escapeHtml(pair.label)}</td><td>${a?score(a.averageScore):'—'}</td><td>${b?score(b.averageScore):'Chưa có dữ liệu'}</td><td>${escapeHtml(pair.fit)}</td></tr>`;
+      }).join('')}</tbody></table></div><p class="legacy-foot">Các cặp tiêu chí chỉ phục vụ tham khảo. Không đưa thang điểm cũ sang thang đánh giá chung mới; không tự động quy đổi hoặc kết luận mức thay đổi.</p>`;
+    }
+    function renderDashboard(){renderRoundSelect();renderOverview();renderAnalysis();renderCustomers($("#dashboardCustomerSearch").value||"");renderIssues();renderHistorical();renderHistoricalComparison()}
     function switchDashTab(tab){
       $$(".dash-tab").forEach(b=>b.classList.toggle("active",b.dataset.dashTab===tab));
       $$(".dash-panel").forEach(p=>p.classList.toggle("active",p.dataset.dashPanel===tab));
@@ -489,6 +563,7 @@
       $("#roundSelect").addEventListener("change",e=>loadDashboard(e.target.value));
       $$(".dash-tab").forEach(btn=>btn.addEventListener("click",()=>switchDashTab(btn.dataset.dashTab)));
       $("#dashboardCustomerSearch").addEventListener("input",e=>renderCustomers(e.target.value));
+      $("#legacyCustomerSearch").addEventListener("input",e=>renderLegacyCustomers(e.target.value));
 
       $("#companySearch").addEventListener("input",e=>searchCustomers(e.target.value));
       $("#changeCompany").addEventListener("click",()=>{state.selectedCustomer=null;$("#companySearch").value="";renderCompanyState();$("#companySearch").focus()});
