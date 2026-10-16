@@ -460,18 +460,18 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbycN2gF9D4qOgtxLCf3IfJ-KWRMEEKmC1xMcRswSVwbkijZYqq01Y0QnO6D4pM-k5DS1w/exec";
-    const EXPECTED_API_VERSION = "2026-10-16-likert-v5";
+    const EXPECTED_API_VERSION = "2026-10-16-likert-v7-mastersheet";
     const CONTENT = {"brandName":{"vi":"Công ty Cổ phần Dệt Trần Hiệp Thành","en":"TRAN HIEP THANH TEXTILE CORPORATION"},"brandSubtitle":{"vi":"Khảo sát trải nghiệm khách hàng","en":"Customer Experience Survey"},"heroEyebrow":{"vi":"Trải nghiệm Khách hàng 2026","en":"Customer Experience 2026"},"heroTitle":{"vi":"Phản hồi của Quý khách sẽ giúp chúng tôi cải thiện tốt hơn!","en":"Your feedback helps us serve you better!"},"heroBody":{"vi":"Khảo sát ghi nhận trải nghiệm hợp tác trong 6 tháng gần đây. Vui lòng chọn mức phù hợp nhất và chia sẻ những nội dung THT cần cải thiện.","en":"Please rate your experience of working with THT over the past six months and share where we can improve."},"heroPoint1":{"vi":"TRÁCH NHIỆM","en":"RESPONSIBILITY"},"heroPoint2":{"vi":"HỢP TÁC","en":"COOPERATION"},"heroPoint3":{"vi":"TẬN TÂM","en":"DEDICATION"},"stepKicker":{"vi":"Bắt đầu","en":"Getting started"},"sectionTitle":{"vi":"Thông tin khảo sát","en":"Survey information"},"companyLabel":{"vi":"Tên công ty","en":"Company name"},"companyPlaceholder":{"vi":"Nhập tên công ty...","en":"Search company name..."},"confirmCompany":{"vi":"Quý khách đang gửi phản hồi cho","en":"You are submitting feedback for"},"change":{"vi":"Thay đổi","en":"Change"},"roleLabel":{"vi":"Bộ phận / vai trò","en":"Department / Role"},"overallChip":{"vi":"Đánh giá chung","en":"Overall rating"},"overallQuestion":{"vi":"Nhìn chung, Quý khách hài lòng ở mức nào với trải nghiệm hợp tác cùng THT trong 6 tháng gần đây?","en":"Overall, how satisfied are you with your experience of working with THT over the past six months?"},"priorityChip":{"vi":"Điều quan trọng với Quý khách","en":"What matters most"},"priorityQuestion":{"vi":"Chọn tối đa 3 yếu tố quan trọng nhất khi làm việc với nhà cung cấp vải.","en":"Choose up to 3 factors that matter most when working with a fabric supplier."},"finalChip":{"vi":"Một góp ý cuối","en":"One final thought"},"finalQuestion":{"vi":"Trong 6 tháng tới, điều gì THT cần ưu tiên cải thiện nhất để hỗ trợ công việc của Quý khách tốt hơn?","en":"What should THT prioritize improving over the next six months to better support your business?"},"finalPlaceholder":{"vi":"Quý khách có thể chia sẻ ngắn gọn tại đây...","en":"Please share your feedback here..."},"optional":{"vi":"Không bắt buộc","en":"Optional"},"thanksEyebrow":{"vi":"Đã ghi nhận","en":"Received"},"thanksTitle":{"vi":"Cảm ơn Quý khách đã dành thời gian thực hiện khảo sát!","en":"Thank you for taking the time to complete the survey!"},"thanksBody":{"vi":"Khảo sát đã được thực hiện thành công. Chúng tôi sẽ sử dụng dữ liệu này để xác định các nội dung cần cải thiện trong thời gian tới với mục đích phụ vụ Khách hàng tốt hơn. Trân trọng!","en":"The survey has been successfully completed. We will use this data to identify areas for improvement and better serve our customers."},"footerNote":{"vi":"Customer Experience Survey","en":"Customer Experience Survey"},"role_MANAGEMENT":{"vi":"Quản lý","en":"Management"},"role_SOURCING":{"vi":"Thu mua","en":"Sourcing / Purchasing"},"role_MERCHANDISING":{"vi":"Merchandising","en":"Merchandising"},"role_DEVELOPMENT":{"vi":"Phát triển sản phẩm","en":"R&D / Product Development"},"role_QUALITY":{"vi":"Chất lượng / Kỹ thuật","en":"Quality / Technical"},"role_PRODUCTION":{"vi":"Sản xuất / Vận hành","en":"Production / Operations"},"role_OTHER":{"vi":"Khác","en":"Other"},"scale_1":{"vi":"Hoàn toàn không đồng ý","en":"Strongly disagree"},"scale_2":{"vi":"Không đồng ý","en":"Disagree"},"scale_3":{"vi":"Trung lập","en":"Neither agree nor disagree"},"scale_4":{"vi":"Đồng ý","en":"Agree"},"scale_5":{"vi":"Hoàn toàn đồng ý","en":"Strongly agree"},"question_DEV":{"vi":"THT đáp ứng các mốc thời gian đã thống nhất trong quá trình phát triển sản phẩm và mẫu.","en":"THT meets the agreed timelines for product and sample development."},"question_RESP":{"vi":"THT phản hồi các yêu cầu công việc trong thời gian phù hợp với nhu cầu của chúng tôi.","en":"THT responds to our business requests within a timeframe that meets our needs."},"question_DEL":{"vi":"THT giao hàng đúng các mốc thời gian đã cam kết với chúng tôi.","en":"THT delivers orders according to the agreed delivery schedules."},"question_QUAL":{"vi":"Chất lượng vải THT cung cấp đáp ứng ổn định các yêu cầu kỹ thuật đã thống nhất.","en":"The fabric supplied by THT consistently meets the agreed technical requirements."},"question_CLAIM":{"vi":"Khi phát sinh vấn đề, THT đưa ra phương án giải quyết đáp ứng nhu cầu xử lý của chúng tôi.","en":"When issues arise, THT provides resolutions that meet our needs."},"question_COMM":{"vi":"THT chủ động thông tin kịp thời về những thay đổi có thể ảnh hưởng đến kế hoạch của chúng tôi.","en":"THT proactively informs us of changes that may affect our plans in a timely manner."},"question_VALUE":{"vi":"Các giải pháp THT đề xuất phù hợp với nhu cầu thực tế của chúng tôi.","en":"The solutions proposed by THT are relevant to our actual business needs."},"priority_QUALITY":{"vi":"Chất lượng sản phẩm","en":"Product Quality"},"priority_PRICE":{"vi":"Giá cạnh tranh","en":"Competitive Pricing"},"priority_DEVELOPMENT":{"vi":"Tốc độ phát triển sản phẩm","en":"Development Speed"},"priority_DELIVERY":{"vi":"Độ tin cậy về giao hàng","en":"Delivery Reliability"},"priority_RESPONSIVENESS":{"vi":"Tốc độ phản hồi","en":"Responsiveness"},"priority_TECHNICAL":{"vi":"Hỗ trợ kỹ thuật","en":"Technical Support"},"priority_INNOVATION":{"vi":"Phát triển sản phẩm mới","en":"Innovation & New Development"},"priority_SUSTAINABILITY":{"vi":"Bền vững và tuân thủ","en":"Sustainability & Compliance"},"priority_CLAIM":{"vi":"Xử lý khiếu nại","en":"Complaint Resolution"},"priority_COMMUNICATION":{"vi":"Chủ động cập nhật thông tin","en":"Proactive Communication"}};
-    const LIKERT_EXPLANATIONS = {"DEV":{"vi":["Phần lớn các mốc tiến độ không được đáp ứng.","Một số mốc quan trọng bị trễ, ảnh hưởng đến kế hoạch.","Có mốc đúng hạn và có mốc bị trễ; kết quả chưa ổn định.","Hầu hết các mốc được đáp ứng đúng thời gian thống nhất.","Các mốc được đáp ứng nhất quán, giúp chúng tôi chủ động kế hoạch."],"en":["Most agreed timelines are missed.","Some key milestones are delayed, affecting our plans.","Some milestones are met, while others are delayed.","Most agreed milestones are met on time.","Timelines are consistently met, supporting our planning."]},"RESP":{"vi":["Phản hồi thường quá chậm, gây gián đoạn công việc.","Phản hồi còn chậm trong nhiều trường hợp.","Một số yêu cầu được phản hồi kịp thời, một số chưa.","Hầu hết yêu cầu được phản hồi trong thời gian phù hợp.","Phản hồi luôn kịp thời, giúp công việc được xử lý liên tục."],"en":["Responses are frequently too late, disrupting our work.","Responses are often slower than needed.","Response times vary across requests.","Most requests receive timely responses.","Responses are consistently timely, keeping work on track."]},"DEL":{"vi":["Giao trễ thường xuyên, gây ảnh hưởng đáng kể đến kế hoạch.","Một số đơn hàng giao trễ, ảnh hưởng đến việc triển khai.","Có đơn hàng đúng hạn và đơn hàng trễ; độ tin cậy chưa ổn định.","Phần lớn đơn hàng được giao đúng cam kết.","Giao hàng đúng cam kết một cách nhất quán."],"en":["Frequent delays significantly disrupt our plans.","Some deliveries are late and affect our operations.","Some orders arrive on time, while others are delayed.","Most orders are delivered as committed.","Delivery commitments are consistently met."]},"QUAL":{"vi":["Nhiều lô hàng không đáp ứng yêu cầu kỹ thuật.","Chất lượng chưa ổn định, có các lô không đạt yêu cầu.","Phần lớn lô hàng đạt yêu cầu nhưng vẫn có biến động.","Chất lượng ổn định, chỉ phát sinh ít trường hợp không phù hợp.","Chất lượng đáp ứng nhất quán các yêu cầu kỹ thuật đã thống nhất."],"en":["Many production lots fail to meet technical requirements.","Quality is inconsistent, with some nonconforming lots.","Most lots meet requirements, but variation remains.","Quality is stable, with few nonconformities.","Quality consistently meets all agreed technical requirements."]},"CLAIM":{"vi":["Các vấn đề thường không được giải quyết thỏa đáng.","Phương án giải quyết thường chưa đáp ứng nhu cầu.","Một số vấn đề được giải quyết phù hợp, một số chưa.","Phần lớn vấn đề được giải quyết phù hợp.","Các vấn đề được giải quyết phù hợp và nhất quán."],"en":["Issues are frequently left unresolved or inadequately addressed.","Proposed resolutions often do not meet our needs.","Some issues are resolved satisfactorily, while others are not.","Most issues are resolved satisfactorily.","Issues are consistently resolved in a satisfactory manner."]},"COMM":{"vi":["Thường không được thông báo trước về các thay đổi quan trọng.","Thông báo thường đến muộn, hạn chế khả năng chuẩn bị.","Có thay đổi được thông báo kịp thời, có thay đổi chưa.","Hầu hết thay đổi quan trọng được thông báo kịp thời.","Các thay đổi quan trọng luôn được thông báo đủ sớm để chủ động ứng phó."],"en":["Important changes are often not communicated in advance.","Updates often come too late for adequate preparation.","Some changes are communicated on time, others are not.","Most important changes are communicated in time.","Important changes are consistently communicated early enough for us to respond."]},"VALUE":{"vi":["Các đề xuất hầu như không phù hợp với nhu cầu.","Nhiều đề xuất chưa phù hợp hoặc khó áp dụng.","Một số đề xuất phù hợp, nhưng giá trị ứng dụng chưa ổn định.","Phần lớn đề xuất phù hợp và có giá trị ứng dụng.","Các đề xuất nhất quán phù hợp và giúp giải quyết nhu cầu thực tế."],"en":["Proposed solutions rarely match our needs.","Many proposals are unsuitable or difficult to apply.","Some proposals are relevant, but their usefulness varies.","Most proposals are relevant and practically useful.","Proposals consistently fit our needs and help address real business requirements."]}};
-    const OVERALL_EXPLANATIONS = {"vi":["Trải nghiệm nhìn chung không đáp ứng kỳ vọng.","Có những vấn đề đáng kể cần cải thiện.","Trải nghiệm có điểm đáp ứng và điểm chưa đáp ứng.","Trải nghiệm nhìn chung đáp ứng kỳ vọng.","Trải nghiệm đáp ứng rất tốt kỳ vọng hợp tác."],"en":["Overall experience falls well short of expectations.","Significant improvements are needed.","Experience has both strengths and weaknesses.","Overall experience meets expectations.","Overall experience meets expectations very well."]};
-    const OVERALL_LABELS = {"vi":["Rất không hài lòng","Không hài lòng","Bình thường","Hài lòng","Rất hài lòng"],"en":["Very dissatisfied","Dissatisfied","Neither satisfied nor dissatisfied","Satisfied","Very satisfied"]};
-    const N_A_CODES = ["CLAIM","VALUE"];
+    let LIKERT_EXPLANATIONS = {"DEV":{"vi":["Phần lớn các mốc tiến độ không được đáp ứng.","Một số mốc quan trọng bị trễ, ảnh hưởng đến kế hoạch.","Có mốc đúng hạn và có mốc bị trễ; kết quả chưa ổn định.","Hầu hết các mốc được đáp ứng đúng thời gian thống nhất.","Các mốc được đáp ứng nhất quán, giúp chúng tôi chủ động kế hoạch."],"en":["Most agreed timelines are missed.","Some key milestones are delayed, affecting our plans.","Some milestones are met, while others are delayed.","Most agreed milestones are met on time.","Timelines are consistently met, supporting our planning."]},"RESP":{"vi":["Phản hồi thường quá chậm, gây gián đoạn công việc.","Phản hồi còn chậm trong nhiều trường hợp.","Một số yêu cầu được phản hồi kịp thời, một số chưa.","Hầu hết yêu cầu được phản hồi trong thời gian phù hợp.","Phản hồi luôn kịp thời, giúp công việc được xử lý liên tục."],"en":["Responses are frequently too late, disrupting our work.","Responses are often slower than needed.","Response times vary across requests.","Most requests receive timely responses.","Responses are consistently timely, keeping work on track."]},"DEL":{"vi":["Giao trễ thường xuyên, gây ảnh hưởng đáng kể đến kế hoạch.","Một số đơn hàng giao trễ, ảnh hưởng đến việc triển khai.","Có đơn hàng đúng hạn và đơn hàng trễ; độ tin cậy chưa ổn định.","Phần lớn đơn hàng được giao đúng cam kết.","Giao hàng đúng cam kết một cách nhất quán."],"en":["Frequent delays significantly disrupt our plans.","Some deliveries are late and affect our operations.","Some orders arrive on time, while others are delayed.","Most orders are delivered as committed.","Delivery commitments are consistently met."]},"QUAL":{"vi":["Nhiều lô hàng không đáp ứng yêu cầu kỹ thuật.","Chất lượng chưa ổn định, có các lô không đạt yêu cầu.","Phần lớn lô hàng đạt yêu cầu nhưng vẫn có biến động.","Chất lượng ổn định, chỉ phát sinh ít trường hợp không phù hợp.","Chất lượng đáp ứng nhất quán các yêu cầu kỹ thuật đã thống nhất."],"en":["Many production lots fail to meet technical requirements.","Quality is inconsistent, with some nonconforming lots.","Most lots meet requirements, but variation remains.","Quality is stable, with few nonconformities.","Quality consistently meets all agreed technical requirements."]},"CLAIM":{"vi":["Các vấn đề thường không được giải quyết thỏa đáng.","Phương án giải quyết thường chưa đáp ứng nhu cầu.","Một số vấn đề được giải quyết phù hợp, một số chưa.","Phần lớn vấn đề được giải quyết phù hợp.","Các vấn đề được giải quyết phù hợp và nhất quán."],"en":["Issues are frequently left unresolved or inadequately addressed.","Proposed resolutions often do not meet our needs.","Some issues are resolved satisfactorily, while others are not.","Most issues are resolved satisfactorily.","Issues are consistently resolved in a satisfactory manner."]},"COMM":{"vi":["Thường không được thông báo trước về các thay đổi quan trọng.","Thông báo thường đến muộn, hạn chế khả năng chuẩn bị.","Có thay đổi được thông báo kịp thời, có thay đổi chưa.","Hầu hết thay đổi quan trọng được thông báo kịp thời.","Các thay đổi quan trọng luôn được thông báo đủ sớm để chủ động ứng phó."],"en":["Important changes are often not communicated in advance.","Updates often come too late for adequate preparation.","Some changes are communicated on time, others are not.","Most important changes are communicated in time.","Important changes are consistently communicated early enough for us to respond."]},"VALUE":{"vi":["Các đề xuất hầu như không phù hợp với nhu cầu.","Nhiều đề xuất chưa phù hợp hoặc khó áp dụng.","Một số đề xuất phù hợp, nhưng giá trị ứng dụng chưa ổn định.","Phần lớn đề xuất phù hợp và có giá trị ứng dụng.","Các đề xuất nhất quán phù hợp và giúp giải quyết nhu cầu thực tế."],"en":["Proposed solutions rarely match our needs.","Many proposals are unsuitable or difficult to apply.","Some proposals are relevant, but their usefulness varies.","Most proposals are relevant and practically useful.","Proposals consistently fit our needs and help address real business requirements."]}};
+    let OVERALL_EXPLANATIONS = {"vi":["Trải nghiệm nhìn chung không đáp ứng kỳ vọng.","Có những vấn đề đáng kể cần cải thiện.","Trải nghiệm có điểm đáp ứng và điểm chưa đáp ứng.","Trải nghiệm nhìn chung đáp ứng kỳ vọng.","Trải nghiệm đáp ứng rất tốt kỳ vọng hợp tác."],"en":["Overall experience falls well short of expectations.","Significant improvements are needed.","Experience has both strengths and weaknesses.","Overall experience meets expectations.","Overall experience meets expectations very well."]};
+    let OVERALL_LABELS = {"vi":["Rất không hài lòng","Không hài lòng","Bình thường","Hài lòng","Rất hài lòng"],"en":["Very dissatisfied","Dissatisfied","Neither satisfied nor dissatisfied","Satisfied","Very satisfied"]};
+    let N_A_CODES = ["CLAIM","VALUE"];
     const CLARIFICATION_MODES = ["TEXT","DIRECT","UNVERIFIED"];
     const QUESTION_CODES = ["DEV","RESP","DEL","QUAL","CLAIM","COMM","VALUE"];
     const ROLE_CODES = ["MANAGEMENT","SOURCING","MERCHANDISING","DEVELOPMENT","QUALITY","PRODUCTION","OTHER"];
     const PRIORITY_CODES = ["QUALITY","PRICE","DEVELOPMENT","DELIVERY","RESPONSIVENESS","TECHNICAL","INNOVATION","SUSTAINABILITY","CLAIM","COMMUNICATION"];
     const QUESTION_GROUPS = {2:QUESTION_CODES.slice(0,3),3:QUESTION_CODES.slice(3,5),4:QUESTION_CODES.slice(5,7)};
-    const DRAFT_KEY="tht_survey_likert_2026_v2", DRAFT_DAYS=7;
+    const DRAFT_KEY="tht_survey_likert_2026_v6", DRAFT_DAYS=7;
     const SURVEY_STEPS=7;
     function loadDesktopHero(){
       const img=document.querySelector("#surveyView .hero-image");
@@ -481,7 +481,7 @@
 
     const state = {
       lang:"vi",step:1,customers:[],selectedCustomer:null,role:null,scores:{},lowScoreComments:{},clarifications:{},overall:null,priorities:[],
-      adminPin:sessionStorage.getItem("tht_admin_pin") || "",dashboard:null, scoringMethod:"legacy", draftRestored:false, surveySent:false, submitting:false
+      adminPin:sessionStorage.getItem("tht_admin_pin") || "",dashboard:null, scoringMethod:"legacy", draftRestored:false, surveySent:false, submitting:false, configLoaded:false
     };
 
     const $ = s => document.querySelector(s);
@@ -735,6 +735,7 @@
     function clearStatus(){$("#statusBox").classList.add("hidden");$("#statusBox").textContent=""}
     function validateStep(step){
       const vi=state.lang==="vi";
+      if(!state.configLoaded)return fail(vi?"Chưa tải được cấu hình câu hỏi từ backend. Vui lòng thử lại.":"Survey configuration is not loaded. Please try again.");
       if(step===1){
         if(!state.selectedCustomer)return fail(vi?"Vui lòng chọn tên công ty.":"Please select your company.");
         if(!state.role)return fail(vi?"Vui lòng chọn bộ phận / vai trò.":"Please select your department / role.");
@@ -766,21 +767,62 @@
       if(state.step===1){showView("home");return}
       clearStatus();showStep(state.step-1);
     }
+    function checkLocalizedFive_(item, label){
+      if(!item || !["vi","en"].every(lang=>Array.isArray(item[lang]) && item[lang].length===5 && item[lang].every(x=>typeof x==="string" && x.trim())))
+        throw new Error("Cấu hình chưa đầy đủ: " + label);
+    }
+    function applySurveyConfig(config){
+      if(!config || config.apiVersion!==EXPECTED_API_VERSION || config.surveyVersion!=="Survey 2.1 Likert")
+        throw new Error("Backend chưa đồng bộ phiên bản " + EXPECTED_API_VERSION);
+      if(!Array.isArray(config.questions) || config.questions.length!==QUESTION_CODES.length)
+        throw new Error("Bộ câu hỏi backend chưa đủ 7 tiêu chí.");
+      const codes=config.questions.map(q=>q.code);
+      if(QUESTION_CODES.some(code=>!codes.includes(code)))throw new Error("Mã câu hỏi backend chưa đồng bộ.");
+      const naCodes=[];
+      for(const q of config.questions){
+        if(!q.vi?.trim() || !q.en?.trim())throw new Error("Thiếu câu hỏi VI/EN: " + q.code);
+        checkLocalizedFive_(q.explanations,q.code);
+        CONTENT["question_"+q.code]={vi:q.vi,en:q.en};
+        LIKERT_EXPLANATIONS[q.code]=q.explanations;
+        if(q.allowNA)naCodes.push(q.code);
+      }
+      if(!Array.isArray(config.scale) || config.scale.length!==5)throw new Error("Thiếu thang Likert 5 mức.");
+      for(let i=1;i<=5;i++){
+        const s=config.scale.find(x=>Number(x.score)===i);
+        if(!s?.vi?.trim() || !s?.en?.trim())throw new Error("Thiếu nhãn mức điểm "+i);
+        CONTENT["scale_"+i]={vi:s.vi,en:s.en};
+      }
+      if(!config.overall?.vi || !config.overall?.en)throw new Error("Thiếu câu Overall Satisfaction.");
+      checkLocalizedFive_(config.overall.labels,"Overall labels");
+      checkLocalizedFive_(config.overall.explanations,"Overall explanations");
+      CONTENT.overallQuestion={vi:config.overall.vi,en:config.overall.en};
+      OVERALL_LABELS=config.overall.labels;
+      OVERALL_EXPLANATIONS=config.overall.explanations;
+      N_A_CODES=naCodes;
+      for(const role of (config.roles||[]))if(ROLE_CODES.includes(role.code))CONTENT["role_"+role.code]={vi:role.vi,en:role.en};
+      for(const p of (config.priorities||[]))if(PRIORITY_CODES.includes(p.code))CONTENT["priority_"+p.code]={vi:p.vi,en:p.en};
+      state.configLoaded=true;
+    }
     async function loadCustomers(){
-      if(state.customers.length)return;
+      if(state.configLoaded && state.customers.length)return;
       const search=$("#companySearch");search.disabled=true;
-      search.placeholder=state.lang==="vi"?"Đang tải danh sách công ty...":"Loading companies...";
+      search.placeholder=state.lang==="vi"?"Đang tải bộ câu hỏi và danh sách công ty...":"Loading survey questions and companies...";
       try{
-        const res=await fetch(`${API_URL}?action=getCustomers`,{cache:"no-store"});
-        const json=await res.json();if(!json.success)throw new Error(json.message||"API error");
-        state.customers=json.data||[];
+        const res=await fetch(`${API_URL}?action=getSurveyBootstrap&_=${Date.now()}`,{cache:"no-store"});
+        if(!res.ok)throw new Error("HTTP "+res.status);
+        const json=await res.json();
+        if(!json.success)throw new Error(json.message||"API error");
+        applySurveyConfig(json.data?.config);
+        state.customers=json.data?.customers||[];
         if(state.selectedCustomer){
-          const customer=state.customers.find(c=>c.customerId===state.selectedCustomer.customerId);
-          state.selectedCustomer=customer||null;
-          renderCompanyState();
+          state.selectedCustomer=state.customers.find(c=>c.customerId===state.selectedCustomer.customerId)||null;
         }
-      }catch(err){console.error(err);fail(state.lang==="vi"?"Không tải được danh sách công ty. Vui lòng thử mở lại trang.":"Unable to load the company list. Please reload the page.")}
-      finally{search.disabled=false;search.placeholder=t("companyPlaceholder")}
+        renderSurvey();clearStatus();
+      }catch(err){
+        state.configLoaded=false;
+        console.error("Survey config:",err);
+        fail((state.lang==="vi"?"Chưa thể mở khảo sát vì cấu hình backend chưa đồng bộ. ":"Survey is unavailable because the backend configuration is not synchronized. ")+(err.message||""));
+      }finally{search.disabled=!state.configLoaded;search.placeholder=t("companyPlaceholder")}
     }
     function searchCustomers(q){
       const value=q.trim().toLocaleLowerCase(),box=$("#companyResults");
@@ -795,6 +837,7 @@
     }
     async function submitSurvey(){
       if(state.submitting || state.surveySent)return;
+      if(!state.configLoaded)return fail(state.lang==="vi"?"Cấu hình khảo sát chưa sẵn sàng.":"Survey configuration is not ready.");
       for(let step=1;step<SURVEY_STEPS;step++){
         if(!validateStep(step)){showStep(step,false);validateStep(step);return}
       }
@@ -1081,7 +1124,9 @@
       $$(".lang-btn").forEach(btn=>btn.addEventListener("click",()=>{state.lang=btn.dataset.lang;renderSurvey();saveDraft()}));
       $("#startSurveyBtn").addEventListener("click",async()=>{
         if(state.surveySent)resetSurvey();
-        showView("survey");renderSurvey();await loadCustomers();
+        showView("survey");
+        if(state.configLoaded)renderSurvey();
+        await loadCustomers();
       });
       $("#surveyBackHome").addEventListener("click",()=>showView("home"));
       $("#adminBackHome").addEventListener("click",()=>showView("home"));
