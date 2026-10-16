@@ -157,6 +157,83 @@
       #surveyView .rating-btn{min-height:54px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#surveyView *{scroll-behavior:auto;transition:none!important}}
+
+    /* Scoring controls and export */
+    .scoring-select{display:flex;flex-direction:column;gap:3px;color:var(--muted);font-size:11px;font-weight:700}
+    .scoring-select select{height:42px;min-width:195px;font-size:12px;font-weight:500;color:var(--ink)}
+    .scoring-explain{background:#eef5f9;border-left:3px solid var(--blue);border-radius:0 12px 12px 0;padding:12px 15px;font-size:12px;line-height:1.55;margin:0 0 16px;color:#315468}
+    .scoring-explain strong{color:var(--blue-dark)}
+    .dash-actions{align-items:end}
+    .dash-actions #exportPdfBtn{font-size:12px;white-space:nowrap;height:42px;min-height:42px}
+    .print-report{display:none}
+    .print-page{font-family:Roboto,Arial,sans-serif;color:#18312d;padding:0;font-size:10pt;line-height:1.38}
+    .report-head{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2px solid #1f5f8b;padding-bottom:10px;margin-bottom:14px}
+    .report-brand{display:flex;align-items:center;gap:12px}.report-brand img{width:52px;height:52px;object-fit:contain}.report-brand strong{font-size:11px;color:#1f5f8b}.report-brand small{display:block;color:#657a79;font-size:9px;margin-top:3px}
+    .report-tag{font-size:10px;color:#426779;text-align:right}.report-tag strong{display:block;font-size:14px;color:#1f5f8b}
+    .report-title{font-size:20px;font-weight:700;margin:2px 0 6px}.report-sub{color:#647873;font-size:10px;margin:0 0 14px}
+    .report-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:13px}
+    .report-kpi{background:#eef6f7;border:1px solid #d9e8e8;padding:12px;border-radius:9px;min-height:72px}
+    .report-kpi span{display:block;font-size:9px;color:#58706d;margin-bottom:7px}.report-kpi strong{display:block;color:#1f5f8b;font-size:23px;line-height:1.1}
+    .report-two{display:grid;grid-template-columns:1.15fr .85fr;gap:13px;margin-bottom:12px}
+    .report-card{border:1px solid #dce8e3;padding:12px;border-radius:9px;min-width:0}
+    .report-card h3{font-size:11px;color:#1f5f8b;margin:0 0 9px}
+    .report-tiny{font-size:9px;color:#687b75;line-height:1.45}
+    .report-bar-row{display:grid;grid-template-columns:150px 1fr 50px;gap:8px;align-items:center;margin-bottom:7px;font-size:9px}
+    .report-bar-row .bar-track{height:8px}
+    .report-bar-row .bar-fill{background:#3a829f}
+    .report-tbl{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9px}
+    .report-tbl th,.report-tbl td{border-bottom:1px solid #e0e8e4;padding:7px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+    .report-tbl th{background:#eef5f2;color:#385b5a}
+    .report-note{border-left:3px solid #8cb9a4;background:#f1f7f3;padding:10px 12px;font-size:9px;line-height:1.5;margin-top:10px}
+    .report-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #dbe5df;margin-top:10px;padding-top:8px;color:#71817c;font-size:9px}
+    .report-list{margin:0;padding-left:18px;font-size:9px;line-height:1.55}
+    @media(max-width:1050px){.dash-actions .scoring-select{width:100%}.dash-actions .scoring-select select{width:100%}}
+    @media(max-width:560px){.dash-actions{width:100%}.dash-actions select{max-width:100%}.dash-actions #roundSelect{flex:1;min-width:0}.dash-actions #exportPdfBtn{flex:1}.scoring-explain{font-size:11px}}
+    @page{size:A4 landscape;margin:10mm}
+    @media print{
+      html,body{background:white!important;margin:0!important;padding:0!important}
+      body>.page-shell{display:none!important}
+      .print-report{display:block!important;position:static!important;width:100%!important;background:#fff!important}
+      .print-page{display:block;page-break-after:always;break-after:page;page-break-inside:avoid;break-inside:avoid;height:auto;min-height:170mm}
+      .print-page:last-child{page-break-after:auto;break-after:auto}
+      *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+    }
+
+
+    /* SURVEY 2.1: Accessible agreement options and mandatory clarification */
+    #surveyView .likert-list{display:grid;grid-template-columns:1fr;gap:8px}
+    #surveyView .likert-option{display:flex;align-items:center;gap:12px;min-width:0;width:100%;text-align:left;border:1px solid #dce8e3;border-radius:12px;background:#fff;padding:11px 12px;color:var(--ink);min-height:64px;touch-action:manipulation}
+    #surveyView .likert-option:hover{background:#f5faf8;border-color:#a1c4b1}
+    #surveyView .likert-option.selected{border:2px solid #1f5f8b;padding:10px 11px;background:#eef6fa}
+    #surveyView .likert-num{display:grid;place-items:center;flex:0 0 37px;width:37px;height:37px;border-radius:11px;background:#e8f0f5;color:#1f5f8b;font-weight:700;font-size:18px}
+    #surveyView .likert-option.selected .likert-num{background:#1f5f8b;color:white}
+    #surveyView .likert-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+    #surveyView .likert-copy strong{font-weight:700;font-size:13px;line-height:1.3}
+    #surveyView .likert-copy small{color:#647874;font-size:12px;line-height:1.4}
+    #surveyView .likert-check{width:18px;font-weight:700;color:#1f5f8b;font-size:18px}
+    #surveyView .na-option{background:#f7faf8}
+    #surveyView .na-mark{font-size:20px}
+    #surveyView .required-followup.visible{display:block;padding:14px;margin-top:14px;border:1px solid #f0d6aa;border-radius:12px;background:#fffbf3}
+    #surveyView .followup-title{font-size:13px;font-weight:700;color:#865a13}
+    #surveyView .required-star{color:#b24131}
+    #surveyView .followup-hint{font-size:12px;color:#6d786d;margin:6px 0 12px;line-height:1.5}
+    #surveyView .followup-options{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+    #surveyView .followup-mode{padding:9px 11px;background:#fff;border:1px solid #d7dcd5;border-radius:10px;color:#485b50;font-weight:500;font-size:12px;min-height:42px}
+    #surveyView .followup-mode.selected{border-color:#1f5f8b;background:#eaf3f8;color:#1f5f8b;font-weight:700}
+    #surveyView .required-followup label{display:block;font-size:12px;font-weight:700;color:#5c6c63;margin-bottom:6px}
+    #surveyView .required-followup textarea{width:100%;background:#fff;font-size:16px;min-height:85px}
+    #surveyView .likert-option:focus-visible,#surveyView .followup-mode:focus-visible{outline:3px solid #96c9ac;outline-offset:2px}
+    @media(max-width:700px){
+      #surveyView .likert-list{gap:7px}
+      #surveyView .likert-option{min-height:61px;padding:10px 9px;gap:10px}
+      #surveyView .likert-option.selected{padding:9px 8px}
+      #surveyView .likert-num{flex-basis:33px;width:33px;height:33px;font-size:17px}
+      #surveyView .likert-copy strong{font-size:12px}
+      #surveyView .likert-copy small{font-size:11px}
+      #surveyView .followup-options{display:grid;grid-template-columns:1fr 1fr}
+      #surveyView .followup-mode:first-child{grid-column:1/-1}
+      #surveyView .followup-mode{min-height:44px}
+    }
   </style>
 </head>
 <body>
@@ -270,7 +347,7 @@
         </section>
 
         <section class="step" data-step="5">
-          <div class="card"><span class="section-chip" id="overallChip"></span><h3 id="overallQuestion"></h3><div id="overallScale" class="rating-grid" role="group" aria-label="Overall rating"></div><p class="scale-legend" id="overallLegend"></p></div>
+          <div class="card"><span class="section-chip" id="overallChip"></span><h3 id="overallQuestion"></h3><div id="overallScale" class="rating-grid" role="group" aria-label="Overall rating"></div><p class="scale-legend" id="overallLegend"></p><div id="overallFollowup"></div></div>
           <div class="nav-row"><button type="button" class="btn secondary" data-prev="4">Quay lại</button><button type="button" class="btn primary" data-next="6">Tiếp tục</button></div>
         </section>
 
@@ -303,14 +380,16 @@
           <h1>Customer Survey Dashboard</h1>
         </div>
         <div class="dash-actions">
+          <label class="scoring-select" for="overallMethodSelect"><span>Overall · Survey 2.0</span><select id="overallMethodSelect" aria-label="Overall scoring method"><option value="legacy">Legacy Satisfaction Rate</option><option value="csat">Overall CSAT</option></select></label>
           <select id="roundSelect" aria-label="Survey round"></select>
+          <button type="button" class="btn primary" id="exportPdfBtn" title="Xuất PDF theo kỳ đang chọn; riêng tab lịch sử luôn giữ chỉ số cũ">Xuất báo cáo PDF</button>
           <button type="button" class="btn secondary" id="refreshDashboardBtn">Làm mới</button>
           <button type="button" class="btn secondary" id="adminLogoutBtn">Đăng xuất</button>
         </div>
       </div>
 
       <div id="dashboardLoading" class="loading">Đang tải dữ liệu...</div>
-      <div id="dashboardContent" class="hidden">
+      <div id="dashboardContent" class="hidden"><p id="surveyVersionNote" class="scoring-explain hidden"></p>
         <nav class="dash-tabs">
           <button class="dash-tab active" data-dash-tab="overview" type="button">Tổng quan</button>
           <button class="dash-tab" data-dash-tab="analysis" type="button">Phân tích</button>
@@ -321,6 +400,7 @@
         </nav>
 
         <section class="dash-panel active" data-dash-panel="overview">
+          <div class="scoring-explain" id="scoringMethodNote" role="status"></div>
           <div class="kpi-grid" id="kpiGrid"></div>
           <div class="dash-grid">
             <div class="dash-card"><h3>Điểm theo tiêu chí</h3><p class="sub">Điểm trung bình trên thang 5.</p><div class="bar-list" id="dimensionBars"></div></div>
@@ -346,6 +426,7 @@
         </section>
 
         <section class="dash-panel" data-dash-panel="issues">
+          <div class="dash-card" style="margin-bottom:16px"><h3>Phản hồi cần làm rõ · Ratings 1–3</h3><p class="sub">Bao gồm góp ý đã ghi, hẹn trao đổi trực tiếp và nội dung chưa xác minh.</p><div id="clarificationsTableWrap"></div></div>
           <div class="dash-card"><h3>Issue Log</h3><p class="sub">Chỉ xem. Việc cập nhật action vẫn thực hiện trong nguồn dữ liệu nội bộ.</p><div id="issuesTableWrap"></div></div>
           <div class="dash-card" style="margin-top:16px"><h3>Action Tracker</h3><div id="actionsTableWrap"></div></div>
         </section>
@@ -375,16 +456,22 @@
 
     <footer><span>© Tran Hiep Thanh Textile Corporation</span><span id="footerNote"></span></footer>
   </main>
+  <div id="printReport" class="print-report" aria-label="Customer Survey Report"></div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbycN2gF9D4qOgtxLCf3IfJ-KWRMEEKmC1xMcRswSVwbkijZYqq01Y0QnO6D4pM-k5DS1w/exec";
-    const EXPECTED_API_VERSION = "2026-10-08-history-v3";
-    const CONTENT = {"brandName":{"vi":"Công ty Cổ phần Dệt Trần Hiệp Thành","en":"TRAN HIEP THANH TEXTILE CORPORATION"},"brandSubtitle":{"vi":"Khảo sát trải nghiệm khách hàng","en":"Customer Experience Survey"},"heroEyebrow":{"vi":"Trải nghiệm Khách hàng 2026","en":"Customer Experience 2026"},"heroTitle":{"vi":"Phản hồi của Quý khách sẽ giúp chúng tôi cải thiện tốt hơn!","en":"Your feedback helps us serve you better!"},"heroBody":{"vi":"Khảo sát mất khoảng 3 phút. Mỗi phản hồi sẽ được dùng để xác định nội dung cần cải thiện trong sản phẩm, dịch vụ và quá trình phối hợp công việc.","en":"This survey takes about 3 minutes. Your feedback will help us identify practical improvements across our products, services and collaboration."},"heroPoint1":{"vi":"TRÁCH NHIỆM","en":"RESPONSIBILITY"},"heroPoint2":{"vi":"HỢP TÁC","en":"COOPERATION"},"heroPoint3":{"vi":"TẬN TÂM","en":"DEDICATION"},"stepKicker":{"vi":"Bắt đầu","en":"Getting started"},"sectionTitle":{"vi":"Thông tin khảo sát","en":"Survey information"},"companyLabel":{"vi":"Tên công ty","en":"Company name"},"companyPlaceholder":{"vi":"Nhập tên công ty...","en":"Search company name..."},"confirmCompany":{"vi":"Quý khách đang gửi phản hồi cho","en":"You are submitting feedback for"},"change":{"vi":"Thay đổi","en":"Change"},"roleLabel":{"vi":"Bộ phận / vai trò","en":"Department / Role"},"overallChip":{"vi":"Đánh giá chung","en":"Overall rating"},"overallQuestion":{"vi":"Nhìn chung, Quý khách hài lòng với sản phẩm, dịch vụ và quá trình hợp tác với THT ở mức nào?","en":"Overall, how satisfied are you with THT's products, services and collaboration experience?"},"priorityChip":{"vi":"Điều quan trọng với Quý khách","en":"What matters most"},"priorityQuestion":{"vi":"Chọn tối đa 3 yếu tố quan trọng nhất khi làm việc với nhà cung cấp vải.","en":"Choose up to 3 factors that matter most when working with a fabric supplier."},"finalChip":{"vi":"Một góp ý cuối","en":"One final thought"},"finalQuestion":{"vi":"Nếu THT chỉ có thể cải thiện một điều trong 6 tháng tới, Quý khách mong muốn đó là gì?","en":"If THT could improve one thing in the next six months, what should it be?"},"finalPlaceholder":{"vi":"Quý khách có thể chia sẻ ngắn gọn tại đây...","en":"Please share your feedback here..."},"optional":{"vi":"Không bắt buộc","en":"Optional"},"thanksEyebrow":{"vi":"Đã ghi nhận","en":"Received"},"thanksTitle":{"vi":"Cảm ơn Quý khách đã dành thời gian thực hiện khảo sát!","en":"Thank you for taking the time to complete the survey!"},"thanksBody":{"vi":"Khảo sát đã được thực hiện thành công. Chúng tôi sẽ sử dụng dữ liệu này để xác định các nội dung cần cải thiện trong thời gian tới với mục đích phụ vụ Khách hàng tốt hơn. Trân trọng!","en":"The survey has been successfully completed. We will use this data to identify areas for improvement and better serve our customers."},"footerNote":{"vi":"Customer Experience Survey","en":"Customer Experience Survey"},"role_MANAGEMENT":{"vi":"Quản lý","en":"Management"},"role_SOURCING":{"vi":"Thu mua","en":"Sourcing / Purchasing"},"role_MERCHANDISING":{"vi":"Merchandising","en":"Merchandising"},"role_DEVELOPMENT":{"vi":"Phát triển sản phẩm","en":"R&D / Product Development"},"role_QUALITY":{"vi":"Chất lượng / Kỹ thuật","en":"Quality / Technical"},"role_PRODUCTION":{"vi":"Sản xuất / Vận hành","en":"Production / Operations"},"role_OTHER":{"vi":"Khác","en":"Other"},"scale_1":{"vi":"Rất chưa đáp ứng","en":"Very Poor"},"scale_2":{"vi":"Chưa đáp ứng","en":"Poor"},"scale_3":{"vi":"Đáp ứng","en":"Acceptable"},"scale_4":{"vi":"Tốt","en":"Good"},"scale_5":{"vi":"Rất tốt","en":"Excellent"},"question_DEV":{"vi":"THT đáp ứng yêu cầu về tiến độ phát triển sản phẩm và mẫu ở mức nào?","en":"How well does THT meet your expectations regarding product and sample development lead time?"},"question_RESP":{"vi":"THT phản hồi các yêu cầu về báo giá, thông tin sản phẩm, kỹ thuật và đơn hàng nhanh chóng ở mức nào?","en":"How effectively does THT respond to your requests regarding quotations, product information, technical matters and orders?"},"question_DEL":{"vi":"THT đáp ứng tiến độ giao hàng đã cam kết đáng tin cậy ở mức nào?","en":"How reliably does THT meet committed delivery schedules?"},"question_QUAL":{"vi":"Chất lượng sản phẩm của THT ổn định giữa các lô hàng ở mức nào?","en":"How consistent is THT's product quality across different production lots?"},"question_CLAIM":{"vi":"Khi có vấn đề phát sinh, THT phản hồi và giải quyết vấn đề đến cùng ở mức nào?","en":"When an issue occurs, how effectively does THT respond and resolve it through to completion?"},"question_COMM":{"vi":"THT chủ động cập nhật tiến độ và thông báo sớm các thay đổi hoặc rủi ro liên quan đến sản phẩm và đơn hàng ở mức nào?","en":"How proactively does THT provide progress updates and early notice of changes or risks related to products and orders?"},"question_VALUE":{"vi":"THT hiểu nhu cầu của Quý Khách hàng và chủ động đề xuất các giải pháp phù hợp ở mức nào?","en":"How well does THT understand your needs and proactively propose relevant solutions?"},"priority_QUALITY":{"vi":"Chất lượng sản phẩm","en":"Product Quality"},"priority_PRICE":{"vi":"Giá cạnh tranh","en":"Competitive Pricing"},"priority_DEVELOPMENT":{"vi":"Tốc độ phát triển sản phẩm","en":"Development Speed"},"priority_DELIVERY":{"vi":"Độ tin cậy về giao hàng","en":"Delivery Reliability"},"priority_RESPONSIVENESS":{"vi":"Tốc độ phản hồi","en":"Responsiveness"},"priority_TECHNICAL":{"vi":"Hỗ trợ kỹ thuật","en":"Technical Support"},"priority_INNOVATION":{"vi":"Phát triển sản phẩm mới","en":"Innovation & New Development"},"priority_SUSTAINABILITY":{"vi":"Bền vững và tuân thủ","en":"Sustainability & Compliance"},"priority_CLAIM":{"vi":"Xử lý khiếu nại","en":"Complaint Resolution"},"priority_COMMUNICATION":{"vi":"Chủ động cập nhật thông tin","en":"Proactive Communication"}};
+    const EXPECTED_API_VERSION = "2026-10-16-likert-v5";
+    const CONTENT = {"brandName":{"vi":"Công ty Cổ phần Dệt Trần Hiệp Thành","en":"TRAN HIEP THANH TEXTILE CORPORATION"},"brandSubtitle":{"vi":"Khảo sát trải nghiệm khách hàng","en":"Customer Experience Survey"},"heroEyebrow":{"vi":"Trải nghiệm Khách hàng 2026","en":"Customer Experience 2026"},"heroTitle":{"vi":"Phản hồi của Quý khách sẽ giúp chúng tôi cải thiện tốt hơn!","en":"Your feedback helps us serve you better!"},"heroBody":{"vi":"Khảo sát ghi nhận trải nghiệm hợp tác trong 6 tháng gần đây. Vui lòng chọn mức phù hợp nhất và chia sẻ những nội dung THT cần cải thiện.","en":"Please rate your experience of working with THT over the past six months and share where we can improve."},"heroPoint1":{"vi":"TRÁCH NHIỆM","en":"RESPONSIBILITY"},"heroPoint2":{"vi":"HỢP TÁC","en":"COOPERATION"},"heroPoint3":{"vi":"TẬN TÂM","en":"DEDICATION"},"stepKicker":{"vi":"Bắt đầu","en":"Getting started"},"sectionTitle":{"vi":"Thông tin khảo sát","en":"Survey information"},"companyLabel":{"vi":"Tên công ty","en":"Company name"},"companyPlaceholder":{"vi":"Nhập tên công ty...","en":"Search company name..."},"confirmCompany":{"vi":"Quý khách đang gửi phản hồi cho","en":"You are submitting feedback for"},"change":{"vi":"Thay đổi","en":"Change"},"roleLabel":{"vi":"Bộ phận / vai trò","en":"Department / Role"},"overallChip":{"vi":"Đánh giá chung","en":"Overall rating"},"overallQuestion":{"vi":"Nhìn chung, Quý khách hài lòng ở mức nào với trải nghiệm hợp tác cùng THT trong 6 tháng gần đây?","en":"Overall, how satisfied are you with your experience of working with THT over the past six months?"},"priorityChip":{"vi":"Điều quan trọng với Quý khách","en":"What matters most"},"priorityQuestion":{"vi":"Chọn tối đa 3 yếu tố quan trọng nhất khi làm việc với nhà cung cấp vải.","en":"Choose up to 3 factors that matter most when working with a fabric supplier."},"finalChip":{"vi":"Một góp ý cuối","en":"One final thought"},"finalQuestion":{"vi":"Trong 6 tháng tới, điều gì THT cần ưu tiên cải thiện nhất để hỗ trợ công việc của Quý khách tốt hơn?","en":"What should THT prioritize improving over the next six months to better support your business?"},"finalPlaceholder":{"vi":"Quý khách có thể chia sẻ ngắn gọn tại đây...","en":"Please share your feedback here..."},"optional":{"vi":"Không bắt buộc","en":"Optional"},"thanksEyebrow":{"vi":"Đã ghi nhận","en":"Received"},"thanksTitle":{"vi":"Cảm ơn Quý khách đã dành thời gian thực hiện khảo sát!","en":"Thank you for taking the time to complete the survey!"},"thanksBody":{"vi":"Khảo sát đã được thực hiện thành công. Chúng tôi sẽ sử dụng dữ liệu này để xác định các nội dung cần cải thiện trong thời gian tới với mục đích phụ vụ Khách hàng tốt hơn. Trân trọng!","en":"The survey has been successfully completed. We will use this data to identify areas for improvement and better serve our customers."},"footerNote":{"vi":"Customer Experience Survey","en":"Customer Experience Survey"},"role_MANAGEMENT":{"vi":"Quản lý","en":"Management"},"role_SOURCING":{"vi":"Thu mua","en":"Sourcing / Purchasing"},"role_MERCHANDISING":{"vi":"Merchandising","en":"Merchandising"},"role_DEVELOPMENT":{"vi":"Phát triển sản phẩm","en":"R&D / Product Development"},"role_QUALITY":{"vi":"Chất lượng / Kỹ thuật","en":"Quality / Technical"},"role_PRODUCTION":{"vi":"Sản xuất / Vận hành","en":"Production / Operations"},"role_OTHER":{"vi":"Khác","en":"Other"},"scale_1":{"vi":"Hoàn toàn không đồng ý","en":"Strongly disagree"},"scale_2":{"vi":"Không đồng ý","en":"Disagree"},"scale_3":{"vi":"Trung lập","en":"Neither agree nor disagree"},"scale_4":{"vi":"Đồng ý","en":"Agree"},"scale_5":{"vi":"Hoàn toàn đồng ý","en":"Strongly agree"},"question_DEV":{"vi":"THT đáp ứng các mốc thời gian đã thống nhất trong quá trình phát triển sản phẩm và mẫu.","en":"THT meets the agreed timelines for product and sample development."},"question_RESP":{"vi":"THT phản hồi các yêu cầu công việc trong thời gian phù hợp với nhu cầu của chúng tôi.","en":"THT responds to our business requests within a timeframe that meets our needs."},"question_DEL":{"vi":"THT giao hàng đúng các mốc thời gian đã cam kết với chúng tôi.","en":"THT delivers orders according to the agreed delivery schedules."},"question_QUAL":{"vi":"Chất lượng vải THT cung cấp đáp ứng ổn định các yêu cầu kỹ thuật đã thống nhất.","en":"The fabric supplied by THT consistently meets the agreed technical requirements."},"question_CLAIM":{"vi":"Khi phát sinh vấn đề, THT đưa ra phương án giải quyết đáp ứng nhu cầu xử lý của chúng tôi.","en":"When issues arise, THT provides resolutions that meet our needs."},"question_COMM":{"vi":"THT chủ động thông tin kịp thời về những thay đổi có thể ảnh hưởng đến kế hoạch của chúng tôi.","en":"THT proactively informs us of changes that may affect our plans in a timely manner."},"question_VALUE":{"vi":"Các giải pháp THT đề xuất phù hợp với nhu cầu thực tế của chúng tôi.","en":"The solutions proposed by THT are relevant to our actual business needs."},"priority_QUALITY":{"vi":"Chất lượng sản phẩm","en":"Product Quality"},"priority_PRICE":{"vi":"Giá cạnh tranh","en":"Competitive Pricing"},"priority_DEVELOPMENT":{"vi":"Tốc độ phát triển sản phẩm","en":"Development Speed"},"priority_DELIVERY":{"vi":"Độ tin cậy về giao hàng","en":"Delivery Reliability"},"priority_RESPONSIVENESS":{"vi":"Tốc độ phản hồi","en":"Responsiveness"},"priority_TECHNICAL":{"vi":"Hỗ trợ kỹ thuật","en":"Technical Support"},"priority_INNOVATION":{"vi":"Phát triển sản phẩm mới","en":"Innovation & New Development"},"priority_SUSTAINABILITY":{"vi":"Bền vững và tuân thủ","en":"Sustainability & Compliance"},"priority_CLAIM":{"vi":"Xử lý khiếu nại","en":"Complaint Resolution"},"priority_COMMUNICATION":{"vi":"Chủ động cập nhật thông tin","en":"Proactive Communication"}};
+    const LIKERT_EXPLANATIONS = {"DEV":{"vi":["Phần lớn các mốc tiến độ không được đáp ứng.","Một số mốc quan trọng bị trễ, ảnh hưởng đến kế hoạch.","Có mốc đúng hạn và có mốc bị trễ; kết quả chưa ổn định.","Hầu hết các mốc được đáp ứng đúng thời gian thống nhất.","Các mốc được đáp ứng nhất quán, giúp chúng tôi chủ động kế hoạch."],"en":["Most agreed timelines are missed.","Some key milestones are delayed, affecting our plans.","Some milestones are met, while others are delayed.","Most agreed milestones are met on time.","Timelines are consistently met, supporting our planning."]},"RESP":{"vi":["Phản hồi thường quá chậm, gây gián đoạn công việc.","Phản hồi còn chậm trong nhiều trường hợp.","Một số yêu cầu được phản hồi kịp thời, một số chưa.","Hầu hết yêu cầu được phản hồi trong thời gian phù hợp.","Phản hồi luôn kịp thời, giúp công việc được xử lý liên tục."],"en":["Responses are frequently too late, disrupting our work.","Responses are often slower than needed.","Response times vary across requests.","Most requests receive timely responses.","Responses are consistently timely, keeping work on track."]},"DEL":{"vi":["Giao trễ thường xuyên, gây ảnh hưởng đáng kể đến kế hoạch.","Một số đơn hàng giao trễ, ảnh hưởng đến việc triển khai.","Có đơn hàng đúng hạn và đơn hàng trễ; độ tin cậy chưa ổn định.","Phần lớn đơn hàng được giao đúng cam kết.","Giao hàng đúng cam kết một cách nhất quán."],"en":["Frequent delays significantly disrupt our plans.","Some deliveries are late and affect our operations.","Some orders arrive on time, while others are delayed.","Most orders are delivered as committed.","Delivery commitments are consistently met."]},"QUAL":{"vi":["Nhiều lô hàng không đáp ứng yêu cầu kỹ thuật.","Chất lượng chưa ổn định, có các lô không đạt yêu cầu.","Phần lớn lô hàng đạt yêu cầu nhưng vẫn có biến động.","Chất lượng ổn định, chỉ phát sinh ít trường hợp không phù hợp.","Chất lượng đáp ứng nhất quán các yêu cầu kỹ thuật đã thống nhất."],"en":["Many production lots fail to meet technical requirements.","Quality is inconsistent, with some nonconforming lots.","Most lots meet requirements, but variation remains.","Quality is stable, with few nonconformities.","Quality consistently meets all agreed technical requirements."]},"CLAIM":{"vi":["Các vấn đề thường không được giải quyết thỏa đáng.","Phương án giải quyết thường chưa đáp ứng nhu cầu.","Một số vấn đề được giải quyết phù hợp, một số chưa.","Phần lớn vấn đề được giải quyết phù hợp.","Các vấn đề được giải quyết phù hợp và nhất quán."],"en":["Issues are frequently left unresolved or inadequately addressed.","Proposed resolutions often do not meet our needs.","Some issues are resolved satisfactorily, while others are not.","Most issues are resolved satisfactorily.","Issues are consistently resolved in a satisfactory manner."]},"COMM":{"vi":["Thường không được thông báo trước về các thay đổi quan trọng.","Thông báo thường đến muộn, hạn chế khả năng chuẩn bị.","Có thay đổi được thông báo kịp thời, có thay đổi chưa.","Hầu hết thay đổi quan trọng được thông báo kịp thời.","Các thay đổi quan trọng luôn được thông báo đủ sớm để chủ động ứng phó."],"en":["Important changes are often not communicated in advance.","Updates often come too late for adequate preparation.","Some changes are communicated on time, others are not.","Most important changes are communicated in time.","Important changes are consistently communicated early enough for us to respond."]},"VALUE":{"vi":["Các đề xuất hầu như không phù hợp với nhu cầu.","Nhiều đề xuất chưa phù hợp hoặc khó áp dụng.","Một số đề xuất phù hợp, nhưng giá trị ứng dụng chưa ổn định.","Phần lớn đề xuất phù hợp và có giá trị ứng dụng.","Các đề xuất nhất quán phù hợp và giúp giải quyết nhu cầu thực tế."],"en":["Proposed solutions rarely match our needs.","Many proposals are unsuitable or difficult to apply.","Some proposals are relevant, but their usefulness varies.","Most proposals are relevant and practically useful.","Proposals consistently fit our needs and help address real business requirements."]}};
+    const OVERALL_EXPLANATIONS = {"vi":["Trải nghiệm nhìn chung không đáp ứng kỳ vọng.","Có những vấn đề đáng kể cần cải thiện.","Trải nghiệm có điểm đáp ứng và điểm chưa đáp ứng.","Trải nghiệm nhìn chung đáp ứng kỳ vọng.","Trải nghiệm đáp ứng rất tốt kỳ vọng hợp tác."],"en":["Overall experience falls well short of expectations.","Significant improvements are needed.","Experience has both strengths and weaknesses.","Overall experience meets expectations.","Overall experience meets expectations very well."]};
+    const OVERALL_LABELS = {"vi":["Rất không hài lòng","Không hài lòng","Bình thường","Hài lòng","Rất hài lòng"],"en":["Very dissatisfied","Dissatisfied","Neither satisfied nor dissatisfied","Satisfied","Very satisfied"]};
+    const N_A_CODES = ["CLAIM","VALUE"];
+    const CLARIFICATION_MODES = ["TEXT","DIRECT","UNVERIFIED"];
     const QUESTION_CODES = ["DEV","RESP","DEL","QUAL","CLAIM","COMM","VALUE"];
     const ROLE_CODES = ["MANAGEMENT","SOURCING","MERCHANDISING","DEVELOPMENT","QUALITY","PRODUCTION","OTHER"];
     const PRIORITY_CODES = ["QUALITY","PRICE","DEVELOPMENT","DELIVERY","RESPONSIVENESS","TECHNICAL","INNOVATION","SUSTAINABILITY","CLAIM","COMMUNICATION"];
     const QUESTION_GROUPS = {2:QUESTION_CODES.slice(0,3),3:QUESTION_CODES.slice(3,5),4:QUESTION_CODES.slice(5,7)};
-    const DRAFT_KEY="tht_survey_mobile_draft_v1", DRAFT_DAYS=7;
+    const DRAFT_KEY="tht_survey_likert_2026_v2", DRAFT_DAYS=7;
     const SURVEY_STEPS=7;
     function loadDesktopHero(){
       const img=document.querySelector("#surveyView .hero-image");
@@ -393,8 +480,8 @@
 
 
     const state = {
-      lang:"vi",step:1,customers:[],selectedCustomer:null,role:null,scores:{},lowScoreComments:{},overall:null,priorities:[],
-      adminPin:sessionStorage.getItem("tht_admin_pin") || "",dashboard:null, draftRestored:false, surveySent:false, submitting:false
+      lang:"vi",step:1,customers:[],selectedCustomer:null,role:null,scores:{},lowScoreComments:{},clarifications:{},overall:null,priorities:[],
+      adminPin:sessionStorage.getItem("tht_admin_pin") || "",dashboard:null, scoringMethod:"legacy", draftRestored:false, surveySent:false, submitting:false
     };
 
     const $ = s => document.querySelector(s);
@@ -456,7 +543,7 @@
       try{
         localStorage.setItem(DRAFT_KEY,JSON.stringify({savedAt:Date.now(),data:{
           lang:state.lang,step:state.step,selectedCustomer:state.selectedCustomer,role:state.role,
-          scores:state.scores,lowScoreComments:state.lowScoreComments,overall:state.overall,
+          scores:state.scores,lowScoreComments:state.lowScoreComments,clarifications:state.clarifications,overall:state.overall,
           priorities:state.priorities,finalComment:$("#finalComment").value
         }}));
       }catch(err){console.warn("Draft storage unavailable",err)}
@@ -472,8 +559,9 @@
         state.step=Number.isInteger(d.step)&&d.step>=1&&d.step<=SURVEY_STEPS?d.step:1;
         state.selectedCustomer=d.selectedCustomer||null;
         state.role=ROLE_CODES.includes(d.role)?d.role:null;
-        state.scores=Object.fromEntries(Object.entries(d.scores||{}).filter(([k,v])=>QUESTION_CODES.includes(k)&&Number(v)>=1&&Number(v)<=5));
+        state.scores=Object.fromEntries(Object.entries(d.scores||{}).filter(([k,v])=>QUESTION_CODES.includes(k)&&((Number(v)>=1&&Number(v)<=5)||(N_A_CODES.includes(k)&&v==="NA"))));
         state.lowScoreComments=d.lowScoreComments||{};
+        state.clarifications=d.clarifications||{};
         state.overall=d.overall>=1&&d.overall<=5?Number(d.overall):null;
         state.priorities=(d.priorities||[]).filter(p=>PRIORITY_CODES.includes(p)).slice(0,3);
         state.draftRestored=true;
@@ -487,43 +575,116 @@
       $("#clearDraftBtn").textContent=state.lang==="vi"?"Làm lại":"Start over";
     }
     function resetSurvey(){
-      state.step=1;state.selectedCustomer=null;state.role=null;state.scores={};state.lowScoreComments={};
+      state.step=1;state.selectedCustomer=null;state.role=null;state.scores={};state.lowScoreComments={};state.clarifications={};
       state.overall=null;state.priorities=[];state.draftRestored=false;state.surveySent=false;state.submitting=false;
       $("#companySearch").value="";$("#finalComment").value="";
       $("#thankYou").classList.add("hidden");$(".survey-progress-sticky").classList.remove("hidden");
       localStorage.removeItem(DRAFT_KEY);clearStatus();renderSurvey();updateDraftBanner();
     }
-    function renderScaleButtons(container,selected,onSelect){
-      container.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="rating-btn ${Number(selected)===n?"selected":""}" data-score="${n}" aria-pressed="${Number(selected)===n}" aria-label="${n}: ${escapeAttr(t("scale_"+n))}"><strong>${n}</strong><small>${escapeHtml(t("scale_"+n))}</small></button>`).join("");
-      $$('[data-score]',container).forEach(btn=>btn.addEventListener("click",()=>onSelect(Number(btn.dataset.score))));
+    function isLowRating(v){return Number.isInteger(Number(v)) && Number(v)>=1 && Number(v)<=3 && v!==null && v!=="";}
+    function ratingIsAnswered(code){const v=state.scores[code];return (Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=5) || (N_A_CODES.includes(code)&&v==="NA");}
+    function clarificationIsValid(code){
+      const score=code==="OVERALL"?state.overall:state.scores[code];
+      if(!isLowRating(score))return true;
+      const note=state.clarifications[code]||{};
+      return note.mode==="DIRECT"||note.mode==="UNVERIFIED"||(note.mode==="TEXT"&&String(note.comment||"").trim().length>0);
+    }
+    function explainFor(code,n){
+      const meanings=code==="OVERALL"?OVERALL_EXPLANATIONS:LIKERT_EXPLANATIONS[code];
+      return meanings?.[state.lang]?.[n-1]||"";
+    }
+    function labelsFor(code,n){
+      return code==="OVERALL"?OVERALL_LABELS[state.lang][n-1]:t("scale_"+n);
+    }
+    function renderScaleButtons(container,selected,onSelect,code){
+      container.classList.add("likert-list");
+      container.innerHTML=[1,2,3,4,5].map(n=>`
+        <button type="button" class="likert-option ${String(selected)===String(n)?"selected":""}" data-score="${n}" aria-pressed="${String(selected)===String(n)}">
+          <span class="likert-num">${n}</span>
+          <span class="likert-copy"><strong>${escapeHtml(labelsFor(code,n))}</strong><small>${escapeHtml(explainFor(code,n))}</small></span>
+          <span class="likert-check" aria-hidden="true">${String(selected)===String(n)?"✓":""}</span>
+        </button>`).join("")+(N_A_CODES.includes(code)?`
+        <button type="button" class="likert-option na-option ${selected==="NA"?"selected":""}" data-score="NA" aria-pressed="${selected==="NA"}">
+          <span class="likert-num na-mark">—</span><span class="likert-copy"><strong>${state.lang==="vi"?"Chưa có trải nghiệm phù hợp":"Not applicable"}</strong><small>${state.lang==="vi"?"Chưa từng phát sinh tình huống để đánh giá tiêu chí này.":"I have not had a relevant experience to rate this item."}</small></span>
+          <span class="likert-check" aria-hidden="true">${selected==="NA"?"✓":""}</span>
+        </button>`:"");
+      $$('[data-score]',container).forEach(btn=>btn.addEventListener("click",()=>onSelect(btn.dataset.score==="NA"?"NA":Number(btn.dataset.score))));
+    }
+    function followupMarkup(code,score){
+      const note=state.clarifications[code]||{mode:"TEXT",comment:""};
+      const show=isLowRating(score);
+      const vi=state.lang==="vi";
+      const placeholder=vi?"Mô tả ngắn vấn đề hoặc điểm cần cải thiện...":"Briefly describe the issue or what should be improved...";
+      return `<div class="low-comment required-followup ${show?"visible":""}" id="low_${code}">
+        <div class="followup-title">${vi?"Vui lòng bổ sung thông tin cho mức điểm này":"Please clarify this rating"} <span class="required-star">*</span></div>
+        <p class="followup-hint">${vi?"Ghi góp ý hoặc chọn một phương án bên dưới nếu chưa thể mô tả.":"Write a comment, or choose an option below if you cannot describe it yet."}</p>
+        <div class="followup-options" role="group" aria-label="Clarification method">
+          <button type="button" data-mode="TEXT" data-code="${code}" class="followup-mode ${(!note.mode||note.mode==="TEXT")?"selected":""}" aria-pressed="${!note.mode||note.mode==="TEXT"}">${vi?"Ghi góp ý":"Write feedback"}</button>
+          <button type="button" data-mode="DIRECT" data-code="${code}" class="followup-mode ${note.mode==="DIRECT"?"selected":""}" aria-pressed="${note.mode==="DIRECT"}">${vi?"Sẽ trao đổi trực tiếp":"Discuss directly"}</button>
+          <button type="button" data-mode="UNVERIFIED" data-code="${code}" class="followup-mode ${note.mode==="UNVERIFIED"?"selected":""}" aria-pressed="${note.mode==="UNVERIFIED"}">${vi?"Chưa xác minh":"Not yet verified"}</button>
+        </div>
+        <label for="comment_${code}" class="${note.mode==="DIRECT"||note.mode==="UNVERIFIED"?"hidden":""}">${vi?"Nội dung góp ý (bắt buộc)":"Feedback details (required)"}</label>
+        <textarea id="comment_${code}" rows="3" maxlength="1500" placeholder="${escapeAttr(placeholder)}" class="${note.mode==="DIRECT"||note.mode==="UNVERIFIED"?"hidden":""}">${escapeHtml(note.comment||"")}</textarea>
+      </div>`;
+    }
+    function bindFollowup(code){
+      const wrap=$("#low_"+code);
+      if(!wrap)return;
+      if(!state.clarifications[code])state.clarifications[code]={mode:"TEXT",comment:""};
+      $$('[data-mode]',wrap).forEach(btn=>btn.addEventListener("click",()=>{
+        const note=state.clarifications[code];note.mode=btn.dataset.mode;
+        $$('[data-mode]',wrap).forEach(b=>{b.classList.toggle("selected",b===btn);b.setAttribute("aria-pressed",String(b===btn))});
+        const isText=note.mode==="TEXT";
+        $("#comment_"+code).classList.toggle("hidden",!isText);
+        $("#comment_"+code).previousElementSibling.classList.toggle("hidden",!isText);
+        $("#questionCard_"+code)?.classList.remove("needs-answer");
+        saveDraft();clearStatus();
+      }));
+      $("#comment_"+code).addEventListener("input",e=>{
+        const note=state.clarifications[code];note.comment=e.target.value;
+        state.lowScoreComments[code]=e.target.value;
+        $("#questionCard_"+code)?.classList.remove("needs-answer");
+        saveDraft();clearStatus();
+      });
     }
     function renderQuestions(){
-      const label=state.lang==="vi"?"Chấm một mức từ 1 đến 5 cho từng tiêu chí.":"Rate each item from 1 to 5.";
+      const label=state.lang==="vi"?"Chọn mức độ đồng ý phù hợp nhất với trải nghiệm trong 6 tháng gần đây.":"Choose the level of agreement that best reflects your experience over the past six months.";
       for(const step of [2,3,4]){
         $("#groupTitle"+step).textContent=state.lang==="vi" ? ({2:"Nhóm 1/3 · Phát triển và giao hàng",3:"Nhóm 2/3 · Chất lượng và xử lý vấn đề",4:"Nhóm 3/3 · Chủ động và giá trị"}[step]) : ({2:"Group 1/3 · Development and delivery",3:"Group 2/3 · Quality and issue resolution",4:"Group 3/3 · Communication and value"}[step]);
         $("#groupHelp"+step).textContent=label;
         const wrap=$("#questionsGroup"+step);
         wrap.innerHTML=QUESTION_GROUPS[step].map(code=>{
           const i=QUESTION_CODES.indexOf(code);
-          return `<article class="question-card" id="questionCard_${code}" tabindex="-1"><div class="question-meta">${String(i+1).padStart(2,"0")} / 07</div><h3>${escapeHtml(t("question_"+code))}</h3><div class="rating-grid" id="scale_${code}" role="group" aria-label="${escapeAttr(t("question_"+code))}"></div><p class="scale-legend">1 · ${escapeHtml(t("scale_1"))} &nbsp; | &nbsp; 5 · ${escapeHtml(t("scale_5"))}</p><div class="low-comment ${state.scores[code]<=2?"visible":""}" id="low_${code}"><label for="comment_${code}">${state.lang==="vi"?"Quý khách có thể chia sẻ ngắn gọn điều cần cải thiện.":"Please briefly tell us what could be improved."}</label><textarea id="comment_${code}" rows="3">${escapeHtml(state.lowScoreComments[code]||"")}</textarea></div></article>`;
+          return `<article class="question-card" id="questionCard_${code}" tabindex="-1"><div class="question-meta">${String(i+1).padStart(2,"0")} / 07 · ${escapeHtml(code)}</div><h3>${escapeHtml(t("question_"+code))}</h3><div class="rating-grid" id="scale_${code}" role="group" aria-label="${escapeAttr(t("question_"+code))}"></div>${followupMarkup(code,state.scores[code])}</article>`;
         }).join("");
       }
       QUESTION_CODES.forEach(code=>{
-        const repaint=()=>renderScaleButtons($("#scale_"+code),state.scores[code],score=>{
-          state.scores[code]=score;
-          if(score>2)state.lowScoreComments[code]="";
-          $("#questionCard_"+code).classList.remove("needs-answer");
-          $("#low_"+code).classList.toggle("visible",score<=2);
-          if(score>2)$("#comment_"+code).value="";
-          repaint();saveDraft();clearStatus();
-        });
-        repaint();
-        $("#comment_"+code).addEventListener("input",e=>{state.lowScoreComments[code]=e.target.value;saveDraft()});
+        renderQuestionRating(code);
+        bindFollowup(code);
       });
     }
+    function renderQuestionRating(code){
+      const callback=selected=>{
+        const previous=state.scores[code];state.scores[code]=selected;
+        if(!isLowRating(selected)){delete state.clarifications[code];delete state.lowScoreComments[code]}
+        else if(!isLowRating(previous)&&!state.clarifications[code])state.clarifications[code]={mode:"TEXT",comment:""};
+        renderQuestionRating(code);
+        const old=$("#low_"+code);old.outerHTML=followupMarkup(code,selected);bindFollowup(code);
+        $("#questionCard_"+code).classList.remove("needs-answer");saveDraft();clearStatus();
+      };
+      renderScaleButtons($("#scale_"+code),state.scores[code],callback,code);
+    }
     function renderOverall(){
-      renderScaleButtons($("#overallScale"),state.overall,s=>{state.overall=s;renderOverall();saveDraft();clearStatus()});
-      $("#overallLegend").textContent=`1 · ${t("scale_1")}   |   5 · ${t("scale_5")}`;
+      renderScaleButtons($("#overallScale"),state.overall,selected=>{
+        const previous=state.overall;state.overall=selected;
+        if(!isLowRating(selected))delete state.clarifications.OVERALL;
+        else if(!isLowRating(previous)&&!state.clarifications.OVERALL)state.clarifications.OVERALL={mode:"TEXT",comment:""};
+        renderOverall();saveDraft();clearStatus();
+      },"OVERALL");
+      const legend=$("#overallLegend");
+      legend.textContent=state.lang==="vi"?"Đánh giá mức độ hài lòng tổng thể (khác với mức độ đồng ý ở 7 phát biểu).":"Rate your overall satisfaction (separate from agreement with the 7 statements).";
+      const area=$("#overallFollowup");
+      if(area){area.innerHTML=followupMarkup("OVERALL",state.overall);bindFollowup("OVERALL")}
     }
     function renderPriorities(){
       $("#priorityGrid").innerHTML=PRIORITY_CODES.map(code=>`<button type="button" class="priority-btn ${state.priorities.includes(code)?"selected":""}" data-priority="${code}">${escapeHtml(t("priority_"+code))}</button>`).join("");
@@ -579,16 +740,20 @@
         if(!state.role)return fail(vi?"Vui lòng chọn bộ phận / vai trò.":"Please select your department / role.");
       }
       if(QUESTION_GROUPS[step]){
-        const missing=QUESTION_GROUPS[step].find(code=>!state.scores[code]);
-        if(missing){
-          fail(vi?"Vui lòng đánh giá đầy đủ các tiêu chí trong nhóm này.":"Please rate every item in this group.");
-          const card=$("#questionCard_"+missing);
-          card.classList.add("needs-answer");
+        const missing=QUESTION_GROUPS[step].find(code=>!ratingIsAnswered(code));
+        const needsFeedback=QUESTION_GROUPS[step].find(code=>ratingIsAnswered(code)&&!clarificationIsValid(code));
+        const invalid=missing||needsFeedback;
+        if(invalid){
+          fail(missing?(vi?"Vui lòng chọn mức đánh giá cho tất cả tiêu chí.":"Please rate every statement."):(vi?"Mức điểm 1–3 cần ghi góp ý hoặc chọn ‘Sẽ trao đổi trực tiếp’ / ‘Chưa xác minh’.":"For ratings 1–3, provide feedback or select 'Discuss directly' / 'Not yet verified'."));
+          const card=$("#questionCard_"+invalid);card.classList.add("needs-answer");
           setTimeout(()=>{card.scrollIntoView({behavior:"smooth",block:"center"});card.focus({preventScroll:true})},180);
           return false;
         }
       }
-      if(step===5&&!state.overall)return fail(vi?"Vui lòng chọn mức đánh giá chung.":"Please select an overall rating.");
+      if(step===5){
+        if(!state.overall)return fail(vi?"Vui lòng chọn mức hài lòng chung.":"Please select your overall satisfaction rating.");
+        if(!clarificationIsValid("OVERALL"))return fail(vi?"Với điểm tổng thể 1–3, vui lòng ghi góp ý hoặc chọn một phương án thay thế.":"For overall ratings 1–3, please provide feedback or choose an alternative.");
+      }
       if(step===6&&state.priorities.length<1)return fail(vi?"Vui lòng chọn ít nhất một yếu tố quan trọng.":"Please select at least one important factor.");
       clearStatus();return true;
     }
@@ -639,7 +804,7 @@
       btn.disabled=true;btn.textContent=state.lang==="vi"?"Đang gửi...":"Submitting...";
       $("#mobileNextBtn").disabled=true;$("#mobileNextBtn").textContent=state.lang==="vi"?"Đang gửi...":"Submitting...";
       clearStatus();
-      const payload={action:"submitSurvey",customerId:state.selectedCustomer.customerId,role:t("role_"+state.role),language:state.lang.toUpperCase(),scores:state.scores,lowScoreComments:state.lowScoreComments,overall:state.overall,priorities:state.priorities.map(code=>t("priority_"+code)),improvementComment:$("#finalComment").value.trim()};
+      const payload={action:"submitSurvey",customerId:state.selectedCustomer.customerId,role:t("role_"+state.role),language:state.lang.toUpperCase(),scores:state.scores,lowScoreComments:state.lowScoreComments,clarifications:state.clarifications,overall:state.overall,priorities:state.priorities.map(code=>t("priority_"+code)),improvementComment:$("#finalComment").value.trim()};
       try{
         const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
         const json=await res.json();if(!json.success)throw new Error(json.message||"Submit failed");
@@ -705,10 +870,24 @@
       sel.innerHTML=`<option value="__ALL__">Tất cả kỳ Survey 2.0</option>`+(d.rounds||[]).filter(r=>r.roundId!=='2026_R1' && String(r.status).toLowerCase()!=='legacy').map(r=>`<option value="${escapeAttr(r.roundId)}">${escapeHtml(r.roundName||r.roundId)}${String(r.status).toLowerCase()==="active"?" · Active":""}</option>`).join("");
       sel.value=current||"__ALL__";
     }
+    function selectedOverall() {
+      const scoring=state.dashboard?.scoring||{};
+      const summary=state.dashboard?.summary||{};
+      return state.scoringMethod==="legacy" ? scoring.legacyRate : (scoring.csatRate ?? summary.csat);
+    }
+    function scoringPct(v){return v==null || !isFinite(Number(v)) ? "—" : `${(Number(v)*100).toFixed(2)}%`;}
+    function methodName(){return state.scoringMethod==="legacy"?"Legacy Satisfaction Rate":"Overall CSAT"}
+    function methodExplanation(){
+      const sc=state.dashboard?.scoring||{};
+      if(state.scoringMethod==="legacy")return `Survey 2.0: trung bình tỷ lệ điểm 3–5 trên 7 tiêu chí hợp lệ, tính theo từng người trả lời rồi bình quân theo khách hàng (mỗi khách hàng có trọng số như nhau). Mẫu hợp lệ: ${sc.validCustomers??0} khách hàng, ${sc.validDimensionRatings??0} lượt chấm.`;
+      return `Tỷ lệ người trả lời chọn mức 4–5 tại câu Overall Satisfaction. Mẫu hợp lệ: ${sc.validOverallResponses??0} phản hồi. Không phải tỷ lệ đạt theo 7 tiêu chí.`;
+    }
     function renderKpis(){
       const s=state.dashboard.summary||{};
-      const items=[["Responses",s.responses??0],["Overall CSAT",pct(s.csat)],["Average Score",score(s.averageScore)],["At Risk",s.atRiskCustomers??0],["Open Issues",s.openIssues??0],["Overdue Actions",s.overdueActions??0]];
-      $("#kpiGrid").innerHTML=items.map(([l,v])=>`<div class="kpi"><span>${l}</span><strong>${v}</strong></div>`).join("");
+      const sc=state.dashboard.scoring||{};
+      const items=[["Responses",s.responses??0],[`Overall · ${state.scoringMethod==="legacy"?"Legacy":"CSAT"}`,scoringPct(selectedOverall())],["Average Q8 / 5",score(s.averageScore)],["At Risk",s.atRiskCustomers??0],["Open Issues",s.openIssues??0],["Overdue Actions",s.overdueActions??0]];
+      $("#kpiGrid").innerHTML=items.map(([l,v])=>`<div class="kpi"><span>${escapeHtml(l)}</span><strong>${v}</strong></div>`).join("");
+      $("#scoringMethodNote").innerHTML=`<strong>${methodName()} · ${scoringPct(selectedOverall())}</strong> — ${escapeHtml(methodExplanation())} <span style="display:block;margin-top:5px">Đối chiếu: Legacy ${scoringPct(sc.legacyRate)} · CSAT ${scoringPct(sc.csatRate??s.csat)}. Mức rủi ro và Issue Log không thay đổi khi chuyển cách tính.</span>`;
     }
     function renderBarList(el,items,maxValue,valueFormatter){
       if(!items.length){el.innerHTML=`<div class="empty">Chưa có dữ liệu.</div>`;return}
@@ -734,7 +913,7 @@
     }
     function renderCustomers(filter=""){
       const q=filter.trim().toLowerCase(),rows=(state.dashboard.customers||[]).filter(x=>!q||String(x.customerName).toLowerCase().includes(q));
-      $("#customersTableWrap").innerHTML=rows.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Khách hàng</th><th>Responses</th><th>Overall TB</th><th>Latest</th><th>Risk</th><th>Vai trò</th><th>Top priorities</th><th>Góp ý gần nhất</th></tr></thead><tbody>${rows.map(x=>`<tr><td><strong>${escapeHtml(x.customerName)}</strong></td><td>${x.responses}</td><td>${score(x.averageOverall)}</td><td>${x.latestOverall??"—"}</td><td>${riskBadge(x.latestRisk)}</td><td>${escapeHtml(x.role||"—")}</td><td>${escapeHtml((x.priorities||[]).join(", ")||"—")}</td><td>${escapeHtml(x.improvementComment||"—")}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Không có khách hàng phù hợp.</div>`;
+      $("#customersTableWrap").innerHTML=rows.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Khách hàng</th><th>Responses</th><th id="customerMethodHeading">${escapeHtml(state.scoringMethod==="legacy"?"Overall Legacy":"Overall CSAT")}</th><th>Overall Q8 TB /5</th><th>Latest Q8</th><th>Risk</th><th>Vai trò</th><th>Top priorities</th><th>Góp ý gần nhất</th></tr></thead><tbody>${rows.map(x=>`<tr><td><strong>${escapeHtml(x.customerName)}</strong></td><td>${x.responses}</td><td>${scoringPct(state.scoringMethod==="legacy"?x.legacyRate:x.csatRate)}</td><td>${score(x.averageOverall)}</td><td>${x.latestOverall??"—"}</td><td>${riskBadge(x.latestRisk)}</td><td>${escapeHtml(x.role||"—")}</td><td>${escapeHtml((x.priorities||[]).join(", ")||"—")}</td><td>${escapeHtml(x.improvementComment||"—")}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Không có khách hàng phù hợp.</div>`;
     }
     function renderIssues(){
       const issues=state.dashboard.issues||[],actions=state.dashboard.actions||[];
@@ -770,8 +949,8 @@
     function renderHistoricalComparison(){
       const old=state.dashboard?.legacy;if(!old)return;
       const modern=state.dashboard.dimensions||[];
-      $("#comparisonSummary").innerHTML=`<div class="legacy-note">Kỳ lịch sử có ${old.summary.customers} khách hàng và ${old.summary.criteria} tiêu chí, tính tỷ lệ đạt từ điểm 3 trở lên. Survey 2.0 dùng tỷ lệ Overall CSAT từ điểm 4–5. <strong>Không trừ trực tiếp 2 tỷ lệ này để tính tăng/giảm.</strong></div>
-        <div class="legacy-metrics"><span>Lần 1 · Tỷ lệ đạt cũ: <strong>${legacyPercent(old.summary.achievedRate)}</strong></span><span>Survey 2.0 · Overall CSAT: <strong>${pct(state.dashboard.summary.csat)}</strong></span><span>Survey 2.0 · Responses: <strong>${state.dashboard.summary.responses}</strong></span></div>`;
+      $("#comparisonSummary").innerHTML=`<div class="legacy-note">Kỳ lịch sử có ${old.summary.customers} khách hàng và ${old.summary.criteria} tiêu chí, tính tỷ lệ đạt từ điểm 3 trở lên. Survey 2.0 hiện đang hiển thị ${escapeHtml(methodName())}. <strong>Không trừ trực tiếp 2 tỷ lệ này để tính tăng/giảm.</strong></div>
+        <div class="legacy-metrics"><span>Lần 1 · Tỷ lệ đạt cũ: <strong>${legacyPercent(old.summary.achievedRate)}</strong></span><span>Survey 2.0 · ${escapeHtml(methodName())}: <strong>${scoringPct(selectedOverall())}</strong></span><span>Survey 2.0 · Responses: <strong>${state.dashboard.summary.responses}</strong></span></div>`;
       const pairs=[
         {old:'DEV',modern:'DEV',label:'Thời gian phát triển sản phẩm',fit:'Gần tương ứng'},
         {old:'DEL',modern:'DEL',label:'Giao hàng đúng hạn',fit:'Tương đồng'},
@@ -784,10 +963,118 @@
         const a=hist[pair.old],b=live[pair.modern];return `<tr><td>${escapeHtml(pair.label)}</td><td>${a?score(a.averageScore):'—'}</td><td>${b?score(b.averageScore):'Chưa có dữ liệu'}</td><td>${escapeHtml(pair.fit)}</td></tr>`;
       }).join('')}</tbody></table></div><p class="legacy-foot">Các cặp tiêu chí chỉ phục vụ tham khảo. Không đưa thang điểm cũ sang thang đánh giá chung mới; không tự động quy đổi hoặc kết luận mức thay đổi.</p>`;
     }
-    function renderDashboard(){renderRoundSelect();renderOverview();renderAnalysis();renderCustomers($("#dashboardCustomerSearch").value||"");renderIssues();renderHistorical();renderHistoricalComparison()}
+    function renderClarifications(){
+      const rows=state.dashboard?.clarifications||[];
+      $("#clarificationsTableWrap").innerHTML=rows.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Khách hàng</th><th>Tiêu chí</th><th>Điểm</th><th>Hình thức</th><th>Nội dung</th><th>Ngày</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${escapeHtml(x.customerName)}</td><td>${escapeHtml(x.dimensionCode==="OVERALL"?"Overall":x.dimensionCode)}</td><td>${x.score}</td><td>${escapeHtml(x.mode==="DIRECT"?"Sẽ trao đổi trực tiếp":x.mode==="UNVERIFIED"?"Chưa xác minh":"Đã ghi góp ý")}</td><td>${escapeHtml(x.comment||"—")}</td><td>${fmtDate(x.timestamp)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Chưa có phản hồi mức 1–3 từ bộ khảo sát mới.</div>`;
+    }
+    function renderDashboard(){
+      const versions=state.dashboard?.surveyVersions||[];
+      const note=$("#surveyVersionNote");
+      note.classList.toggle("hidden",versions.length<=1);
+      if(versions.length>1)note.textContent="Lưu ý: Kỳ đang chọn có nhiều phiên bản khảo sát ("+versions.join(", ")+"). Thang đo cũ và thang đồng ý mới không hoàn toàn tương đương; cần lọc phiên bản trước khi so sánh xu hướng.";
+      $("#overallMethodSelect").value=state.scoringMethod;renderRoundSelect();renderOverview();renderAnalysis();renderCustomers($("#dashboardCustomerSearch").value||"");renderIssues();renderClarifications();renderHistorical();renderHistoricalComparison()}
     function switchDashTab(tab){
       $$(".dash-tab").forEach(b=>b.classList.toggle("active",b.dataset.dashTab===tab));
       $$(".dash-panel").forEach(p=>p.classList.toggle("active",p.dataset.dashPanel===tab));
+    }
+
+
+    /* ---------- READ-ONLY PDF REPORT EXPORT ---------- */
+    function reportSafe(value){return escapeHtml(value??"—")}
+    function reportHeader(pageIndex, roundTitle, methodLabel, date){
+      return `<div class="report-head"><div class="report-brand"><img src="assets/logo.jpg" alt="THT"><div><strong>TRAN HIEP THANH TEXTILE CORPORATION</strong><small>CUSTOMER EXPERIENCE · INTERNAL REPORT</small></div></div><div class="report-tag"><strong>${reportSafe(roundTitle)}</strong><div>${reportSafe(methodLabel)}</div><div>Ngày xuất: ${date}</div></div></div>`;
+    }
+    function reportFooter(page, source){return `<div class="report-footer"><span>${reportSafe(source)}</span><span>Trang ${page} / 3 · Internal use only</span></div>`}
+    function reportKpi(label, val){return `<div class="report-kpi"><span>${reportSafe(label)}</span><strong>${reportSafe(val)}</strong></div>`}
+    function reportChart(data, kind, maxValue){
+      if(!data.length)return `<div class="report-tiny">Chưa có dữ liệu.</div>`;
+      return data.map(x=>{
+        const raw=Number(x.value)||0,pc=Math.max(0,Math.min(100,raw/maxValue*100));
+        return `<div class="report-bar-row"><span>${reportSafe(x.label)}</span><div class="bar-track"><div class="bar-fill" style="width:${pc}%"></div></div><b>${kind==="score"?score(x.value):kind==="pct"?pct(x.value):reportSafe(x.value)}</b></div>`;
+      }).join("");
+    }
+    function reportTable(headers, data, widths){
+      if(!data.length)return `<div class="report-tiny">Chưa có dữ liệu.</div>`;
+      return `<table class="report-tbl">${widths?`<colgroup>${widths.map(w=>`<col style="width:${w}%">`).join("")}</colgroup>`:""}<thead><tr>${headers.map(x=>`<th>${reportSafe(x)}</th>`).join("")}</tr></thead><tbody>${data.map(row=>`<tr>${row.map(v=>`<td>${reportSafe(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    }
+    function exportDashboardPdf(){
+      const d=state.dashboard;
+      if(!d){alert("Vui lòng đợi dashboard tải xong trước khi xuất báo cáo.");return;}
+      const isHistorical=$('.dash-tab.active')?.dataset.dashTab==='historical';
+      const method=isHistorical?'Legacy Satisfaction Rate · Historical 9 items':methodName();
+      const activeRound=(d.rounds||[]).find(r=>r.roundId===d.selectedRoundId);
+      const roundTitle=isHistorical?'2026 · Lần 1':d.selectedRoundId==='__ALL__'?'Survey 2.0 · Tất cả kỳ':(activeRound?.roundName||d.selectedRoundId||'Survey 2.0');
+      const stamp=new Date().toLocaleString('vi-VN');
+      const scope=isHistorical?'Historical 2026 R1':'Survey 2.0';
+      const historical=d.legacy;
+      if(isHistorical&&!historical){alert('Chưa có dữ liệu kỳ 2026 R1.');return;}
+      const overall=isHistorical?historical.summary.achievedRate:selectedOverall();
+      const total=isHistorical?historical.summary.customers:d.summary.responses;
+      const dimensions=isHistorical?(historical.dimensions||[]):(d.dimensions||[]);
+      const priorities=isHistorical?[]:(d.priorities||[]);
+      const source=isHistorical?'Nguồn: khảo sát 2026 lần 1; số liệu lịch sử giữ nguyên.':'Nguồn: Survey 2.0/2.1 · Google Sheets; snapshot tại thời điểm xuất.';
+      const methodText=isHistorical
+       ? 'Phương pháp lịch sử: bình quân tỷ lệ điểm 3–5 trên 9 câu hỏi theo khách hàng. Không phải CSAT của Survey 2.0.'
+       : methodExplanation();
+      const kpis=[
+        reportKpi(isHistorical?'Khách hàng':'Responses',total),
+        reportKpi('Overall · '+(isHistorical?'Legacy':state.scoringMethod==='legacy'?'Legacy':'CSAT'),scoringPct(overall)),
+        reportKpi(isHistorical?'Số tiêu chí':'Khách hàng At Risk',isHistorical?9:d.summary.atRiskCustomers),
+        reportKpi(isHistorical?'Góp ý lịch sử':'Open Issues',isHistorical?historical.summary.feedbackCount:d.summary.openIssues)
+      ].join('');
+      const scores=dimensions.map(x=>({label:x.dimension,value:x.averageScore})).filter(x=>x.value!==null);
+      const achieved=dimensions.map(x=>({label:x.dimension,value:isHistorical?x.achievedRate:x.positiveRate})).filter(x=>x.value!==null);
+      const atRisk=isHistorical?[]:(d.atRiskCustomers||[]);
+      const issueRows=isHistorical?[]:(d.issues||[]);
+      const actionRows=isHistorical?[]:(d.actions||[]);
+      const comments=isHistorical
+        ? (historical.customers||[]).flatMap(c=>(c.feedback||[]).map(f=>({customer:c.customerName,comment:f.text}))).filter(x=>x.comment&&x.comment.toLowerCase()!=='hài lòng')
+        : (d.recentFeedback||[]).map(f=>({customer:f.customerName,comment:f.comment}));
+      const notes=comments.slice(0,5).map(x=>`<div style="border-bottom:1px solid #e6eeea;padding:5px 0;font-size:9px"><b>${reportSafe(x.customer)}</b><div>${reportSafe(x.comment)}</div></div>`).join('')||'<p class="report-tiny">Chưa có ý kiến mở.</p>';
+      const fmtShortDate=value=>{if(!value)return '—';const date=new Date(value);return isNaN(date.getTime())?String(value):date.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'2-digit'});};
+      const riskRows=atRisk.slice(0,6).map(x=>[x.customerName,x.overallScore||'—',x.riskLevel,fmtShortDate(x.timestamp)]);
+      const issueTable=reportTable(['Khách hàng','Tiêu chí','Điểm','Trạng thái'],issueRows.slice(0,6).map(x=>[x.customerName,x.dimension,x.score,x.reviewStatus]),[38,32,10,20]);
+      const actionTable=reportTable(['Khách hàng','Owner','Hành động','Hạn','Status'],actionRows.slice(0,6).map(x=>[x.customerName,x.owner,x.improvementAction||x.issue,fmtShortDate(x.deadline),x.status]),[22,14,38,13,13]);
+      const pendingClarifications=(d.clarifications||[]).filter(x=>x.mode==="DIRECT"||x.mode==="UNVERIFIED");
+      const report= `
+      <section class="print-page">
+        ${reportHeader(1,roundTitle,method,stamp)}
+        <h1 class="report-title">BÁO CÁO TỔNG HỢP KHẢO SÁT KHÁCH HÀNG</h1>
+        <p class="report-sub">Kỳ báo cáo: ${reportSafe(roundTitle)} · Phương pháp hiển thị: ${reportSafe(method)} · ${reportSafe(scope)}</p>
+        <div class="report-grid">${kpis}</div>
+        <div class="report-card"><h3>Phương pháp tính và phạm vi dữ liệu</h3><p class="report-tiny">${reportSafe(methodText)}</p><p class="report-tiny">${isHistorical?'Chỉ số kỳ 1 giữ nguyên dữ liệu và công thức đã báo cáo; không tính lại theo bộ 7 tiêu chí.':`So sánh hai cách tính trên cùng dữ liệu kỳ này: Legacy ${scoringPct(d.scoring?.legacyRate)} · Overall CSAT ${scoringPct(d.scoring?.csatRate??d.summary.csat)}. Số người trả lời có điểm Overall hợp lệ: ${d.scoring?.validOverallResponses??'—'}.`}</p></div>
+        <div class="report-two" style="margin-top:12px">
+          <div class="report-card"><h3>Điểm trung bình từng tiêu chí / 5</h3>${reportChart(scores,'score',5)}</div>
+          <div class="report-card"><h3>Tỷ lệ đạt theo tiêu chí</h3><p class="report-tiny">${isHistorical?'Điểm từ 3 đến 5 (thang cũ).':'Điểm từ 4 đến 5 (Positive Rate). Không phải Overall CSAT.'}</p>${reportChart(achieved,'pct',1)}</div>
+        </div>
+        ${reportFooter(1,source)}
+      </section>
+      <section class="print-page">
+        ${reportHeader(2,roundTitle,method,stamp)}
+        <h2 class="report-title">PHÂN TÍCH KẾT QUẢ VÀ Ý KIẾN KHÁCH HÀNG</h2>
+        <div class="report-two">
+          <div class="report-card"><h3>Phân tích theo tiêu chí</h3>${reportTable(['Tiêu chí','Điểm TB','Tỷ lệ tích cực','Mẫu'],dimensions.map(x=>[x.dimension,score(x.averageScore),pct(isHistorical?x.achievedRate:x.positiveRate),x.responses]),[48,17,19,16])}</div>
+          <div class="report-card"><h3>${isHistorical?'Thông tin kỳ khảo sát lịch sử':'Các yếu tố được chọn trong Top 3'}</h3>${isHistorical?`<p class="report-tiny">${historical.summary.customers} khách hàng · 9 câu hỏi · ${historical.summary.feedbackCount} phản hồi ghi nhận.</p><div class="report-note">Không quy đổi kết quả lịch sử thành CSAT, không suy ra cải thiện từ chênh lệch ngưỡng tính điểm.</div>`:reportChart(priorities.slice(0,10).map(x=>({label:x.priority,value:x.count})),'count',Math.max(1,...priorities.map(x=>x.count)))}</div>
+        </div>
+        <div class="report-card"><h3>Ý kiến khách hàng (trích tối đa 5 ý kiến)</h3>${notes}${comments.length>5?`<p class="report-tiny">Còn ${comments.length-5} ý kiến khác trong dashboard.</p>`:''}</div>
+        ${reportFooter(2,source)}
+      </section>
+      <section class="print-page">
+        ${reportHeader(3,roundTitle,method,stamp)}
+        <h2 class="report-title">VẤN ĐỀ CẦN THEO DÕI VÀ HÀNH ĐỘNG CẢI THIỆN</h2>
+        ${isHistorical?`<div class="report-card"><h3>Đặc điểm dữ liệu lịch sử</h3><p class="report-tiny">Kỳ khảo sát cũ chủ yếu ghi nhận các đánh giá theo 9 tiêu chí. Các trường Issue, Owner, Deadline và KPI thuộc quy trình Survey 2.0, không áp vào kỳ khảo sát cũ nếu không có hồ sơ nguồn.</p><p class="report-tiny">Tra cứu phản hồi nguyên văn và việc xử lý liên quan trong tab Khảo sát 2026 · Lần 1.</p></div>`:
+        `<div class="report-card"><h3>Khách hàng At Risk (tối đa 6)</h3>${reportTable(['Khách hàng','Overall Q8','Risk','Ngày'],riskRows,[55,13,15,17])}</div>
+         <div class="report-two" style="margin-top:12px"><div class="report-card"><h3>Issue Log (${issueRows.length})</h3>${issueTable}</div><div class="report-card"><h3>Action Tracker (${actionRows.length})</h3>${actionTable}</div></div>`}
+        <div class="report-note"><b>Phản hồi cần theo dõi:</b> ${pendingClarifications.length} lựa chọn sẽ trao đổi trực tiếp/chưa xác minh. Xem chi tiết trong Admin → Vấn đề & Hành động.</div>
+        <div class="report-note"><b>Ghi chú diễn giải:</b> Chỉ số Overall được trình bày theo lựa chọn của Admin ở thời điểm xuất. Phản hồi gốc, mức độ rủi ro, Issue Log và Action Tracker không bị thay đổi do việc chọn công thức. ${isHistorical?'':`Các bảng chỉ hiển thị tối đa 6 bản ghi mỗi nhóm; xem dashboard để đối chiếu đầy đủ.`}</div>
+        ${reportFooter(3,source)}
+      </section>`;
+      const container=$('#printReport');
+      container.innerHTML=report;
+      const cleanup=()=>{window.removeEventListener('afterprint',cleanup);container.innerHTML='';};
+      window.addEventListener('afterprint',cleanup);
+      // Browser's built-in Print / Save as PDF avoids heavy PDF libraries and external network requests.
+      window.print();
     }
 
     function bind(){
@@ -802,6 +1089,8 @@
       $("#adminLoginBtn").addEventListener("click",adminLogin);
       $("#adminPin").addEventListener("keydown",e=>{if(e.key==="Enter")adminLogin()});
       $("#adminLogoutBtn").addEventListener("click",()=>{sessionStorage.removeItem("tht_admin_pin");state.adminPin="";state.dashboard=null;$("#adminPin").value="";showView("home")});
+      $("#overallMethodSelect").addEventListener("change",e=>{state.scoringMethod=e.target.value==="csat"?"csat":"legacy";if(state.dashboard)renderDashboard()});
+      $("#exportPdfBtn").addEventListener("click",exportDashboardPdf);
       $("#refreshDashboardBtn").addEventListener("click",()=>loadDashboard($("#roundSelect").value||""));
       $("#roundSelect").addEventListener("change",e=>loadDashboard(e.target.value));
       $$(".dash-tab").forEach(btn=>btn.addEventListener("click",()=>switchDashTab(btn.dataset.dashTab)));
