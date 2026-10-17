@@ -234,6 +234,24 @@
       #surveyView .followup-mode:first-child{grid-column:1/-1}
       #surveyView .followup-mode{min-height:44px}
     }
+
+    /* Workflow management is visually separate from customer survey. */
+    .wf-modal{position:fixed;inset:0;background:rgba(16,42,47,.65);z-index:4000;display:flex;align-items:center;justify-content:center;padding:16px}
+    .wf-modal.hidden{display:none}.wf-dialog{width:min(520px,100%);background:#fff;border-radius:16px;padding:25px;box-shadow:0 28px 80px #0002;max-height:90vh;overflow-y:auto}
+    .wf-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px}.wf-head h2{font-size:22px;margin:0}
+    .wf-dialog select,.wf-dialog input:not([type=checkbox]),#wfPanel select,#wfPanel input:not([type=checkbox]):not([type=file]),#wfPanel textarea{background:#fff;width:100%;border:1px solid #ccd9dc;border-radius:9px;padding:11px;margin:5px 0 12px;font:inherit;color:var(--ink);min-height:42px;box-sizing:border-box}
+    #wfPanel textarea{min-height:90px}.wf-warning{color:#8a5722;background:#fff8ec;border:1px solid #f3dfb9;padding:12px;border-radius:9px;font-size:13px}.wf-check{display:flex;gap:9px;align-items:start;font-size:13px;margin:10px 0 15px}.wf-actions{display:flex;gap:12px;flex-wrap:wrap}.wf-error{color:#a74444}
+    .wf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.wf-card{background:#fff;border:1px solid #dce8e7;padding:17px;border-radius:14px;margin:12px 0}
+    .wf-kpi{display:block;text-align:left;width:100%;cursor:pointer}.wf-kpi strong{font-size:28px;display:block;margin:8px 0}.wf-kpi span{font-size:13px;color:var(--muted)}
+    .wf-tag{display:inline-block;border-radius:6px;background:#eef3f7;color:#315f7d;padding:4px 7px;font-size:11px;font-weight:700}.wf-muted{color:var(--muted);font-size:13px}
+    .wf-row{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:10px}.wf-row h3{margin:0}
+    .wf-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.wf-action-row .btn{padding:9px 13px;min-height:40px}.wf-link{color:var(--blue);text-decoration:underline;cursor:pointer;background:none;border:0;font:inherit}
+    .wf-detail{background:#f5f9fb;border-radius:10px;padding:13px;margin:10px 0;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+    .wf-table{width:100%;border-collapse:collapse;font-size:13px}.wf-table th,.wf-table td{padding:10px;text-align:left;border-bottom:1px solid #dce6e7;vertical-align:top}.wf-table th{background:#f2f7f8}.wf-table-wrap{overflow-x:auto}
+    .wf-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:15px}.wf-toolbar select{width:auto!important;min-width:160px}.wf-text-pre{white-space:pre-wrap;overflow-wrap:anywhere}
+    #wfAlerts{padding:12px;margin-bottom:12px;border-radius:9px;background:#f1f8f0;color:#25604b}
+    @media(max-width:620px){.wf-dialog{padding:18px}.wf-table{font-size:12px}.wf-table th,.wf-table td{padding:7px}.wf-grid{grid-template-columns:1fr 1fr}}
+
   </style>
 </head>
 <body>
@@ -243,10 +261,10 @@
         <img src="assets/logo.jpg" alt="THT logo" class="brand-logo" width="64" height="64">
         <div><strong id="brandName"></strong><span id="brandSubtitle"></span></div>
       </div>
-      <div class="lang-switch" id="languageSwitch" aria-label="Language">
+      <div style="display:flex;align-items:center;gap:12px"><button id="wfAdminEntry" type="button" class="btn secondary" style="font-size:12px;padding:9px 13px">Admin</button><div class="lang-switch" id="languageSwitch" aria-label="Language">
         <button class="lang-btn active" data-lang="vi" type="button">VI</button>
         <button class="lang-btn" data-lang="en" type="button">EN</button>
-      </div>
+      </div></div>
     </header>
 
     <!-- HOME -->
@@ -256,7 +274,7 @@
         <h1 id="homeTitle">Khảo sát trải nghiệm khách hàng</h1>
         <p id="homeBody">Vui lòng chọn mục phù hợp để tiếp tục.</p>
       </div>
-      <div class="choice-grid">
+      <div class="choice-grid" style="grid-template-columns:minmax(300px,700px);justify-content:center">
         <article class="choice-card">
           <div>
             <span class="choice-label" id="customerChoiceLabel">Khách hàng</span>
@@ -267,7 +285,7 @@
             <button class="btn primary" id="startSurveyBtn" type="button">Bắt đầu khảo sát</button>
           </div>
         </article>
-        <article class="choice-card">
+        <article class="choice-card hidden">
           <div>
             <span class="choice-label">Admin</span>
             <h2>Dashboard</h2>
@@ -454,13 +472,31 @@
       </div>
     </section>
 
+
+    <section id="workflowView" class="dashboard hidden" aria-label="Quản lý phản hồi khách hàng">
+      <div class="dash-top"><div><span class="section-kicker">THT Internal</span><h1>Customer Feedback Management</h1>
+      <p id="wfUserInfo" class="sub"></p></div>
+      <div class="dash-actions"><button id="wfOpenOldDashboard" type="button" class="btn secondary hidden">Dashboard khảo sát & PDF</button><button id="wfRefresh" type="button" class="btn secondary">Làm mới</button><button id="wfLogout" type="button" class="btn secondary">Đăng xuất</button></div></div>
+      <nav class="dash-tabs" id="wfTabs"></nav><div id="wfAlerts" role="status" class="mini-status hidden"></div>
+      <div id="wfPanel" style="min-height:300px"></div>
+    </section>
+    <div id="wfLoginOverlay" class="wf-modal hidden" role="dialog" aria-modal="true" aria-labelledby="wfModalHeading">
+      <div class="wf-dialog"><div class="wf-head"><h2 id="wfModalHeading">Khu vực nội bộ</h2><button type="button" id="wfCloseLogin" class="btn secondary">Đóng</button></div>
+        <div id="wfConfirmInternal"><p><strong>Bạn có phải là nhân viên nội bộ THT?</strong></p><p class="sub">Khu vực này dành cho người được giao quản trị hoặc xử lý vấn đề khách hàng.</p><div class="wf-actions"><button id="wfNotInternal" type="button" class="btn secondary">Không, quay lại</button><button id="wfYesInternal" type="button" class="btn primary">Có, tiếp tục</button></div></div>
+        <form id="wfLoginForm" class="hidden"><label class="label">Vai trò</label><select id="wfRole"><option value="superadmin">Super Admin</option><option value="department">Bộ phận xử lý</option></select>
+          <div id="wfDeptField" class="hidden"><label class="label">Tên bộ phận</label><select id="wfDept"><option value="">Chọn bộ phận</option><option>Dịch vụ khách hàng</option><option>Sales</option><option>R&D</option><option>Production</option><option>QA/QC</option><option>Logistics</option></select>
+          <p class="wf-warning">Vui lòng chọn đúng bộ phận. Mật khẩu 6666 dùng chung nên việc chọn bộ phận không xác minh danh tính. Các thao tác được ghi nhật ký.</p><label class="wf-check"><input type="checkbox" id="wfDeptAck"> Tôi xác nhận đang được giao cập nhật cho bộ phận đã chọn.</label></div>
+          <label class="label">Mật khẩu</label><input id="wfPassword" type="password" autocomplete="off" inputmode="numeric" required placeholder="Nhập mật khẩu">
+          <p id="wfLoginError" class="wf-error"></p><button id="wfLoginSubmit" class="btn primary" type="submit">Đăng nhập</button></form>
+      </div>
+    </div>
     <footer><span>© Tran Hiep Thanh Textile Corporation</span><span id="footerNote"></span></footer>
   </main>
   <div id="printReport" class="print-report" aria-label="Customer Survey Report"></div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbycN2gF9D4qOgtxLCf3IfJ-KWRMEEKmC1xMcRswSVwbkijZYqq01Y0QnO6D4pM-k5DS1w/exec";
-    const EXPECTED_API_VERSION = "2026-10-16-likert-v7-mastersheet";
+    const EXPECTED_API_VERSION = "2026-10-17-workflow-v8";
     const CONTENT = {"brandName":{"vi":"Công ty Cổ phần Dệt Trần Hiệp Thành","en":"TRAN HIEP THANH TEXTILE CORPORATION"},"brandSubtitle":{"vi":"Khảo sát trải nghiệm khách hàng","en":"Customer Experience Survey"},"heroEyebrow":{"vi":"Trải nghiệm Khách hàng 2026","en":"Customer Experience 2026"},"heroTitle":{"vi":"Phản hồi của Quý khách sẽ giúp chúng tôi cải thiện tốt hơn!","en":"Your feedback helps us serve you better!"},"heroBody":{"vi":"Khảo sát ghi nhận trải nghiệm hợp tác trong 6 tháng gần đây. Vui lòng chọn mức phù hợp nhất và chia sẻ những nội dung THT cần cải thiện.","en":"Please rate your experience of working with THT over the past six months and share where we can improve."},"heroPoint1":{"vi":"TRÁCH NHIỆM","en":"RESPONSIBILITY"},"heroPoint2":{"vi":"HỢP TÁC","en":"COOPERATION"},"heroPoint3":{"vi":"TẬN TÂM","en":"DEDICATION"},"stepKicker":{"vi":"Bắt đầu","en":"Getting started"},"sectionTitle":{"vi":"Thông tin khảo sát","en":"Survey information"},"companyLabel":{"vi":"Tên công ty","en":"Company name"},"companyPlaceholder":{"vi":"Nhập tên công ty...","en":"Search company name..."},"confirmCompany":{"vi":"Quý khách đang gửi phản hồi cho","en":"You are submitting feedback for"},"change":{"vi":"Thay đổi","en":"Change"},"roleLabel":{"vi":"Bộ phận / vai trò","en":"Department / Role"},"overallChip":{"vi":"Đánh giá chung","en":"Overall rating"},"overallQuestion":{"vi":"Nhìn chung, Quý khách hài lòng ở mức nào với trải nghiệm hợp tác cùng THT trong 6 tháng gần đây?","en":"Overall, how satisfied are you with your experience of working with THT over the past six months?"},"priorityChip":{"vi":"Điều quan trọng với Quý khách","en":"What matters most"},"priorityQuestion":{"vi":"Chọn tối đa 3 yếu tố quan trọng nhất khi làm việc với nhà cung cấp vải.","en":"Choose up to 3 factors that matter most when working with a fabric supplier."},"finalChip":{"vi":"Một góp ý cuối","en":"One final thought"},"finalQuestion":{"vi":"Trong 6 tháng tới, điều gì THT cần ưu tiên cải thiện nhất để hỗ trợ công việc của Quý khách tốt hơn?","en":"What should THT prioritize improving over the next six months to better support your business?"},"finalPlaceholder":{"vi":"Quý khách có thể chia sẻ ngắn gọn tại đây...","en":"Please share your feedback here..."},"optional":{"vi":"Không bắt buộc","en":"Optional"},"thanksEyebrow":{"vi":"Đã ghi nhận","en":"Received"},"thanksTitle":{"vi":"Cảm ơn Quý khách đã dành thời gian thực hiện khảo sát!","en":"Thank you for taking the time to complete the survey!"},"thanksBody":{"vi":"Khảo sát đã được thực hiện thành công. Chúng tôi sẽ sử dụng dữ liệu này để xác định các nội dung cần cải thiện trong thời gian tới với mục đích phụ vụ Khách hàng tốt hơn. Trân trọng!","en":"The survey has been successfully completed. We will use this data to identify areas for improvement and better serve our customers."},"footerNote":{"vi":"Customer Experience Survey","en":"Customer Experience Survey"},"role_MANAGEMENT":{"vi":"Quản lý","en":"Management"},"role_SOURCING":{"vi":"Thu mua","en":"Sourcing / Purchasing"},"role_MERCHANDISING":{"vi":"Merchandising","en":"Merchandising"},"role_DEVELOPMENT":{"vi":"Phát triển sản phẩm","en":"R&D / Product Development"},"role_QUALITY":{"vi":"Chất lượng / Kỹ thuật","en":"Quality / Technical"},"role_PRODUCTION":{"vi":"Sản xuất / Vận hành","en":"Production / Operations"},"role_OTHER":{"vi":"Khác","en":"Other"},"scale_1":{"vi":"Hoàn toàn không đồng ý","en":"Strongly disagree"},"scale_2":{"vi":"Không đồng ý","en":"Disagree"},"scale_3":{"vi":"Trung lập","en":"Neither agree nor disagree"},"scale_4":{"vi":"Đồng ý","en":"Agree"},"scale_5":{"vi":"Hoàn toàn đồng ý","en":"Strongly agree"},"question_DEV":{"vi":"THT đáp ứng các mốc thời gian đã thống nhất trong quá trình phát triển sản phẩm và mẫu.","en":"THT meets the agreed timelines for product and sample development."},"question_RESP":{"vi":"THT phản hồi các yêu cầu công việc trong thời gian phù hợp với nhu cầu của chúng tôi.","en":"THT responds to our business requests within a timeframe that meets our needs."},"question_DEL":{"vi":"THT giao hàng đúng các mốc thời gian đã cam kết với chúng tôi.","en":"THT delivers orders according to the agreed delivery schedules."},"question_QUAL":{"vi":"Chất lượng vải THT cung cấp đáp ứng ổn định các yêu cầu kỹ thuật đã thống nhất.","en":"The fabric supplied by THT consistently meets the agreed technical requirements."},"question_CLAIM":{"vi":"Khi phát sinh vấn đề, THT đưa ra phương án giải quyết đáp ứng nhu cầu xử lý của chúng tôi.","en":"When issues arise, THT provides resolutions that meet our needs."},"question_COMM":{"vi":"THT chủ động thông tin kịp thời về những thay đổi có thể ảnh hưởng đến kế hoạch của chúng tôi.","en":"THT proactively informs us of changes that may affect our plans in a timely manner."},"question_VALUE":{"vi":"Các giải pháp THT đề xuất phù hợp với nhu cầu thực tế của chúng tôi.","en":"The solutions proposed by THT are relevant to our actual business needs."},"priority_QUALITY":{"vi":"Chất lượng sản phẩm","en":"Product Quality"},"priority_PRICE":{"vi":"Giá cạnh tranh","en":"Competitive Pricing"},"priority_DEVELOPMENT":{"vi":"Tốc độ phát triển sản phẩm","en":"Development Speed"},"priority_DELIVERY":{"vi":"Độ tin cậy về giao hàng","en":"Delivery Reliability"},"priority_RESPONSIVENESS":{"vi":"Tốc độ phản hồi","en":"Responsiveness"},"priority_TECHNICAL":{"vi":"Hỗ trợ kỹ thuật","en":"Technical Support"},"priority_INNOVATION":{"vi":"Phát triển sản phẩm mới","en":"Innovation & New Development"},"priority_SUSTAINABILITY":{"vi":"Bền vững và tuân thủ","en":"Sustainability & Compliance"},"priority_CLAIM":{"vi":"Xử lý khiếu nại","en":"Complaint Resolution"},"priority_COMMUNICATION":{"vi":"Chủ động cập nhật thông tin","en":"Proactive Communication"}};
     let LIKERT_EXPLANATIONS = {"DEV":{"vi":["Phần lớn các mốc tiến độ không được đáp ứng.","Một số mốc quan trọng bị trễ, ảnh hưởng đến kế hoạch.","Có mốc đúng hạn và có mốc bị trễ; kết quả chưa ổn định.","Hầu hết các mốc được đáp ứng đúng thời gian thống nhất.","Các mốc được đáp ứng nhất quán, giúp chúng tôi chủ động kế hoạch."],"en":["Most agreed timelines are missed.","Some key milestones are delayed, affecting our plans.","Some milestones are met, while others are delayed.","Most agreed milestones are met on time.","Timelines are consistently met, supporting our planning."]},"RESP":{"vi":["Phản hồi thường quá chậm, gây gián đoạn công việc.","Phản hồi còn chậm trong nhiều trường hợp.","Một số yêu cầu được phản hồi kịp thời, một số chưa.","Hầu hết yêu cầu được phản hồi trong thời gian phù hợp.","Phản hồi luôn kịp thời, giúp công việc được xử lý liên tục."],"en":["Responses are frequently too late, disrupting our work.","Responses are often slower than needed.","Response times vary across requests.","Most requests receive timely responses.","Responses are consistently timely, keeping work on track."]},"DEL":{"vi":["Giao trễ thường xuyên, gây ảnh hưởng đáng kể đến kế hoạch.","Một số đơn hàng giao trễ, ảnh hưởng đến việc triển khai.","Có đơn hàng đúng hạn và đơn hàng trễ; độ tin cậy chưa ổn định.","Phần lớn đơn hàng được giao đúng cam kết.","Giao hàng đúng cam kết một cách nhất quán."],"en":["Frequent delays significantly disrupt our plans.","Some deliveries are late and affect our operations.","Some orders arrive on time, while others are delayed.","Most orders are delivered as committed.","Delivery commitments are consistently met."]},"QUAL":{"vi":["Nhiều lô hàng không đáp ứng yêu cầu kỹ thuật.","Chất lượng chưa ổn định, có các lô không đạt yêu cầu.","Phần lớn lô hàng đạt yêu cầu nhưng vẫn có biến động.","Chất lượng ổn định, chỉ phát sinh ít trường hợp không phù hợp.","Chất lượng đáp ứng nhất quán các yêu cầu kỹ thuật đã thống nhất."],"en":["Many production lots fail to meet technical requirements.","Quality is inconsistent, with some nonconforming lots.","Most lots meet requirements, but variation remains.","Quality is stable, with few nonconformities.","Quality consistently meets all agreed technical requirements."]},"CLAIM":{"vi":["Các vấn đề thường không được giải quyết thỏa đáng.","Phương án giải quyết thường chưa đáp ứng nhu cầu.","Một số vấn đề được giải quyết phù hợp, một số chưa.","Phần lớn vấn đề được giải quyết phù hợp.","Các vấn đề được giải quyết phù hợp và nhất quán."],"en":["Issues are frequently left unresolved or inadequately addressed.","Proposed resolutions often do not meet our needs.","Some issues are resolved satisfactorily, while others are not.","Most issues are resolved satisfactorily.","Issues are consistently resolved in a satisfactory manner."]},"COMM":{"vi":["Thường không được thông báo trước về các thay đổi quan trọng.","Thông báo thường đến muộn, hạn chế khả năng chuẩn bị.","Có thay đổi được thông báo kịp thời, có thay đổi chưa.","Hầu hết thay đổi quan trọng được thông báo kịp thời.","Các thay đổi quan trọng luôn được thông báo đủ sớm để chủ động ứng phó."],"en":["Important changes are often not communicated in advance.","Updates often come too late for adequate preparation.","Some changes are communicated on time, others are not.","Most important changes are communicated in time.","Important changes are consistently communicated early enough for us to respond."]},"VALUE":{"vi":["Các đề xuất hầu như không phù hợp với nhu cầu.","Nhiều đề xuất chưa phù hợp hoặc khó áp dụng.","Một số đề xuất phù hợp, nhưng giá trị ứng dụng chưa ổn định.","Phần lớn đề xuất phù hợp và có giá trị ứng dụng.","Các đề xuất nhất quán phù hợp và giúp giải quyết nhu cầu thực tế."],"en":["Proposed solutions rarely match our needs.","Many proposals are unsuitable or difficult to apply.","Some proposals are relevant, but their usefulness varies.","Most proposals are relevant and practically useful.","Proposals consistently fit our needs and help address real business requirements."]}};
     let OVERALL_EXPLANATIONS = {"vi":["Trải nghiệm nhìn chung không đáp ứng kỳ vọng.","Có những vấn đề đáng kể cần cải thiện.","Trải nghiệm có điểm đáp ứng và điểm chưa đáp ứng.","Trải nghiệm nhìn chung đáp ứng kỳ vọng.","Trải nghiệm đáp ứng rất tốt kỳ vọng hợp tác."],"en":["Overall experience falls well short of expectations.","Significant improvements are needed.","Experience has both strengths and weaknesses.","Overall experience meets expectations.","Overall experience meets expectations very well."]};
@@ -506,7 +542,8 @@
       $("#homeView").classList.toggle("hidden",name!=="home");
       $("#surveyView").classList.toggle("hidden",name!=="survey");
       $("#adminView").classList.toggle("hidden",name!=="admin");
-      $("#languageSwitch").classList.toggle("hidden",name==="admin");
+      $("#workflowView").classList.toggle("hidden",name!=="workflow");
+      $("#languageSwitch").classList.toggle("hidden",name==="admin"||name==="workflow");
       window.scrollTo({top:0,behavior:"smooth"});
     }
 
@@ -514,7 +551,7 @@
       const vi=state.lang==="vi";
       $("#homeEyebrow").textContent = vi ? "Khảo sát trải nghiệm khách hàng" : "Customer Experience Survey";
       $("#homeTitle").textContent = vi ? "Chào mừng Quý khách" : "Welcome";
-      $("#homeBody").textContent = vi ? "Vui lòng chọn mục phù hợp để tiếp tục." : "Please choose an option to continue.";
+      $("#homeBody").textContent = vi ? "Chia sẻ đánh giá của Quý khách về quá trình hợp tác với THT." : "Please share your experience of working with THT.";
       $("#customerChoiceLabel").textContent = vi ? "Khách hàng" : "Customer";
       $("#customerChoiceTitle").textContent = vi ? "Thực hiện khảo sát" : "Take the survey";
       $("#customerChoiceBody").textContent = vi ? "Chia sẻ trải nghiệm và góp ý để THT có thể phục vụ Quý khách tốt hơn." : "Share your experience and feedback to help THT serve you better.";
@@ -897,10 +934,10 @@
       finally{$("#adminLoginBtn").disabled=false}
     }
     async function loadDashboard(roundId){
-      if(!state.adminPin){showView("home");return}
+      if(!window.WF_STATE?.token){showView("home");return}
       $("#dashboardLoading").classList.remove("hidden");$("#dashboardContent").classList.add("hidden");
       try{
-        const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"getDashboardData",pin:state.adminPin,roundId:roundId||""})});
+        const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"getDashboardData",token:window.WF_STATE.token,roundId:roundId||""})});
         const json=await res.json();if(!json.success)throw new Error(json.message||"Dashboard error");state.dashboard=json.data;renderDashboard();
         $("#dashboardLoading").classList.add("hidden");$("#dashboardContent").classList.remove("hidden");
       }catch(err){
@@ -1027,7 +1064,7 @@
     function reportHeader(pageIndex, roundTitle, methodLabel, date){
       return `<div class="report-head"><div class="report-brand"><img src="assets/logo.jpg" alt="THT"><div><strong>TRAN HIEP THANH TEXTILE CORPORATION</strong><small>CUSTOMER EXPERIENCE · INTERNAL REPORT</small></div></div><div class="report-tag"><strong>${reportSafe(roundTitle)}</strong><div>${reportSafe(methodLabel)}</div><div>Ngày xuất: ${date}</div></div></div>`;
     }
-    function reportFooter(page, source){return `<div class="report-footer"><span>${reportSafe(source)}</span><span>Trang ${page} / 3 · Internal use only</span></div>`}
+    function reportFooter(page, source){const total=source.includes('Survey 2.0/2.1') && window.WF_STATE?.role==='superadmin'&&window.WF_STATE?.data?.management?4:3;return `<div class="report-footer"><span>${reportSafe(source)}</span><span>Trang ${page} / ${total} · Internal use only</span></div>`}
     function reportKpi(label, val){return `<div class="report-kpi"><span>${reportSafe(label)}</span><strong>${reportSafe(val)}</strong></div>`}
     function reportChart(data, kind, maxValue){
       if(!data.length)return `<div class="report-tiny">Chưa có dữ liệu.</div>`;
@@ -1079,6 +1116,17 @@
       const issueTable=reportTable(['Khách hàng','Tiêu chí','Điểm','Trạng thái'],issueRows.slice(0,6).map(x=>[x.customerName,x.dimension,x.score,x.reviewStatus]),[38,32,10,20]);
       const actionTable=reportTable(['Khách hàng','Owner','Hành động','Hạn','Status'],actionRows.slice(0,6).map(x=>[x.customerName,x.owner,x.improvementAction||x.issue,fmtShortDate(x.deadline),x.status]),[22,14,38,13,13]);
       const pendingClarifications=(d.clarifications||[]).filter(x=>x.mode==="DIRECT"||x.mode==="UNVERIFIED");
+      const wf=(!isHistorical&&window.WF_STATE?.role==='superadmin')?window.WF_STATE?.data?.management:null;
+      const additionalReport=wf?`<section class="print-page">
+        ${reportHeader(4,roundTitle,method,stamp)}
+        <h2 class="report-title">MANAGEMENT INSIGHTS VÀ TIẾN ĐỘ XỬ LÝ</h2>
+        <div class="report-grid">${reportKpi('Khách hàng có cảnh báo',wf.flaggedCustomers||0)}${reportKpi('Vấn đề lặp lại',wf.repeatedIssues?.length||0)}${reportKpi('Issue chờ phản hồi',wf.issueCounts?.awaiting||0)}${reportKpi('Issue quá hạn',wf.issueCounts?.overdue||0)}</div>
+        <div class="report-two"><div class="report-card"><h3>Nhận định quản lý</h3>${reportTable(['Mã','Nội dung','Số lượng'],(wf.cards||[]).map(x=>[x.id,x.title,x.count]),[13,70,17])}</div>
+        <div class="report-card"><h3>Tình huống lặp lại giữa các khách hàng</h3>${reportTable(['Quy tắc','Khách hàng','Phản hồi'],(wf.repeatedIssues||[]).map(x=>[x.ruleId,x.customerCount,x.responseCount]),[55,22,23])}
+        <p class="report-tiny">Đây là tín hiệu cần rà soát, chưa phải kết luận lỗi hệ thống. Nhấn vào số liệu trong Admin để xem căn cứ gốc.</p></div></div>
+        <div class="report-note">Dữ liệu dựa trên phản hồi có liên kết hợp lệ. Phân biệt khách hàng độc lập và số phản hồi. Đánh giá hiệu quả xử lý cần đối chiếu bằng chứng và xác minh thực tế.</div>
+        ${reportFooter(4,source)}
+      </section>`:'';
       const report= `
       <section class="print-page">
         ${reportHeader(1,roundTitle,method,stamp)}
@@ -1111,7 +1159,7 @@
         <div class="report-note"><b>Phản hồi cần theo dõi:</b> ${pendingClarifications.length} lựa chọn sẽ trao đổi trực tiếp/chưa xác minh. Xem chi tiết trong Admin → Vấn đề & Hành động.</div>
         <div class="report-note"><b>Ghi chú diễn giải:</b> Chỉ số Overall được trình bày theo lựa chọn của Admin ở thời điểm xuất. Phản hồi gốc, mức độ rủi ro, Issue Log và Action Tracker không bị thay đổi do việc chọn công thức. ${isHistorical?'':`Các bảng chỉ hiển thị tối đa 6 bản ghi mỗi nhóm; xem dashboard để đối chiếu đầy đủ.`}</div>
         ${reportFooter(3,source)}
-      </section>`;
+      </section>${additionalReport}`;
       const container=$('#printReport');
       container.innerHTML=report;
       const cleanup=()=>{window.removeEventListener('afterprint',cleanup);container.innerHTML='';};
@@ -1129,11 +1177,11 @@
         await loadCustomers();
       });
       $("#surveyBackHome").addEventListener("click",()=>showView("home"));
-      $("#adminBackHome").addEventListener("click",()=>showView("home"));
+      $("#adminBackHome").addEventListener("click",()=>showView("workflow"));
       $("#showAdminLoginBtn").addEventListener("click",()=>{$("#adminLoginBox").classList.toggle("hidden");$("#adminPin").focus()});
       $("#adminLoginBtn").addEventListener("click",adminLogin);
       $("#adminPin").addEventListener("keydown",e=>{if(e.key==="Enter")adminLogin()});
-      $("#adminLogoutBtn").addEventListener("click",()=>{sessionStorage.removeItem("tht_admin_pin");state.adminPin="";state.dashboard=null;$("#adminPin").value="";showView("home")});
+      $("#adminLogoutBtn").addEventListener("click",()=>wfLogoutUi());
       $("#overallMethodSelect").addEventListener("change",e=>{state.scoringMethod=e.target.value==="csat"?"csat":"legacy";if(state.dashboard)renderDashboard()});
       $("#exportPdfBtn").addEventListener("click",exportDashboardPdf);
       $("#refreshDashboardBtn").addEventListener("click",()=>loadDashboard($("#roundSelect").value||""));
@@ -1167,10 +1215,160 @@
     (async function init(){
       restoreDraft();bind();renderSurvey();showView("home");loadDesktopHero();
       window.addEventListener("resize",loadDesktopHero,{passive:true});
-      if(state.adminPin){
-        try{await verifyAdmin(state.adminPin)}catch(e){sessionStorage.removeItem("tht_admin_pin");state.adminPin=""}
-      }
+
     })();
   </script>
+<script>
+/* Customer Feedback Management client. Shared across Super Admin and departments. */
+const WF_STATE={token:'',role:'',department:'',tab:'insights',data:null,round:'2026_R2',selectedIds:new Set()};
+window.WF_STATE=WF_STATE;
+const wf$=s=>document.querySelector(s);
+const wfSafe=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const wfDate=s=>s?new Date(s).toLocaleDateString('vi-VN'):'—';
+const wfDepartments=['Dịch vụ khách hàng','Sales','R&D','Production','QA/QC','Logistics'];
+const wfButton=(label,action,id='',cls='secondary')=>`<button type="button" class="btn ${cls}" data-wf="${wfSafe(action)}" data-id="${wfSafe(id)}">${wfSafe(label)}</button>`;
+const wfToast=(txt,error=false)=>{const el=wf$('#wfAlerts');el.classList.remove('hidden');el.style.background=error?'#fff0ed':'#edf8f2';el.textContent=txt;el.scrollIntoView({block:'nearest'});};
+async function wfRequest(action,params={}){
+  const payload={action,token:WF_STATE.token,...params};
+  const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  const json=await response.json();if(!json.success)throw new Error(json.message||'Hệ thống chưa xử lý được yêu cầu.');return json.data;
+}
+function wfOpenLogin(){wf$('#wfLoginOverlay').classList.remove('hidden');wf$('#wfConfirmInternal').classList.remove('hidden');wf$('#wfLoginForm').classList.add('hidden');wf$('#wfLoginError').textContent='';}
+function wfCloseLogin(){wf$('#wfLoginOverlay').classList.add('hidden');}
+function wfRoleChanged(){const dept=wf$('#wfRole').value==='department';wf$('#wfDeptField').classList.toggle('hidden',!dept);}
+async function wfLoginUi(e){e?.preventDefault();const role=wf$('#wfRole').value,dept=wf$('#wfDept').value,pass=wf$('#wfPassword').value;
+  if(role==='department'&&(!dept||!wf$('#wfDeptAck').checked)){wf$('#wfLoginError').textContent='Chọn và xác nhận đúng bộ phận trước khi đăng nhập.';return;}
+  wf$('#wfLoginSubmit').disabled=true;try{
+    const info=await fetch(`${API_URL}?action=apiInfo&check=${Date.now()}`).then(r=>r.json());
+    if(info.version!==EXPECTED_API_VERSION)throw new Error('Backend chưa cập nhật v8. Hãy deploy Apps Script trước khi sử dụng.');
+    const x=await wfRequest('workflowLogin',{role,department:dept,password:pass});
+    WF_STATE.token=x.token;WF_STATE.role=x.role;WF_STATE.department=x.department;WF_STATE.tab=role==='department'?'issues':'insights';
+    sessionStorage.setItem('tht_wf_session',JSON.stringify({token:x.token,role:x.role,department:x.department,expiresAt:x.expiresAt}));
+    wfCloseLogin();showView('workflow');wfBuildTabs();await wfLoad();
+  }catch(err){wf$('#wfLoginError').textContent=err.message||'Đăng nhập không thành công.';}finally{wf$('#wfLoginSubmit').disabled=false;}}
+async function wfLogoutUi(){try{if(WF_STATE.token)await wfRequest('workflowLogout');}catch(e){}
+  sessionStorage.removeItem('tht_wf_session');sessionStorage.removeItem('tht_admin_pin');WF_STATE.token='';WF_STATE.role='';WF_STATE.department='';WF_STATE.data=null;
+  state.adminPin='';state.dashboard=null;wf$('#wfPassword').value='';showView('home');}
+function wfBuildTabs(){let tabs=WF_STATE.role==='superadmin'?
+    [['insights','Customer Insights'],['management','Management Insights'],['issues','Issues & Actions'],['rules','Rule Library'],['logs','Nhật ký']]:[['issues','Nhiệm vụ được giao'],['management','Tổng quan']];
+  wf$('#wfTabs').innerHTML=tabs.map(([id,t])=>`<button type="button" data-wf-tab="${id}" class="dash-tab ${WF_STATE.tab===id?'active':''}">${t}</button>`).join('');
+  wf$('#wfOpenOldDashboard').classList.toggle('hidden',WF_STATE.role!=='superadmin');
+  wf$('#wfUserInfo').textContent=WF_STATE.role==='superadmin'?'Super Admin · Quyền quản trị đầy đủ':'Bộ phận: '+WF_STATE.department+' · Chỉ xem chi tiết Issue được giao';}
+async function wfLoad(){wf$('#wfPanel').innerHTML='<div class="loading">Đang lấy dữ liệu...</div>';wf$('#wfAlerts').classList.add('hidden');
+  try{WF_STATE.data=await wfRequest('getWorkflowData',{roundId:WF_STATE.round});wfRender();const issue=new URLSearchParams(location.search).get('issue');if(issue && wfFindIssue(issue)){wfOpenIssue(issue);history.replaceState(null,'',location.pathname);}}
+  catch(e){wf$('#wfPanel').innerHTML='<div class="wf-card">Không tải được dữ liệu: '+wfSafe(e.message)+'</div>';}}
+function wfRender(){wfBuildTabs();const data=WF_STATE.data;if(!data)return;
+  let html='';switch(WF_STATE.tab){case'insights':html=wfRenderInsights(data);break;case'management':html=wfRenderManagement(data);break;case'issues':html=wfRenderIssues(data);break;case'rules':html=wfRenderRules(data);break;case'logs':html=wfRenderLogs(data);break;}
+  wf$('#wfPanel').innerHTML=html;}
+function wfRenderInsights(d){const items=d.insights||[];const pending=items.filter(i=>!i.linkedIssueId&&i.reviewStatus!=='No Action'&&i.reviewStatus!=='Reviewed');
+  return `<div class="wf-row"><div><h3>Phân tích theo khách hàng</h3><p class="wf-muted">Quy tắc phát hiện rủi ro. Super Admin duyệt trước khi tạo Issue.</p></div><span class="wf-tag">${pending.length} đề xuất chưa xử lý</span></div>
+   <div class="wf-toolbar"><label>Kỳ khảo sát <select id="wfRoundSelect"><option value="2026_R2">2026 Lần 2</option><option value="__ALL__">Tất cả kỳ mới</option></select></label><input type="search" id="wfSearchInsight" placeholder="Tìm khách hàng, mã quy tắc hoặc nội dung..."></div>
+   <div id="wfInsightRows">${wfInsightRows(pending)}</div>`;}
+function wfInsightRows(items){return items.length?items.map(i=>`<article class="wf-card" data-search="${wfSafe([i.customerName,i.ruleId,i.evidence].join(' ').toLowerCase())}">
+  <div class="wf-row"><div><strong>${wfSafe(i.customerName)}</strong><div class="wf-muted">${wfSafe(i.ruleId)} · ${wfSafe(i.code)} · ${wfSafe(i.responseId)}</div></div><span class="wf-tag">${wfSafe(i.priority)} · ${wfSafe(i.status)} · ${wfSafe(i.score)}/5</span></div>
+  <p>${wfSafe(i.text)}</p><div class="wf-detail"><strong>Phản hồi gốc / căn cứ</strong>\n${wfSafe(i.evidence||'Chưa có nội dung cụ thể')}</div>
+  <details><summary>Hồ sơ và hướng kiểm tra</summary><p><b>Cần xác minh:</b> ${wfSafe(i.verification)}</p><p><b>Hồ sơ:</b> ${wfSafe(i.evidenceRequired)}</p><p><b>Đề xuất:</b> ${wfSafe(i.action)}</p><p><b>Có thể phối hợp:</b> ${wfSafe([i.owner,i.collaborators].filter(Boolean).join('; '))}</p></details>
+  <div class="wf-action-row">${i.status!=='Insufficient Information'?wfButton('Tạo Issue','issue-new',i.id,'primary'):''}${wfButton('Đã xem xét','insight-reviewed',i.id)}${wfButton('Không cần hành động','insight-dismiss',i.id)}<label class="wf-check"><input type="checkbox" class="wf-candidate" value="${wfSafe(i.id)}"> Chọn để gộp</label></div></article>`).join('')+`<div class="wf-card">${wfButton('Gộp đề xuất đã chọn thành một Issue','merge-candidates','','primary')}<p class="wf-muted">Chỉ gộp các phản hồi thuộc cùng một khách hàng. Super Admin quyết định nội dung Issue.</p></div>`:'<div class="wf-card">Chưa có đề xuất cần xem xét trong kỳ đang chọn.</div>';}
+function wfRenderManagement(d){if(WF_STATE.role==='department'){
+  const c=d.surveyOverview||{},p=x=>x==null?'—':(100*x).toFixed(2)+'%';
+  return `<h3>Dashboard tổng quan</h3><p class="wf-muted">Kết quả khảo sát toàn công ty chỉ ở dạng tổng hợp. Thông tin khách hàng chi tiết và hồ sơ chưa giao không được cung cấp.</p>
+  <div class="wf-grid"><div class="wf-card"><span>Khách hàng khảo sát</span><strong style="display:block;font-size:26px">${c.customers||0}</strong></div><div class="wf-card"><span>Phản hồi hợp lệ</span><strong style="display:block;font-size:26px">${c.responses||0}</strong></div><div class="wf-card"><span>Legacy Satisfaction Rate</span><strong style="display:block;font-size:26px">${p(c.legacyRate)}</strong></div><div class="wf-card"><span>Overall CSAT</span><strong style="display:block;font-size:26px">${p(c.csatRate)}</strong></div></div>
+  <div class="wf-card"><h4>Điểm trung bình theo tiêu chí</h4><div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>Tiêu chí</th><th>Điểm TB</th><th>Điểm 1–2</th><th>Số đánh giá hợp lệ</th></tr></thead><tbody>${(c.dimensions||[]).map(x=>`<tr><td>${wfSafe(x.code)}</td><td>${x.mean??'—'}</td><td>${x.negative}</td><td>${x.valid}</td></tr>`).join('')}</tbody></table></div><p class="wf-muted">${wfSafe(c.caveat||'')}</p></div>
+  <h4>Tiến độ xử lý của bộ phận</h4>${wfStatCards(d.counts)}`;}
+
+  const m=d.management||{},repeated=m.repeatedIssues||[];
+  return `<div class="wf-row"><div><h3>Management Insights</h3><p class="wf-muted">Nhận định dựa trên phản hồi khảo sát có liên kết hợp lệ. Không quy đổi điểm hai bộ câu hỏi khác nhau.</p></div></div>
+  <div class="wf-grid"><button class="wf-card wf-kpi" data-wf="show-risk-customers"><span>Khách hàng có cảnh báo</span><strong>${m.flaggedCustomers||0}</strong><small>Xem khách hàng</small></button><button class="wf-card wf-kpi" data-wf="show-all-responses"><span>Phản hồi hợp lệ</span><strong>${m.validResponses||0}</strong><small>Xem phản hồi</small></button><div class="wf-card wf-kpi"><span>Khách hàng khảo sát</span><strong>${m.uniqueCustomers||0}</strong></div><div class="wf-card wf-kpi"><span>Nhóm tình huống lặp lại</span><strong>${repeated.length}</strong></div></div>
+  <h3>Tình huống ghi nhận ở ít nhất hai khách hàng</h3><div class="wf-grid">${repeated.length?repeated.map(x=>`<div class="wf-card"><strong>${wfSafe(x.ruleId)}</strong><div class="wf-grid"><button class="wf-card wf-kpi" data-wf="repeat-customers" data-id="${wfSafe(x.ruleId)}"><span>Khách hàng liên quan</span><strong>${x.customerCount}</strong><small>Xem danh sách</small></button><button class="wf-card wf-kpi" data-wf="repeat-responses" data-id="${wfSafe(x.ruleId)}"><span>Phản hồi liên quan</span><strong>${x.responseCount}</strong><small>Xem căn cứ</small></button></div><p class="wf-muted">Cần đối chiếu từng trường hợp, chưa kết luận lỗi chung.</p></div>`).join(''):'<div class="wf-card">Chưa đủ dữ liệu để cảnh báo tình huống lặp lại ở nhiều khách hàng.</div>'}</div><h3>12 quy tắc quản lý</h3><div class="wf-grid">${(m.cards||[]).map(c=>`<button class="wf-card wf-kpi" data-wf="management-rule" data-id="${wfSafe(c.id)}"><span>${wfSafe(c.id)} · ${wfSafe(c.title)}</span><strong>${c.count}</strong><small>Nhấn xem căn cứ</small></button>`).join('')}</div>
+  <h3>Cảnh báo kết hợp nhiều tiêu chí</h3>${(m.combinations||[]).length?m.combinations.map(c=>`<div class="wf-card"><strong>${wfSafe(c.customerName)}</strong> · ${wfSafe(c.dimensions.join(' + '))}<p class="wf-muted">${wfSafe(c.interpretation)} · ${wfSafe(c.responseId)}</p></div>`).join(''):'<div class="wf-card">Chưa có phản hồi đồng thời đánh giá 1–2 ở các cặp tiêu chí đã xác định.</div>'}
+  <h3>Theo dõi xử lý</h3>${wfStatCards(d.counts)}<div id="wfDrilldown"></div>`;}
+function wfStatCards(c){return `<div class="wf-grid">${[['total','Issue đang quản lý'],['awaiting','Chờ giải trình'],['approval','Chờ phê duyệt'],['progress','Đang khắc phục'],['overdue','Quá hạn'],['closed','Đã đóng']].map(([key,label])=>`<div class="wf-card"><span class="wf-muted">${label}</span><strong style="display:block;font-size:25px">${Number(c[key]||0)}</strong></div>`).join('')}</div>`;}
+function wfRenderIssues(d){const issues=d.issues||[];
+  return `<div class="wf-row"><div><h3>${WF_STATE.role==='superadmin'?'Issues & Actions':'Nhiệm vụ được giao'}</h3><p class="wf-muted">Mỗi Issue chỉ giao một bộ phận. Giải trình, tài liệu và duyệt đều lưu lịch sử.</p></div></div>${wfStatCards(d.counts)}
+  <div class="wf-toolbar"><select id="wfIssueStatus"><option value="">Tất cả trạng thái</option>${['New','Assigned','Awaiting Response','Pending Approval','Revision Required','In Progress','Pending Verification','Closed'].map(x=>`<option>${x}</option>`).join('')}</select><input type="search" id="wfSearchIssues" placeholder="Tìm mã Issue, khách hàng..."></div><div id="wfIssueRows">${wfIssueRows(issues,d)}</div>`;}
+function wfIssueRows(issues,d){return issues.length?issues.map(i=>`<article class="wf-card" data-status="${wfSafe(i.status)}" data-search="${wfSafe([i.issueId,i.customerName,i.dimension].join(' ').toLowerCase())}"><div class="wf-row"><div><strong>${wfSafe(i.issueId)}</strong><p class="wf-muted">${wfSafe(i.customerName)} · ${wfSafe(i.dimension)} · ${wfSafe(i.score)}/5</p></div><span class="wf-tag">${wfSafe(i.status)}${i.isOverdue?' · QUÁ HẠN':''}</span></div><div class="wf-detail">${wfSafe(i.feedback)}</div><p class="wf-muted">Bộ phận: ${wfSafe(i.owner||'Chưa giao')} · Hạn giải trình: ${wfDate(i.responseDue)} · Hạn khắc phục: ${wfDate(i.completionDue)}</p><div class="wf-action-row">${wfButton('Mở hồ sơ','open-issue',i.issueId,'primary')}</div></article>`).join(''):'<div class="wf-card">Chưa có nhiệm vụ trong phạm vi này.</div>';}
+function wfRenderRules(d){return `<h3>Quy tắc Smart Insights</h3><p class="wf-muted">Mỗi thay đổi chỉ áp dụng cho các lần phân tích tiếp theo. Insight đã được duyệt vẫn giữ căn cứ và lịch sử.</p><div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>Mã</th><th>Nhóm</th><th>Tình huống</th><th>Gợi ý</th><th>Trạng thái</th><th></th></tr></thead><tbody>${(d.rules||[]).map(x=>`<tr><td>${wfSafe(x.id)}</td><td>${wfSafe(x.dimension)}</td><td>${wfSafe(x.title)}</td><td>${wfSafe(x.owner)}</td><td>${wfSafe(x.status)}</td><td>${x.kind==='Business'?wfButton('Sửa nội dung','rule-edit',x.id):''} ${wfButton(x.status==='Active'?'Tạm ngưng':'Bật','rule-toggle',x.id)}</td></tr>`).join('')}</tbody></table></div>`;}
+function wfRenderLogs(d){return `<h3>Nhật ký thao tác</h3><div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>Thời gian</th><th>Issue</th><th>Vai trò</th><th>Bộ phận</th><th>Thao tác</th><th>Chi tiết</th></tr></thead><tbody>${(d.logs||[]).map(x=>`<tr><td>${wfDate(x.at)}</td><td>${wfSafe(x.issueId)}</td><td>${wfSafe(x.role)}</td><td>${wfSafe(x.department)}</td><td>${wfSafe(x.action)}</td><td>${wfSafe(x.details)}</td></tr>`).join('')}</tbody></table></div>`;}
+function wfFormWrap(title,body){wf$('#wfPanel').innerHTML=`<div class="wf-card"><div class="wf-row"><h3>${wfSafe(title)}</h3>${wfButton('Quay lại','back-workflow')}</div>${body}</div>`;}
+async function wfDo(action,params,refresh=true){try{const x=await wfRequest(action,params);if(refresh)await wfLoad();else wfToast('Đã lưu.');return x;}catch(e){wfToast(e.message,true);throw e;}}
+function wfFindInsight(id){return (WF_STATE.data?.insights||[]).find(x=>x.id===id);}
+function wfFindIssue(id){return (WF_STATE.data?.issues||[]).find(x=>x.issueId===id);}
+function wfIssueForm(ids){const selected=ids.map(wfFindInsight).filter(Boolean);if(!selected.length)return;
+ const names=new Set(selected.map(i=>String(i.customerId)));if(names.size!==1){alert('Chỉ được gộp phản hồi của cùng một khách hàng.');return;}
+ WF_STATE.selectedIds=new Set(selected.map(i=>i.id));const summary=selected.map(i=>`${i.ruleId}: ${i.evidence}`).join('\n');
+ wfFormWrap('Tạo Issue từ '+selected.length+' đề xuất',`<p>Khách hàng: <b>${wfSafe(selected[0].customerName)}</b></p><p class="wf-muted">Super Admin có quyền hiệu chỉnh mô tả, gộp hoặc tách Issue.</p><textarea id="wfNewIssueDescription">${wfSafe(summary)}</textarea><div class="wf-action-row">${wfButton('Xác nhận tạo Issue','confirm-new-issue','','primary')}</div>`);}
+function wfOpenIssue(id){const issue=wfFindIssue(id);if(!issue)return;const d=WF_STATE.data;const responses=d.responses.filter(x=>x.issueId===id),progress=d.progress.filter(x=>x.issueId===id),evidence=d.evidence.filter(x=>x.issueId===id);
+ const latest=responses[responses.length-1],su=WF_STATE.role==='superadmin';let actions='';
+ if(su&&['New','Assigned'].includes(issue.status))actions+=`<h4>Phân công</h4><label>Bộ phận chịu trách nhiệm duy nhất</label><select id="wfAssignedDept">${wfDepartments.map(x=>`<option ${x===issue.owner?'selected':''}>${wfSafe(x)}</option>`).join('')}</select><label>Hạn gửi giải trình</label><input id="wfDue" type="date" value="${issue.responseDue?issue.responseDue.slice(0,10):''}">${wfButton('Lưu phân công','assign-issue',id,'primary')}`;
+ if(su&&issue.status==='Assigned')actions+=`<h4>Thông báo bằng email</h4><p class="wf-muted">Tự chọn địa chỉ nhận trong Outlook, Foxmail hoặc email mặc định. Chỉ mở bản nháp không có nghĩa đã gửi.</p><div class="wf-action-row">${wfButton('Mở email phân công','open-email',id)}${wfButton('Xác nhận đã gửi','confirm-email',id,'primary')}</div>`;
+ if(!su&&['Awaiting Response','Revision Required'].includes(issue.status))actions+=`<h4>Giải trình của bộ phận</h4><label>Tên người cập nhật *</label><input id="wfUpdatedBy" maxlength="120" placeholder="Họ và tên"><label>Nguyên nhân đã xác minh *</label><textarea id="wfRootCause"></textarea><label>Hồ sơ đã đối chiếu</label><textarea id="wfDocuments"></textarea><label>Phương án khắc phục *</label><textarea id="wfCorrective"></textarea><label>Biện pháp phòng ngừa</label><textarea id="wfPreventive"></textarea><label>Ngày dự kiến hoàn thành *</label><input id="wfProposedDue" type="date">${wfButton('Gửi Super Admin phê duyệt','submit-response',id,'primary')}`;
+ if(su&&issue.status==='Pending Approval')actions+=`<h4>Super Admin phê duyệt</h4><label>Kiểm tra người đã cập nhật (thủ công)</label><select id="wfIdentityCheck"><option value="Not Verified">Chưa xác minh</option><option value="Confirmed Manually">Đã xác minh trực tiếp</option><option value="Mismatch">Thông tin không khớp</option></select><label>Nhận xét / yêu cầu bổ sung</label><textarea id="wfReviewNote"></textarea><div class="wf-action-row">${wfButton('Duyệt phương án','approve-response',id,'primary')}${wfButton('Yêu cầu bổ sung','reject-response',id)}</div>`;
+ if(!su&&issue.status==='In Progress')actions+=`<h4>Cập nhật tiến độ</h4><label>Tên người cập nhật</label><input id="wfUpdatedBy" placeholder="Họ và tên"><label>Kết quả thực hiện</label><textarea id="wfProgressText"></textarea><label class="wf-check"><input id="wfCompleted" type="checkbox"> Đã hoàn thành, gửi Super Admin xác minh</label>${wfButton('Lưu tiến độ','submit-progress',id,'primary')}`;
+ if(su&&issue.status==='Pending Verification')actions+=`<h4>Xác minh kết quả</h4><label>Mức xác minh</label><select id="wfValidation"><option value="Internally Verified">Đã kiểm tra nội bộ</option><option value="Customer Confirmed">Khách hàng đã xác nhận cải thiện</option></select><label>Bằng chứng và kết quả kiểm tra</label><textarea id="wfVerifyNote"></textarea><div class="wf-action-row">${wfButton('Đóng Issue','close-issue',id,'primary')}${wfButton('Yêu cầu tiếp tục xử lý','return-verification',id)}</div>`;
+ if(su&&issue.status!=='Closed'&&issue.owner)actions+=`<div class="wf-card"><strong>Nhắc việc thủ công</strong><p class="wf-muted">Tự kiểm tra người nhận và gửi từ email mặc định.</p>${wfButton('Mở email nhắc việc','reminder-email',id)}</div>`;
+ if(issue.status!=='Closed'&&issue.status!=='New'&&issue.status!=='Assigned')actions+=`<h4>Tài liệu bổ sung</h4><input id="wfEvidenceFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"><input id="wfEvidenceBy" placeholder="Tên người cập nhật tài liệu"><textarea id="wfEvidenceNote" placeholder="Ghi chú tài liệu (nếu có)"></textarea>${wfButton('Lưu tài liệu (tối đa 2MB)','upload-evidence',id)}`;
+ wfFormWrap('Hồ sơ '+id,`<p><b>${wfSafe(issue.customerName)}</b> · ${wfSafe(issue.dimension)} · ${wfSafe(issue.status)}</p><div class="wf-detail">${wfSafe(issue.feedback)}</div><p class="wf-muted">Bộ phận phụ trách: ${wfSafe(issue.owner||'Chưa phân công')} | Hạn giải trình: ${wfDate(issue.responseDue)} | Hạn khắc phục: ${wfDate(issue.completionDue)}</p>${actions}
+ <h4>Lịch sử giải trình</h4>${responses.length?responses.map(r=>`<div class="wf-card"><b>${wfSafe(r.by)}</b> · ${wfDate(r.submittedAt)} · <span class="wf-tag">${wfSafe(r.approval)}</span><div class="wf-detail">Nguyên nhân: ${wfSafe(r.rootCause)}\nPhương án: ${wfSafe(r.corrective)}\nPhòng ngừa: ${wfSafe(r.preventive)}\nPhê duyệt: ${wfSafe(r.reviewNote||'Chưa có')}</div></div>`).join(''):'<p class="wf-muted">Chưa có giải trình.</p>'}
+ <h4>Cập nhật tiến độ</h4>${progress.length?progress.map(r=>`<div class="wf-card">${wfSafe(r.by)} · ${wfDate(r.at)} · ${wfSafe(r.status)}<p>${wfSafe(r.text)}</p></div>`).join(''):'<p class="wf-muted">Chưa có cập nhật.</p>'}<h4>Tài liệu đã lưu</h4>${evidence.length?evidence.map(r=>`<div class="wf-row"><span>${wfSafe(r.filename)} · ${wfSafe(r.by)} · ${wfDate(r.at)}</span>${wfButton('Xem tài liệu','read-evidence',r.id)}</div>`).join(''):'<p class="wf-muted">Chưa có tài liệu.</p>'}`);
+}
+async function wfHandleClick(btn){const a=btn.dataset.wf,id=btn.dataset.id;try{
+ if(a==='back-workflow'){wfRender();return;}
+ if(a==='issue-new'){wfIssueForm([id]);return;}
+ if(a==='merge-candidates'){wfIssueForm([...document.querySelectorAll('.wf-candidate:checked')].map(x=>x.value));return;}
+ if(a==='confirm-new-issue'){const ids=[...WF_STATE.selectedIds];const x=await wfDo('createOfficialIssue',{insightIds:ids,insightId:ids[0],issueDescription:wf$('#wfNewIssueDescription').value,roundId:WF_STATE.round});WF_STATE.tab='issues';wfRender();if(x?.issueId)wfOpenIssue(x.issueId);return;}
+ if(a==='insight-reviewed'||a==='insight-dismiss'){await wfDo('saveInsightDecision',{insightId:id,roundId:WF_STATE.round,reviewStatus:a==='insight-reviewed'?'Reviewed':'No Action'});return;}
+ if(a==='open-issue'){wfOpenIssue(id);return;}
+ if(a==='assign-issue'){await wfDo('assignIssue',{issueId:id,department:wf$('#wfAssignedDept').value,responseDue:wf$('#wfDue').value});wfOpenIssue(id);return;}
+ if(a==='open-email'||a==='reminder-email'){
+   const issue=wfFindIssue(id),subject=`[THT Customer Feedback] ${id} | ${wfDate(issue.responseDue)} | ${issue.owner}`;
+   const content=`Kính gửi Anh/Chị,\n\nCó vấn đề khách hàng cần Bộ phận ${issue.owner} kiểm tra và cập nhật phương án xử lý.\nMã Issue: ${id}\nHạn giải trình: ${wfDate(issue.responseDue)}\n\nVui lòng truy cập https://survey.thttextile.vn/?issue=${encodeURIComponent(id)}, chọn Admin → Bộ phận xử lý, chọn đúng ${issue.owner} và đăng nhập.\nMật khẩu bộ phận: 6666\n\nSau khi vào hệ thống, mở Issue ${id}, cập nhật nguyên nhân và phương án khắc phục, ghi rõ tên người cập nhật.\n\nTrân trọng.`;
+   if(a==='open-email')await wfDo('markEmailDraftOpened',{issueId:id},false);
+   window.location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(content);return;}
+ if(a==='confirm-email'){if(!confirm('Anh/Chị xác nhận đã tự gửi email phân công đến đúng người nhận?'))return;await wfDo('confirmDispatch',{issueId:id});wfOpenIssue(id);return;}
+ if(a==='submit-response'){await wfDo('submitDepartmentResponse',{issueId:id,updatedBy:wf$('#wfUpdatedBy').value,rootCause:wf$('#wfRootCause').value,reviewedDocuments:wf$('#wfDocuments').value,correctiveAction:wf$('#wfCorrective').value,preventiveAction:wf$('#wfPreventive').value,proposedDeadline:wf$('#wfProposedDue').value});wfOpenIssue(id);return;}
+ if(a==='approve-response'||a==='reject-response'){await wfDo('reviewDepartmentResponse',{issueId:id,decision:a==='approve-response'?'Approved':'Revision Required',note:wf$('#wfReviewNote').value,identityCheck:wf$('#wfIdentityCheck').value});wfOpenIssue(id);return;}
+ if(a==='submit-progress'){await wfDo('addIssueProgress',{issueId:id,updatedBy:wf$('#wfUpdatedBy').value,text:wf$('#wfProgressText').value,completed:wf$('#wfCompleted').checked});wfOpenIssue(id);return;}
+ if(a==='close-issue'||a==='return-verification'){await wfDo(a==='close-issue'?'closeIssue':'returnVerification',{issueId:id,note:wf$('#wfVerifyNote').value,validation:wf$('#wfValidation').value});wfOpenIssue(id);return;}
+ if(a==='upload-evidence'){const file=wf$('#wfEvidenceFile').files[0];if(!file)throw new Error('Chọn tài liệu cần tải lên.');if(file.size>2097152)throw new Error('Tệp vượt 2MB.');const base64=await new Promise((res,rej)=>{const f=new FileReader();f.onload=()=>res(String(f.result).split(',')[1]);f.onerror=()=>rej(new Error('Không đọc được tệp'));f.readAsDataURL(file);});await wfDo('addIssueEvidence',{issueId:id,updatedBy:wf$('#wfEvidenceBy').value,fileName:file.name,mimeType:file.type,base64,note:wf$('#wfEvidenceNote').value});wfOpenIssue(id);return;}
+ if(a==='read-evidence'){const x=await wfDo('getIssueEvidence',{evidenceId:id},false);const link=document.createElement('a');link.href=`data:${x.mime};base64,${x.base64}`;link.download=x.fileName;document.body.appendChild(link);link.click();link.remove();return;}
+ if(a==='rule-edit'){
+  const r=WF_STATE.data.rules.find(x=>x.id===id);if(!r)return;
+  const fields=[['title','Tên tình huống'],['topic','Từ khóa chủ đề, ngăn cách bằng |'],['problem','Từ khóa dấu hiệu vấn đề, ngăn cách bằng |'],['exclusions','Cụm từ loại trừ'],['interpretation','Nhận định'],['verification','Cần xác minh'],['records','Hồ sơ cần đối chiếu'],['suggestedAction','Hướng xử lý'],['collaborators','Bộ phận có thể phối hợp']];
+  wfFormWrap('Chỉnh Rule '+id,fields.map(([key,label])=>`<label>${wfSafe(label)}</label><textarea data-wf-rule-field="${wfSafe(key)}">${wfSafe(key==='suggestedAction'?r.action:r[key]||'')}</textarea>`).join('')+`<label>Bộ phận gợi ý</label><select id="wfRuleOwner">${wfDepartments.map(d=>`<option ${d===r.owner?'selected':''}>${wfSafe(d)}</option>`).join('')}</select><p class="wf-muted">Thay đổi chỉ áp dụng khi phân tích lại, không sửa Issue đã tạo.</p>${wfButton('Lưu quy tắc','rule-save',id,'primary')}`);return;}
+ if(a==='rule-save'){
+  const data={ruleId:id,owner:wf$('#wfRuleOwner').value};document.querySelectorAll('[data-wf-rule-field]').forEach(el=>data[el.dataset.wfRuleField]=el.value);
+  await wfDo('editInsightRule',data);WF_STATE.tab='rules';wfRender();return;}
+ if(a==='rule-toggle'){const rule=WF_STATE.data.rules.find(x=>x.id===id);await wfDo('toggleInsightRule',{ruleId:id,status:rule.status==='Active'?'Paused':'Active'});return;}
+ if(a==='management-rule'){
+   const c=(WF_STATE.data.management?.cards||[]).find(x=>x.id===id);if(!c)return;
+   let html='<p class="wf-muted">'+wfSafe(c.count)+' dữ liệu phù hợp điều kiện. Nhấn mã Issue hoặc chuyển Customer Insights để xem chi tiết.</p>';
+   if(c.kind==='issue')html+=(c.refs||[]).map(ref=>`<div class="wf-card">${wfButton('Mở '+ref,'open-issue',ref)}</div>`).join('');
+   else if(c.kind==='customer')html+=(c.refs||[]).map(ref=>{const matches=WF_STATE.data.insights.filter(i=>i.customerId===ref);const first=matches[0];return `<div class="wf-card"><strong>${wfSafe(first?.customerName||ref)}</strong><p>${wfSafe(matches.map(x=>x.evidence).filter(Boolean).slice(0,3).join(' | '))}</p></div>`;}).join('');
+   else if(c.kind==='response')html+=(c.refs||[]).map(ref=>{const matches=WF_STATE.data.insights.filter(i=>i.responseId===ref);return `<div class="wf-card"><strong>${wfSafe(ref)}</strong><p>${wfSafe(matches.map(x=>x.evidence).filter(Boolean).slice(0,3).join(' | '))}</p></div>`;}).join('');
+   else html+=(c.refs||[]).map(x=>`<div class="wf-card">${wfSafe(x)}</div>`).join('');
+   wfFormWrap(c.id+' · '+c.title,html);return;}
+ if(a==='repeat-customers'||a==='repeat-responses'){const x=(WF_STATE.data.management?.repeatedIssues||[]).find(x=>x.ruleId===id);if(!x)return;const rows=a==='repeat-customers'?Array.from(new Map(x.findings.map(f=>[f.customerId,f])).values()):x.findings;
+   const content=rows.map(f=>`<div class="wf-card"><strong>${wfSafe(f.customerName)}</strong> · ${wfSafe(f.responseId)}<div class="wf-detail">${wfSafe(f.evidence)}</div></div>`).join('');wfFormWrap((a==='repeat-customers'?'Khách hàng liên quan: ':'Phản hồi liên quan: ')+id,content);return;}
+ if(a==='show-risk-customers'||a==='show-all-responses'){const items=WF_STATE.data.insights.filter(i=>a==='show-all-responses'||i.score<=2);wfFormWrap('Dữ liệu làm căn cứ',wfInsightRows(items));return;}
+ }catch(e){if(e?.message)wfToast(e.message,true);}}
+(function wfInit(){
+ wf$('#wfAdminEntry').addEventListener('click',wfOpenLogin);
+ wf$('#wfCloseLogin').addEventListener('click',wfCloseLogin);
+ wf$('#wfNotInternal').addEventListener('click',wfCloseLogin);
+ wf$('#wfYesInternal').addEventListener('click',()=>{wf$('#wfConfirmInternal').classList.add('hidden');wf$('#wfLoginForm').classList.remove('hidden');});
+ wf$('#wfRole').addEventListener('change',wfRoleChanged);
+ wf$('#wfLoginForm').addEventListener('submit',wfLoginUi);
+ wf$('#wfLogout').addEventListener('click',wfLogoutUi);
+ wf$('#wfRefresh').addEventListener('click',wfLoad);
+ wf$('#wfOpenOldDashboard').addEventListener('click',async()=>{showView('admin');await loadDashboard();});
+ wf$('#wfTabs').addEventListener('click',e=>{const b=e.target.closest('[data-wf-tab]');if(!b)return;WF_STATE.tab=b.dataset.wfTab;wfRender();});
+ wf$('#wfPanel').addEventListener('click',e=>{const b=e.target.closest('[data-wf]');if(b)wfHandleClick(b);});
+ wf$('#wfPanel').addEventListener('change',e=>{if(e.target.id==='wfRoundSelect'){WF_STATE.round=e.target.value;wfLoad();}if(e.target.id==='wfIssueStatus'){wf$('#wfIssueRows')?.querySelectorAll('[data-status]').forEach(x=>x.style.display=(!e.target.value||x.dataset.status===e.target.value)?'':'none');}});
+ wf$('#wfPanel').addEventListener('input',e=>{if(e.target.id==='wfSearchInsight'){const q=e.target.value.toLowerCase();wf$('#wfInsightRows')?.querySelectorAll('[data-search]').forEach(x=>x.style.display=x.dataset.search.includes(q)?'':'none');}if(e.target.id==='wfSearchIssues'){const q=e.target.value.toLowerCase();wf$('#wfIssueRows')?.querySelectorAll('[data-search]').forEach(x=>x.style.display=x.dataset.search.includes(q)?'':'none');}});
+ sessionStorage.removeItem('tht_admin_pin');
+ const saved=sessionStorage.getItem('tht_wf_session');if(saved){try{const s=JSON.parse(saved);if(new Date(s.expiresAt).getTime()>Date.now()){Object.assign(WF_STATE,{token:s.token,role:s.role,department:s.department,tab:s.role==='department'?'issues':'insights'});wfBuildTabs();showView('workflow');wfLoad();}else sessionStorage.removeItem('tht_wf_session');}catch(e){sessionStorage.removeItem('tht_wf_session');}}
+})();
+
+</script>
 </body>
 </html>
